@@ -56,7 +56,7 @@ label opening:
 
     return
 
-label game_act1
+label game_act1:
     #What is NOVA
     "{i}{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri.{/i}"
 
@@ -83,8 +83,8 @@ label game_act1
     "{i}[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di{/i} set up {i}mejanya untuk memulai menavigasi Diver.  [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk{/i} Diving."
 
     #LobiBIOS
-
     mc1 "Uwaah..."
-    
+    "{i}Lobi BIOS terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop.{/i}"
+    ""
 
     return
