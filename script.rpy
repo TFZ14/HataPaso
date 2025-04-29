@@ -2,6 +2,7 @@
 define mc2 = Character("[nama2]")
 define klien = Character("Mary")
 define bios1 = Character("BIOS 1023345")
+define bios2 = Character("BIOS 1023123")
 
 label start:
     scene bg room
@@ -49,11 +50,14 @@ label start:
 
     "{size=+5}{b}Misi Franoa Service Center menggunakan teknologi NOVA dimulai!{/b}{/size}"
 
+    #jump
+    jump game_act1_whatsnova
+
     return
 
-label opening:
+#label opening:
     play movie "opening.mp4"
-    jump game_act1
+    jump game_act1_whatsnova
 
     return
 
@@ -83,12 +87,19 @@ label game_act1_whatsnova:
 
     "{i}[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di{/i} set up {i}mejanya untuk memulai menavigasi Diver.  [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk{/i} Diving."
 
+    jump game_act1_post
+
     return
 
 label game_act1_post:
     #LobiBIOS
     mc1 "Uwaah..."
+    $ renpy.pause(2.0, hard=True)
+
     "{i}Lobi BIOS terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop.{/i}"
-    "{i}Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Se;f-Test adalah serangkaian pemeriksaan diagnostik yang dijalankan oleh BIOS segera setelah perangkat dinyalakan, sebelum OS loading di layar.{/i}"
+    "{i}Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Self-Test adalah serangkaian pemeriksaan awal yang dilakukan komputer setiap kali dinyalakan untuk memastikan semua komponen berfungsi sebelum sistem berjalan.{/i}"
+
+    mc1 ""
+
 
     return
