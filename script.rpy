@@ -13,8 +13,9 @@ label start:
     #$ renpy.pause(3.0, hard=True)
     #"yihaa {w=2.0} lelele"
     #window show
-    #tes
-
+    master or main
+    tes
+    
     #Opening
     klien "iya, sudah saya bawa ke service center sebelumnya, awalnya bisa dinyalakan, namun, tidak berapa lama, kembali mati lagi, jadi saya coba ke toko ini."
 
