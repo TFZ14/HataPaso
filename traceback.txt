@@ -1,0 +1,42 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 41, in script
+    window hide "{size=+5}{b}Misi Franoa Service Center menggunakan teknologi NOVA dimulai!{/b}{/size}"
+  File "renpy/common/000window.rpy", line 190, in execute_window_hide
+    _window_hide(trans)
+  File "renpy/common/000window.rpy", line 111, in _window_hide
+    renpy.with_statement(trans)
+TypeError: 'str' object is not callable
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 41, in script
+    window hide "{size=+5}{b}Misi Franoa Service Center menggunakan teknologi NOVA dimulai!{/b}{/size}"
+  File "C:\Users\USER\Documents\VisNov\renpy-8.3.7-sdk\renpy\ast.py", line 1987, in execute
+    self.call("execute")
+  File "C:\Users\USER\Documents\VisNov\renpy-8.3.7-sdk\renpy\ast.py", line 1966, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\Users\USER\Documents\VisNov\renpy-8.3.7-sdk\renpy\statements.py", line 374, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000window.rpy", line 190, in execute_window_hide
+    _window_hide(trans)
+  File "renpy/common/000window.rpy", line 111, in _window_hide
+    renpy.with_statement(trans)
+  File "C:\Users\USER\Documents\VisNov\renpy-8.3.7-sdk\renpy\exports\statementexports.py", line 257, in with_statement
+    return renpy.game.interface.do_with(trans, paired, clear=clear)
+  File "C:\Users\USER\Documents\VisNov\renpy-8.3.7-sdk\renpy\display\core.py", line 1581, in do_with
+    return self.interact(trans_pause=True,
+  File "C:\Users\USER\Documents\VisNov\renpy-8.3.7-sdk\renpy\display\core.py", line 2218, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\USER\Documents\VisNov\renpy-8.3.7-sdk\renpy\display\core.py", line 2669, in interact_core
+    trans = instantiate_transition(None, old_root, layers_root)
+  File "C:\Users\USER\Documents\VisNov\renpy-8.3.7-sdk\renpy\display\core.py", line 2578, in instantiate_transition
+    trans = self.ongoing_transition[layer](
+TypeError: 'str' object is not callable
+
+Windows-10-10.0.26100 AMD64
+Ren'Py 8.3.7.25031702
+HataPaso 1.0
+Tue Apr 29 04:54:19 2025

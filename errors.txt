@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 17: expected statement.
+    "yihaa" {w=2.0}
+                   ^
+
+Ren'Py Version: Ren'Py 8.3.7.25031702
+Tue Apr 29 02:14:21 2025
