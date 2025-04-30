@@ -1,28 +1,23 @@
 ﻿#Character
-define mc1 = Character("[nama1]", who_bold=True)
-define mc2 = Character("[nama2]", who_bold=True)
-define klien = Character("Mary", who_bold=True)
-define bios1 = Character("BIOS 1023345", who_bold=True)
-define bios2 = Character("BIOS 1023123", who_bold=True)
+define mc1=Character("[nama1]", who_bold=True)
+define mc2=Character("[nama2]", who_bold=True)
+define klien=Character("Mary", who_bold=True)
+define bios1=Character("BIOS 1023345", who_bold=True)
+define bios2=Character("BIOS 1023123", who_bold=True)
 
 #styling narrator
-define a = Character(
+define a=Character(
     None,
-    window_background = None,
+    window_background=None,
     what_outlines=[( 1, "#06405b", 0, 0 )],
     what_italic=True,
     what_xalign=0.5,
     what_textalign=0.5,
     what_layout='subtitle')
-define italic = Character(
+define italic=Character(
     None,
     what_italic=True,
 )
- 
-
-default mc_health = 100
-default mc_thinking = 100
-default fiend_health = 100
 
 label start:
     scene bg room
@@ -124,5 +119,7 @@ label game_act1_post:
 
     return
 
-label game_act1_cpu:
-
+    label game_act1_cpu:
+        $ setup_pipe_game()
+        call screen connect_the_pipes
+        return
