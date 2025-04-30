@@ -1,31 +1,42 @@
-﻿define mc1 = Character("[nama1]")
-define mc2 = Character("[nama2]")
-define klien = Character("Mary")
-define bios1 = Character("BIOS 1023345")
-define bios2 = Character("BIOS 1023123")
+﻿#Character
+define mc1 = Character("[nama1]", who_bold=True)
+define mc2 = Character("[nama2]", who_bold=True)
+define klien = Character("Mary", who_bold=True)
+define bios1 = Character("BIOS 1023345", who_bold=True)
+define bios2 = Character("BIOS 1023123", who_bold=True)
+
+#styling narrator
+define a = Character(
+    None,
+    window_background = None,
+    what_outlines=[( 1, "#06405b", 0, 0 )],
+    what_italic=True,
+    what_xalign=0.5,
+    what_textalign=0.5,
+    what_layout='subtitle')
+define italic = Character(
+    None,
+    what_italic=True,
+)
+ 
+
+default mc_health = 100
+default mc_thinking = 100
+default fiend_health = 100
 
 label start:
     scene bg room
-    #show eileen happy
-
-    #mc2 "kalimat."
-    #window hide
-    #pause 2.0
-    #mc2 "hayo."
-    #$ renpy.pause(3.0, hard=True)
-    #"yihaa {w=2.0} lelele"
-    #window show
 
     #Opening
-    klien "iya, sudah saya bawa ke service center sebelumnya, awalnya bisa dinyalakan, namun, tidak berapa lama, kembali mati lagi, jadi saya coba ke toko ini."
+    klien "Iya, sudah saya bawa ke service center sebelumnya, awalnya bisa dinyalakan, namun, tidak berapa lama, kembali mati lagi, jadi saya coba ke toko ini."
 
-    "ooh, begitu. Masalahnya apa, Bu Mary?"
+    "Ooh, begitu. Masalahnya apa, Bu Mary?"
 
-    klien "layarnya mati walau lampu di tombol powernya sudah nyala, bahkan mesinnya pun sudah terdengar."
+    klien "Layarnya mati walau lampu di tombol powernya sudah nyala, bahkan mesinnya pun sudah terdengar."
 
-    "{i} kamu mendengarkan keluhan-keluhan Bu Mary panjang lebar sambil mengira-ngira akar dari kendala tersebut, sementara rekanmu disamping mencatat detail-detail dari keluhan Bu Mary, jaga-jaga jika kamu terlewat atau melupakan beberapa detail.{/i}"
+    a "Kamu mendengarkan keluhan-keluhan Bu Mary panjang lebar sambil mengira-ngira akar dari kendala tersebut, sementara rekanmu disamping mencatat detail-detail dari keluhan Bu Mary, jaga-jaga jika kamu terlewat atau melupakan beberapa detail."
 
-    klien "baik, berarti saya ambil paling cepat berapa hari, ya? Anu, dengan kak siapa?"
+    klien "Baik, berarti saya ambil paling cepat berapa hari, ya? Anu, dengan kak siapa?"
 
     #input nama
     $ nama1 = renpy.input("{i}Namamu?{size=-5}  tekan enter untuk skip{/size}{/i}", length=20)
@@ -42,13 +53,13 @@ label start:
 
     klien "Baik Kak [nama1], Kak [nama2], kalian, kan, punya NOVA, seharusnya bisa selesai cepat, kan?"
 
-    "{i}[nama2] menutup note digitalnya dengan seringai tipis{/i}"
+    italic "[nama2] menutup note digitalnya dengan seringai tipis."
 
-    mc1 "tentu saja. Bu Mary."
+    mc1 "Tentu saja. Bu Mary."
 
-    "{i}ucap [nama1] penuh percaya diri{/i}"
+    italic "Ucap [nama1] penuh percaya diri."
 
-    "{size=+5}{b}Misi Franoa Service Center menggunakan teknologi NOVA dimulai!{/b}{/size}"
+    a "{size=+3}{b}Misi Franoa Service Center menggunakan teknologi NOVA dimulai!{/b}{/size}"
 
     #jump
     jump game_act1_whatsnova
@@ -63,29 +74,29 @@ label start:
 
 label game_act1_whatsnova:
     #What is NOVA
-    "{i}{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri.{/i}"
+    a "{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri."
 
-    "{i}Pengguna NOVA minimal ada dua orang, yang masuk ke dalam dunia virtual, disebut sebagai {i}“Diver”{/i}, dan yang menjaga dari dunia nyata, disebut sebagai {b}“Navigator”{/b}. Orang yang menggunakan NOVA akan memasuki zona waktu khusus yang bisa diatur oleh navigator.{/i}"
+    a "Pengguna NOVA minimal ada dua orang, yang masuk ke dalam dunia virtual, disebut sebagai {b}“Diver”{/b}, dan yang menjaga dari dunia nyata, disebut sebagai {b}“Navigator”{/b}. Orang yang menggunakan NOVA akan memasuki zona waktu khusus yang bisa diatur oleh navigator."
 
-    "{i}NOVA berisi empat komponen. Komponen pertama dan kedua adalah {b}NeuroDriver{/b}, alat seperti bando yang bisa menghubungkan sinyal otak dengan sistem NOVA untuk ditransfer ke dalam NeuroLink USB dan EchoLink Hub dengan metode penyamaan frekuensi otak.{/i}"
+    a "NOVA berisi empat komponen. Komponen pertama dan kedua adalah {b}NeuroDriver{/b}, alat seperti bando yang bisa menghubungkan sinyal otak dengan sistem NOVA untuk ditransfer ke dalam NeuroLink USB dan EchoLink Hub dengan metode penyamaan frekuensi otak."
 
-    "{i}NeuroDriver digunakan diver untuk mentransfer kesadarannya ke dalam komputer melalui NeuroLink USB, sementara bagi navigator, alat ini berfungsi untuk menavigasi dan memantau informasi menyeluruh tentang kondisi komputer secara langsung saat proses terjadi.{/i}"
+    a "NeuroDriver digunakan diver untuk mentransfer kesadarannya ke dalam komputer melalui NeuroLink USB, sementara bagi navigator, alat ini berfungsi untuk menavigasi dan memantau informasi menyeluruh tentang kondisi komputer secara langsung saat proses terjadi."
 
-    "{i}Komponen ketiga, {b}NeuroLink USB{/b}, yang berguna untuk memungkinkan pemilik USB tersebut berinteraksi langsung ke dalam komputer. NeuroLink USB menangkap frekuensi otak yang sudah dikonversi oleh NeuroDriver lalu menyalurkannya ke sistem NOVA.{/i}"
+    a "Komponen ketiga, {b}NeuroLink USB{/b}, yang berguna untuk memungkinkan pemilik USB tersebut berinteraksi langsung ke dalam komputer. NeuroLink USB menangkap frekuensi otak yang sudah dikonversi oleh NeuroDriver lalu menyalurkannya ke sistem NOVA."
 
-    "{i}Kesadaran atau sinyal tersebut menjelma menjadi avatar virtual dan bisa menjelajahi sistem komputer dengan leluasa. Pemilik bisa menggerakkan avatar untuk menemukan, memperbaiki, atau mengecek error pada komputer secara interaktif. NeuroLink USB juga memberikan ilusi visual interaktif agar pemilik bisa lebih paham dengan keadaan komputer.{/i}"
+    a "Kesadaran atau sinyal tersebut menjelma menjadi avatar virtual dan bisa menjelajahi sistem komputer dengan leluasa. Pemilik bisa menggerakkan avatar untuk menemukan, memperbaiki, atau mengecek error pada komputer secara interaktif agar pemilik bisa lebih paham dengan keadaan komputer."
 
-    "{i}Komponen keempat, {b}EchoLink Hub{/b} yang digunakan asisten dari pemakai NeuroLink USB, digunakan untuk komunikasi dan navigasi dari dunia luar.{/i}"
+    a "Komponen keempat, {b}EchoLink Hub{/b} yang digunakan asisten dari pemakai NeuroLink USB, digunakan untuk komunikasi dan navigasi dari dunia luar."
 
-    "{i}[nama1] menancapkan NeuroLink USB ke laptop klien lalu memakai NeuroDriver di kepala{/i}"
+    italic "[nama1] menancapkan NeuroLink USB ke laptop klien lalu memakai NeuroDriver di kepala."
     
-    mc1 "aku serahkan padamu, ya, Tuan Navigator."
+    mc1 "Aku serahkan padamu, ya, Tuan Navigator."
 
-    mc2 "santai, Diver. lagian siapa yang ngajarin kamu, heh?"
+    mc2 "Santai, Diver. lagian siapa yang ngajarin kamu, heh?"
 
-    mc1 "iya, iya."
+    mc1 "Iya, iya."
 
-    "{i}[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di{/i} set up {i}mejanya untuk memulai menavigasi Diver.  [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk{/i} Diving."
+    italic "[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di set up mejanya untuk memulai menavigasi Diver. [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk Diving."
 
     jump game_act1_post
 
@@ -94,12 +105,24 @@ label game_act1_whatsnova:
 label game_act1_post:
     #LobiBIOS
     mc1 "Uwaah..."
+    window hide
     $ renpy.pause(2.0, hard=True)
 
-    "{i}Lobi BIOS terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop.{/i}"
-    "{i}Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Self-Test adalah serangkaian pemeriksaan awal yang dilakukan komputer setiap kali dinyalakan untuk memastikan semua komponen berfungsi sebelum sistem berjalan.{/i}"
+    italic "Lobi BIOS terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
 
-    mc1 ""
+    italic "Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Self-Test adalah serangkaian pemeriksaan awal yang dilakukan komputer setiap kali dinyalakan untuk memastikan semua komponen berfungsi sebelum sistem berjalan."
 
+    bios1 "Euh..."
+
+    mc1 "Bagaimana? Apa ada kendala?"
+
+    bios1 "Ah Tuan [nama1], kami belum dapat laporan status dari CPU..."
+
+    mc1 "Hmm? Baik akan ku cek."
+
+    jump game_act1_cpu
 
     return
+
+label game_act1_cpu:
+
