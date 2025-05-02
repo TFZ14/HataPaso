@@ -57,17 +57,17 @@ label start:
     a "{size=+3}{b}Misi Franoa Service Center menggunakan teknologi NOVA dimulai!{/b}{/size}"
 
     #jump
-    jump game_act1_whatsnova
+    jump act1_whatsnova
 
     return
 
 #label opening:
     play movie "opening.mp4"
-    jump game_act1_whatsnova
+    jump act1_whatsnova
 
     return
 
-label game_act1_whatsnova:
+label act1_whatsnova:
     #What is NOVA
     a "{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri."
 
@@ -93,11 +93,11 @@ label game_act1_whatsnova:
 
     italic "[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di set up mejanya untuk memulai menavigasi Diver. [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk Diving."
 
-    jump game_act1_post
+    jump act1_post
 
     return
 
-label game_act1_post:
+label act1_post:
     #LobiBIOS
     mc1 "Uwaah..."
     window hide
@@ -115,11 +115,20 @@ label game_act1_post:
 
     mc1 "Hmm? Baik akan ku cek."
 
-    jump game_act1_cpu
+    jump act1_cpu
 
     return
 
-    label game_act1_cpu:
-        $ setup_pipe_game()
-        call screen connect_the_pipes
-        return
+    label act1_cpu:
+        jump act1_cpu_game
+
+label act1_cpu_game:
+    $ setup_pipe_game()
+    call screen connect_the_pipes
+    jump act1_cpu2
+    return
+
+label act1_cpu2:
+    hide pipe_game_success
+    "This is act1_cpu2"
+    return

@@ -11,14 +11,13 @@ screen connect_the_pipes:
             else:
                 imagebutton idle Transform(pipe[0], rotate=pipe[4], rotate_pad=False) action Function(rotate_pipe, cell=pipe[3])
 
-#minigames 1 : connecting cable
+
 default pipe_rows=4
 default pipe_columns=4
 default amount_of_pipes = pipe_rows*pipe_columns
 default grid_path=[]
 default pipes=[]
-default pipe_types={"straight":("top", "bottom"), "curved":("right", "bottom"), "t":("top", "bottom", "left")}
-###
+default pipe_types={"straight":("top", "bottom"), "curved":("right", "bottom"), "t":("top", "bottom", "left"), "cross":("top", "bottom", "left", "right")}
 default connected_pipes=[]
 
 init python:
@@ -213,9 +212,9 @@ screen pipe_game_success:
             ysize 200
             padding(20, 15)
             align(0.5, 0.5)
-            text "Success! Play Again?" color "#FFFFFF" size 30 align(0.5, 0.2)
+            text "Lajur sudah diamankan" color "#FFFFFF" size 30 align(0.5, 0.2)
             grid 2 1:
                 spacing 100
                 align(0.5, 0.5)
-                textbutton "yes" text_color "#FFFFFF" text_size 30 xalign 0.5 action [Function(setup_pipe_game), Hide("pipe_ga")]
-                textbutton "no" text_color "#FFFFFF" text_size 30 xalign 0.5 action Function(renpy.full_restart)
+                textbutton "Lanjut" text_color "#FFFFFF" text_size 30 xalign 0.5 action [Hide("pipe_game_success"), Return()]
+                textbutton "Tidak" text_color "#FFFFFF" text_size 30 xalign 0.5 action Function(renpy.full_restart)
