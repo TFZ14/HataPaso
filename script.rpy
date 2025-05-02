@@ -19,6 +19,29 @@ define italic=Character(
     what_italic=True,
 )
 
+#bar mechanics
+init python:
+    health_value=100
+    thinking_value=100
+
+screen healthpoint():
+    frame:
+        xalign 0.98
+        ypos 50
+        ysize 700
+        hbox:
+            spacing 10
+            vbar value AnimatedValue(health_value, 100, 0.5)
+
+screen thinkingpoint():
+    frame:
+        xalign 0.94
+        ypos 50
+        ysize 700
+        hbox:
+            spacing 10
+            vbar value AnimatedValue(thinking_value, 100, 0.5)
+
 label start:
     scene bg room
 
@@ -68,6 +91,9 @@ label start:
     return
 
 label act1_whatsnova:
+    show screen healthpoint
+    show screen thinkingpoint
+
     #What is NOVA
     a "{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri."
 
