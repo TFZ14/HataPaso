@@ -17,7 +17,7 @@ default cable_columns=4
 default amount_of_cables = cable_rows*cable_columns
 default grid_path=[]
 default cables=[]
-default cable_types={"straight":("top", "bottom"), "squared":("right", "bottom"), "t":("top", "bottom", "left"), "cross":("top", "bottom", "left", "right")}
+default cable_types={"straight":("top", "bottom"), "square":("right", "bottom"), "t":("top", "bottom", "left"), "cross":("top", "bottom", "left", "right")}
 default connected_cables=[]
 
 init python:
@@ -38,7 +38,7 @@ init python:
                 if grid_path[0]+1==grid_path[1]:
                     create_cable(type="straight",cell=i)
                 elif grid_path[0]+cable_columns==grid_path[1]:
-                    create_cable(type="squared",cell=i)
+                    create_cable(type="square",cell=i)
 
             elif i>1 and i<amount_of_cables:
                 if i in grid_path:
@@ -47,25 +47,25 @@ init python:
                     prev_cell_index=current_cell_index-1
                     if grid_path[current_cell_index]%cable_columns==1:
                         if grid_path[current_cell_index]+1==grid_path[next_cell_index]:
-                            create_cable(type="squared", cell=grid_path[current_cell_index])
+                            create_cable(type="square", cell=grid_path[current_cell_index])
                         elif grid_path[current_cell_index]+cable_columns==grid_path[next_cell_index]:
                             create_cable(type="straight", cell=grid_path[current_cell_index])
                     elif grid_path[current_cell_index]%cable_columns==0 and grid_path[current_cell_index]<=cable_columns:
-                        create_cable(type="squared", cell=grid_path[current_cell_index])
+                        create_cable(type="square", cell=grid_path[current_cell_index])
                     elif grid_path[current_cell_index]%cable_columns==0 and grid_path[current_cell_index]>cable_columns:
                         if grid_path[current_cell_index]-cable_columns==grid_path[prev_cell_index]:
                             create_cable(type="straight", cell=grid_path[current_cell_index])
                         elif grid_path[current_cell_index]-1==grid_path[prev_cell_index]:
-                            create_cable(type="squared", cell=grid_path[current_cell_index])
+                            create_cable(type="square", cell=grid_path[current_cell_index])
                     else:
                         if grid_path[current_cell_index]<=cable_rows:
                             if grid_path[current_cell_index]+1==grid_path[next_cell_index]:
                                 create_cable(type="straight", cell=grid_path[current_cell_index])
                             elif grid_path[current_cell_index]+cable_columns==grid_path[next_cell_index]:
-                                create_cable(type="squared", cell=grid_path[current_cell_index])
+                                create_cable(type="square", cell=grid_path[current_cell_index])
                         elif grid_path[current_cell_index]>=amount_of_cables-cable_columns:
                             if grid_path[current_cell_index]-cable_columns==grid_path[prev_cell_index]:
-                                create_cable(type="squared", cell=grid_path[current_cell_index])
+                                create_cable(type="square", cell=grid_path[current_cell_index])
                             elif grid_path[current_cell_index]-1==grid_path[prev_cell_index]:
                                 create_cable(type="straight", cell=grid_path[current_cell_index])
                         else:
@@ -73,10 +73,10 @@ init python:
                                 if grid_path[current_cell_index]+1==grid_path[next_cell_index]:
                                     create_cable(type="straight", cell=grid_path[current_cell_index])
                                 elif grid_path[current_cell_index]+cable_columns==grid_path[next_cell_index]:
-                                    create_cable(type="squared", cell=grid_path[current_cell_index])
+                                    create_cable(type="square", cell=grid_path[current_cell_index])
                             elif grid_path[current_cell_index]-cable_columns==grid_path[prev_cell_index]:
                                 if grid_path[current_cell_index]+1==grid_path[next_cell_index]:
-                                    create_cable(type="squared", cell=grid_path[current_cell_index])
+                                    create_cable(type="square", cell=grid_path[current_cell_index])
                                 elif grid_path[current_cell_index]+cable_columns==grid_path[next_cell_index]:
                                     create_cable(type="straight", cell=grid_path[current_cell_index])
                 else:
@@ -87,7 +87,7 @@ init python:
                 if grid_path[current_cell_index]-1==grid_path[-2]:
                     create_cable(type="straight", cell=grid_path[current_cell_index])
                 else:
-                    create_cable("squared", cell=grid_path[current_cell_index])
+                    create_cable("square", cell=grid_path[current_cell_index])
 
     def create_cable(type, cell):
         cable_image="%s-cable.png"%type

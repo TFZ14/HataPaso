@@ -56,6 +56,9 @@ label start:
 
     klien "Baik, berarti saya ambil paling cepat berapa hari, ya? Anu, dengan kak siapa?"
 
+    scene cutscene1
+    with fade
+
     #input nama
     $ nama1 = renpy.input("{i}Namamu?{size=-5}  tekan enter untuk skip{/size}{/i}", length=20)
     $ nama1 = nama1.strip()
@@ -123,6 +126,7 @@ label act1_whatsnova:
 
     return
 
+scene bg room
 label act1_post:
     #LobiBIOS
     mc1 "Uwaah..."
