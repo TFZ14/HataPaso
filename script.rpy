@@ -149,12 +149,12 @@ label act1_post:
         jump act1_cpu_game
 
 label act1_cpu_game:
-    $ setup_pipe_game()
-    call screen connect_the_pipes
+    $ setup_cable_game()
+    call screen connect_the_cables
     jump act1_cpu2
     return
 
 label act1_cpu2:
-    hide pipe_game_success
+    hide cable_game_success
     "This is act1_cpu2"
     return
