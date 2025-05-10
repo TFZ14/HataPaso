@@ -21,7 +21,7 @@ init python:
 
 label reassemble_complete:
     scene room
-    mc1 "i did it"
+    mc1 "puzzle selesai"
 
 screen reassemble_puzzle:
     image "background.png"

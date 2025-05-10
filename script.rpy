@@ -23,6 +23,7 @@ define italic=Character(
 init python:
     health_value=100
     thinking_value=100
+    score=10 #untuk penilaian pemain di akhir
 
 screen healthpoint():
     frame:
@@ -42,7 +43,15 @@ screen thinkingpoint():
             spacing 10
             vbar value AnimatedValue(thinking_value, 100, 0.5)
 
+screen score():
+    frame:
+        xalign 0.5 ypos 50
+        text "[score]":
+            size 30
+ 
+
 label start:
+    show screen score
     scene bg room
 
     #Opening
@@ -82,8 +91,13 @@ label start:
 
     a "{size=+3}{b}Misi Franoa Service Center menggunakan teknologi NOVA dimulai!{/b}{/size}"
 
-    #jump
-    jump act1_whatsnova
+    #setiap selesaikan label (section) dapat skor
+    $ score+=10
+    if score<=0:
+        "Baru mulai."
+        jump game_over
+    else:
+        jump act1_whatsnova
 
     return
 
@@ -122,7 +136,12 @@ label act1_whatsnova:
 
     italic "[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di set up mejanya untuk memulai menavigasi Diver. [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk Diving."
 
-    jump act1_post
+    $ score+=10
+    if score <= 0:
+        "Baru mulai."
+        jump game_over
+    else:
+        jump act1_post
 
     return
 
@@ -155,7 +174,6 @@ label act1_post:
 label act1_cpu_game:
     $ setup_cable_game()
     call screen connect_the_cables
-    jump act1_cpu2
     return
 
 label act1_cpu2:
@@ -172,4 +190,20 @@ label minigame2:
     mc1 "gass puzzle"
     $ setup_puzzle()
     call screen reassemble_puzzle
+    return
+
+label game_over:
+    scene room
+    "gagal"
+    return
+
+label selesai:
+    scene room
+    if score<=0:
+        "Oi, oi, yang bener aje."
+    elif score<=5:
+        "waduh, belajar lagi"
+    else :
+        "Loh?"
+    "selesai"
     return

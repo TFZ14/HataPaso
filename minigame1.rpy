@@ -199,22 +199,9 @@ init python:
                 if "right" not in connected_cables[-1][2]:
                     connected_cables.pop(-1)
                 else:
-                    renpy.show_screen("cable_game_success")
+                    renpy.jump("cable_game_success")
 
-screen cable_game_success:
-    modal True
-    frame:
-        background "#00000080"
-        xfill True
-        yfill True
-        frame:
-            xsize 450
-            ysize 200
-            padding(20, 15)
-            align(0.5, 0.5)
-            text "Lajur sudah diamankan" color "#FFFFFF" size 30 align(0.5, 0.2)
-            grid 2 1:
-                spacing 100
-                align(0.5, 0.5)
-                textbutton "Lanjut" text_color "#FFFFFF" text_size 30 xalign 0.5 action [Hide("cable_game_success"), Return()]
-                textbutton "Tidak" text_color "#FFFFFF" text_size 30 xalign 0.5 action Function(renpy.full_restart)
+label cable_game_success:
+    scene room
+    mc1 "kabel selesai"
+    jump act1_cpu2
