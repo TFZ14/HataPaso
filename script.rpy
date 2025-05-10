@@ -161,4 +161,14 @@ label act1_cpu_game:
 label act1_cpu2:
     hide cable_game_success
     "This is act1_cpu2"
+    "next is minigame 2"
+
+    jump minigame2
+
+    return
+
+label minigame2:
+    #$ setup_cable_game()
+    #call screen connect_the_cables
+    #jump act1_cpu2
     return
