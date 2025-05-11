@@ -2,8 +2,8 @@
 define mc1=Character("[nama1]", who_bold=True)
 define mc2=Character("[nama2]", who_bold=True)
 define klien=Character("Mary", who_bold=True)
-define bios1=Character("BIOS 1023345", who_bold=True)
-define bios2=Character("BIOS 1023123", who_bold=True)
+define uefi1=Character("uefi 1023345", who_bold=True)
+define uefi2=Character("uefi 1023123", who_bold=True)
 
 #styling narrator
 define a=Character(
@@ -14,10 +14,19 @@ define a=Character(
     what_xalign=0.5,
     what_textalign=0.5,
     what_layout='subtitle')
+
 define italic=Character(
     None,
     what_italic=True,
 )
+
+#styling mission splash
+screen mission_splash(text):
+    frame:
+        background None
+        xalign 0.5
+        yalign 0.5
+        text "[text]" size 40 bold True
 
 #bar mechanics
 init python:
@@ -45,7 +54,7 @@ screen thinkingpoint():
 
 screen score():
     frame:
-        xalign 0.5 ypos 50
+        xalign 0.8 ypos 50
         text "[score]":
             size 30
  
@@ -89,16 +98,95 @@ label start:
 
     italic "Ucap [nama1] penuh percaya diri."
 
-    a "{size=+3}{b}Misi Franoa Service Center menggunakan teknologi NOVA dimulai!{/b}{/size}"
+    window hide
+    show screen mission_splash("Misi SchnellFix Service Center menggunakan teknologi NOVA DIMULAI!")
+    $ renpy.pause(2.5)
+    hide screen mission_splash
 
-    #setiap selesaikan label (section) dapat skor
-    $ score+=10
-    if score<=0:
-        "Baru mulai."
-        jump game_over
-    else:
-        jump act1_whatsnova
+    jump act1_quiz1
 
+label act1_quiz1:
+    show screen thinkingpoint
+
+    italic "Mary pamit undur diri, keluar melalui pintu kaca. Kebetulan ini masih sangat pagi dan belum ada klien lain, [nama2] mengusulkan untuk segera mengecek laptop Mary."
+
+    mc1 "Sesuai kata Bu Mary, memang terlihat nyala laptopnya, tetapi layarnya tetap hitam."
+
+    menu:
+        mc2 "hmm... kira-kira kenapa, ya, itu?"
+
+        "Ganti RAM":
+            with vpunch
+            mc2 "Oi, oi, yang bener aja..."
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                "Gagal, belajar lagi"
+                jump game_over
+            else:
+                jump act1_quiz1 #Kembali ke menu pilihan
+
+        "Cek kabel monitor":
+            mc2 "Aah, benar juga, walau bisa menyala, kalau kabel monitor longgar atau rusak, layar tetap mati."
+            $ score+=5
+            jump act1_quiz2
+
+        "Reset UEFI":
+            with vpunch
+            mc2 "... langsung banget nih?"
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                "Gagal, belajar lagi"
+                jump game_over
+            else:
+                jump act1_quiz1 #Kembali ke menu pilihan
+
+    return
+
+
+label act1_quiz2:
+    show screen thinkingpoint
+
+    italic "Aku dan [nama2] membongkar dan mengecek hardware laptop Bu Mary, namun semuanya terlihat baik-baik saja, hanya butuh sedikit bersih-bersih saja."
+
+    mc2 "Hhh... kalau sudah begini, saatnya lihat dari dalam."
+
+    menu:
+        mc2 "Benar, mungkin bisa kita urut dari awal seperti POST {i}(Power-On Self Test) yang dilakukan oleh...{/i}"
+
+        "UEFI":
+            mc2 "Oooh! Oke, akan ku kirim ke Lobi UEFI, ya!"
+            $ score+=5
+
+        "CPU":
+            with vpunch
+            mc2 "... kayaknya bukan, deh..."
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                "Gagal, belajar lagi"
+                jump game_over
+            else:
+                jump act1_quiz2 #Kembali ke menu pilihan
+
+        "ALU":
+            with vpunch
+            mc2 "... kayaknya bukan, deh..."
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                "Gagal, belajar lagi"
+                jump game_over
+            else:
+                jump act1_quiz2 #Kembali ke menu pilihan
+    
+    mc1 "Ok, aku siapkan NOVA-nya."
+    jump act1_whatsnova
     return
 
 #label opening:
@@ -108,9 +196,6 @@ label start:
     return
 
 label act1_whatsnova:
-    show screen healthpoint
-    show screen thinkingpoint
-
     #What is NOVA
     a "{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri."
 
@@ -136,31 +221,25 @@ label act1_whatsnova:
 
     italic "[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di set up mejanya untuk memulai menavigasi Diver. [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk Diving."
 
-    $ score+=10
-    if score <= 0:
-        "Baru mulai."
-        jump game_over
-    else:
-        jump act1_post
-
     return
 
-scene bg room
 label act1_post:
-    #LobiBIOS
+    scene bg room
+
+    #LobiUEFI
     mc1 "Uwaah..."
     window hide
     $ renpy.pause(2.0, hard=True)
 
-    italic "Lobi BIOS terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
+    italic "Lobi UEFI terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
 
     italic "Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Self-Test adalah serangkaian pemeriksaan awal yang dilakukan komputer setiap kali dinyalakan untuk memastikan semua komponen berfungsi sebelum sistem berjalan."
 
-    bios1 "Euh..."
+    uefi1 "Euh..."
 
     mc1 "Bagaimana? Apa ada kendala?"
 
-    bios1 "Ah Tuan [nama1], kami belum dapat laporan status dari CPU..."
+    uefi1 "Ah Tuan [nama1], kami belum dapat laporan status dari CPU..."
 
     mc1 "Hmm? Baik akan ku cek."
 
@@ -168,8 +247,9 @@ label act1_post:
 
     return
 
-    label act1_cpu:
-        jump act1_cpu_game
+label act1_cpu:
+    italic "Tiba di Ruang CPU"
+    jump act1_cpu_game
 
 label act1_cpu_game:
     $ setup_cable_game()
