@@ -204,4 +204,4 @@ init python:
 label cable_game_success:
     scene room
     mc1 "kabel selesai"
-    jump act1_cpu2
+    jump act1_cpudone
