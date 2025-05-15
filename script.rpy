@@ -6,7 +6,7 @@ define uefi1=Character("uefi 1023345", who_bold=True)
 #define uefi2=Character("uefi 1023123", who_bold=True)
 define chiefcpu=Character("Chief CPU", who_bold=True)
 
-#styling narrator
+#Text
 define a=Character(
     None,
     window_background=None,
@@ -21,7 +21,13 @@ define italic=Character(
     what_italic=True,
 )
 
-#styling mission splash
+screen locinfo(text):
+    frame:
+        background None
+        xalign 0.5
+        yalign 0.1
+        text "[text]" size 40 bold True
+
 screen mission_splash(text):
     frame:
         background None
@@ -64,6 +70,12 @@ label start:
     show screen score
     scene bg room
 
+    show screen locinfo("SchnellFix Service Center")
+    with dissolve
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
+
     #Opening
     klien "Iya, sudah saya bawa ke service center sebelumnya, awalnya bisa dinyalakan, namun, tidak berapa lama, kembali mati lagi, jadi saya coba ke toko ini."
 
@@ -73,7 +85,7 @@ label start:
 
     a "Kamu mendengarkan keluhan-keluhan Bu Mary panjang lebar sambil mengira-ngira akar dari kendala tersebut, sementara rekanmu disamping mencatat detail-detail dari keluhan Bu Mary, jaga-jaga jika kamu terlewat atau melupakan beberapa detail."
 
-    klien "Baik, berarti saya ambil paling cepat berapa hari, ya? Anu, dengan kak siapa?"
+    klien "Baik, berarti saya ambil paling cepat berapa hari, ya? Anu, dengan pak siapa?"
 
     scene cutscene1
     with dissolve
@@ -91,7 +103,7 @@ label start:
         $ nama2 = "Franz"
     mc2 "[nama2]."
 
-    klien "Baik Kak [nama1], Kak [nama2], kalian, kan, punya NOVA, seharusnya bisa selesai cepat, kan?"
+    klien "Baik Pak [nama1], Pak [nama2], kalian, kan, punya NOVA, seharusnya bisa selesai cepat, kan?"
 
     italic "[nama2] menutup note digitalnya dengan seringai tipis."
 
@@ -123,7 +135,7 @@ label act1_quiz1:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz1 #Kembali ke menu pilihan
@@ -140,7 +152,7 @@ label act1_quiz1:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz1
@@ -168,7 +180,7 @@ label act1_quiz2:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz2 #Kembali ke menu pilihan
@@ -180,7 +192,7 @@ label act1_quiz2:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz2 #Kembali ke menu pilihan
@@ -231,9 +243,13 @@ label act1_post:
     scene bg room
 
     #LobiUEFI
+    show screen locinfo("Lobi Inisiasi : UEFI")
+    with dissolve
     mc1 "Uwaah..."
     window hide
-    $ renpy.pause(2.0, hard=True)
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
 
     italic "Lobi UEFI terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
 
@@ -255,7 +271,7 @@ label act1_quiz3:
             $ score-=5
             if thinking_value <= 0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz3
@@ -271,7 +287,7 @@ label act1_quiz3:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz3
@@ -284,13 +300,18 @@ label act1_quiz3:
     return
 
 label act1_cpu:
-    italic "Tiba di Ruang CPU"
+    show screen locinfo("Ruang Kendali : CPU")
+    with dissolve
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
+
     mc1 "...!!"
     with hpunch
     mc1 "apa-apaan!"
     mc2 "kenapa [nama1]? Ada apa?"
-    italic "Ruang CPU dipenuhi oleh pekerja yang berbaris rapih menghadap ke arah yang sama. Mereka diam seribu bahasa, tidak seperti petugas IO di Lobi UEFI yang sibuk berlalu-lalang."
-    mc1 "Aah! Pantas saja Lobi UEFI tidak dapat kabar baik dari CPU..."
+    italic "Ruang CPU dipenuhi oleh pekerja yang berbaris rapih menghadap ke arah yang sama. Mereka diam seribu bahasa, mengantisipasi perintah yang entah kapan munculnya, tidak seperti petugas IO di Lobi UEFI yang sibuk berlalu-lalang."
+    mc1 "Aah! Pantas saja Lobi UEFI tidak dapat kabar dari CPU..."
 
     jump act1_quiz4
     return
@@ -306,7 +327,7 @@ label act1_quiz4:
             $ score-=5
             if thinking_value<=0 or score<= 0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz4
@@ -318,7 +339,7 @@ label act1_quiz4:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz4
@@ -348,7 +369,13 @@ label act1_cpudone:
     mc1 "Untung hanya masalah sedikit, tidak sampai perlu ganti komponennya di dunia nyata."
     mc1 "[nama2], catat untuk Bu Mary, kalau pakai laptop, pastikan sumber listriknya stabil. Tegangan yang nggak stabil bisa bikin clock generator error."
     mc2 "Siap!"
-    italic "[nama1] kembali ke Lobi UEFI."
+    
+    show screen locinfo("Lobi Inisiasi : UEFI")
+    with dissolve
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
+
     mc1 "Silakan coba booting lagi"
     uefi1 "Baik."
     italic "[uefi1] mulai menjalankan perintah booting. Namun layar holografik di lobi menunjukkan peringatan merah. [uefi1] mulai terlihat gugup lagi."
@@ -356,7 +383,7 @@ label act1_cpudone:
     mc1 "Eh? Kenapa lagi?"
     uefi1 "CPU melaporkan bahwa instruksi tidak bisa dilanjutkan karena berkas bootloader todak ada di memori."
     mc1 "Tunggu. Kalau begitu... tempat terakhir data berada sebelum eksekusi dimulai adalah RAM, kan?"
-    uefi1 "Benar. Tapi jika berkas bootloader memang tidak sempat tersalin, kamu harus mencarinya langsung dari sumber utama..."
+    uefi1 "Benar. Tapi jika berkas bootloader memang tidak sempat tersalin, Tuan harus mencarinya langsung dari sumber utama..."
 
     jump act1_quiz5
     return
@@ -365,34 +392,51 @@ label act1_quiz5:
     menu:
         mc1 "Sumber utama bootloader..."
 
-        "Hard Drive":
-            mc1 "lebih spesifiknya, bootloader disimpan di partisi khusus ESP dalam hard drive"
+        "SSD":
+            mc1 "lebih spesifiknya, bootloader disimpan di partisi khusus ESP dalam SSD atau hard drive"
             $ thinking_value+=5
 
         "RAM":
             with vpunch
-            mc2 "Bootloader memang diload dalam RAM, namun itu bukan tempat awal bootloader"
+            uefi1 "Anu... tadi sudah bicara hal yang sama. Bootloader memang diload di RAM, tapi tempat awalnya bukan dari sana."
             $ thinking_value-=5
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz5
         "GPU":
             with vpunch
-            mc2 "Hei! GPU berfungsi untuk rendering grafis, bukan tempat penyimpanan bootloader."
+            mc2 "Hei! GPU berfungsi untuk rendering grafis, bukan tempat penyimpanan bootloader!"
             $ thinking_value-=5
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                "Gagal, belajar lagi"
+                mc2 "[nama1]..."
                 jump game_over
             else:
                 jump act1_quiz5
 
     italic "ESP atau Extensible Firmware Interface System Partition adalah partisi khusus pada hard drive yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
+
+    mc1 "Aku mau cek RAM dulu. Kalau memang bootloadernya belum tersalin, akan ku cek SSD."
+
+    show screen locinfo("Ruang Arsip : RAM")
+    with dissolve
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
+
+    with hpunch
+    mc1 "Astaga, kenapa lagi?!"
+    mc2 "Tenang, tenang..."
+    italic "Arsip-arsip berhamburan di lantai, beberapa kertas terlihat kusut, namun rak penyimpanan arsip masih terlihat bagus."
+    mc1 "Oke, saatnya beres-beres dulu..."
+    mc2 "... semangat."
+    with hpunch
+    mc1 "Ssh!"
 
     jump act2_bootloader
     return
