@@ -3,7 +3,7 @@ define mc1=Character("[nama1]", who_bold=True)
 define mc2=Character("[nama2]", who_bold=True)
 define klien=Character("Mary", who_bold=True)
 define uefi1=Character("uefi 1023345", who_bold=True)
-#define uefi2=Character("uefi 1023123", who_bold=True)
+define uefi2=Character("uefi 1023123", who_bold=True)
 define chiefcpu=Character("Chief CPU", who_bold=True)
 
 #Text
@@ -69,27 +69,6 @@ screen score():
 label start:
     show screen score
     scene bg room
-
-    #input nama
-    $ nama1 = renpy.input("{i}Namamu?{size=-5}  tekan enter untuk skip{/size}{/i}", length=20)
-    $ nama1 = nama1.strip()
-    if not nama1:
-        $ nama1 = "Noa"
-    mc1 "saya [nama1] dan dia..."
-
-    $ nama2 = renpy.input("{i}Nama rekanmu?{size=-5}  tekan enter untuk skip{/size}{/i}", length=20)
-    $ nama2 = nama2.strip()
-    if not nama2:
-        $ nama2 = "Franz"
-    mc2 "[nama2]."
-    
-    menu:
-        "yo"
-
-        "minigame1":
-            jump act1_cpu_minigame
-        "minigame2":
-            jump minigame2
 
     show screen locinfo("SchnellFix Service Center")
     with dissolve
@@ -444,6 +423,7 @@ label act1_quiz5:
 
     mc1 "Aku mau cek RAM dulu. Kalau memang bootloadernya belum tersalin, akan ku cek SSD."
     uefi1 "Baik, Tuan. hati-hati di jalan."
+    uefi2 "Akan saya antar, Tuan."
 
     show screen locinfo("Ruang Arsip : RAM")
     with dissolve
@@ -454,7 +434,7 @@ label act1_quiz5:
     with hpunch
     mc1 "Astaga, kenapa lagi?!"
     mc2 "Tenang, tenang..."
-    italic "Arsip-arsip berhamburan di lantai, beberapa kertas terlihat kusut, namun rak penyimpanan arsip masih terlihat bagus."
+    italic "Arsip-arsip berhamburan di lantai, beberapa kertas terlihat kusut, bahkan ada yang tercabik-cabik. Namun rak penyimpanan arsip masih terlihat bagus."
     mc1 "..."
     mc1 "..."
     mc1 ".........!"
@@ -463,20 +443,68 @@ label act1_quiz5:
     with hpunch
     mc1 "Ssh!"
     mc1 "Yang nggak bantuin beres-beres diem aja!"
+    uefi2 "Akan saya bantu, Tuan."
 
-    jump act2_bootloader
+    jump act2_ram_minigame
+    return
+
+label act2_ram_minigame:
     $ setup_files()
     call screen reassemble_files
     return
 
-label act2_bootloader:
+label act2_ramdone:
+    mc1 "Sudah ku pindai, memang bootloader belum tersalin."
+    mc1 "[nama2], apa jalur ke SSD bisa di akses?"
+    mc2 "Bisa, namun ada sesuatu yang sedikit aneh. Beberapa kali peta di lorong menuju SSD glitch."
+    mc1 "Glitch? Oke, terimakasih infonya. Kalau begitu, aku minta akses debugging tool."
+    mc2 "Hm? Apa ada firasat?"
+    mc1 "Untuk jaga-jaga."
+    mc2 "Oke."
+    a "{b}Debugging Tool{/b} digunakan untuk mendeteksi, menganalisis, dan memperbaiki kesalahan (bug) dalam program atau sistem, seperti menampilkan error, melacak alur program, memeriksa nilai variabel saat program, berjalan, dan lainnya."
+    a "NOVA memberikan bentuk Debugging Tool sebagai senjata (weapon) yang digunakan Diver untuk mengatasi bug dalam sistem. Bentuknya menyerupai kursor raksasa, digunakan bagai pisau bilah pendek."
+    mc2 "Akses sudah di approve, ya. Jangan sembarangan dipakai."
+    mc1 "Oke, terima kasih."
+    uefi2 "Anu, kertas-kertas yang tercabik ini dikemanakan, Tuan?"
+    mc1 "Benar juga, tadi ada visual robekan kertas yang berhamburan."
+    mc1 "Sebentar, ya..."
+    mc1 "[nama2], waktu aku membereskan Ruang Arsip RAM, ada visualisasi berkas yang tampak seperti kertas robek. coba pindai dari sebelah sana sebagai Navigator, apa ada sesuatu yang kurang atau ada keanehan?"
+    mc2 "Hmm? Aneh."
+    mc2 "NOVA seharusnya hanya menyajikan simulasi visual untuk memudahkan pemahaman sehingga semua benda di-generate dalam kondisi ideal, bukan tampilan yang menunjukkan kerusakan fisik seperti kertas robek."
+    mc1 "Kan? Ada yang janggal."
+    mc2 "Ah!"
+    mc2 "Sudah selesai ku pindai, tidak ada yang aneh. Langsung pergi juga tak apa."
+
+    menu:
+        mc1 "Hmm..."
+
+        "Antar ke Partisi SSD untuk mengambil bootloader":
+            mc1 "Anu, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
+            uefi2 "Baik, Tuan [nama1]"
+            italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD."
+            jump act2_ssd
+
+        "Aku coba cek dulu robekan kertasnya":
+            jump act2_ram_hint
+
     return
 
-label minigame2:
-    scene room
-    mc1 "gass puzzle"
+label act2_ram_hint:
+    mc1 "Permisi, robekan kertasnya boleh saya lihat?"
+    italic "[uefi2] memberikan serpihan kertas pada [nama1] yang segera menjajarkannya di lantai."
+    mc1 "Coba aku satukan dulu serpihannya."
     $ setup_puzzle()
     call screen reassemble_puzzle
+
+    return
+
+label act2_ssd:
+    show screen locinfo("Connecting Bridge")
+    with dissolve
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
+    
     return
 
 label game_over:

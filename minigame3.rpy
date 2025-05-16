@@ -1,3 +1,9 @@
+default page_pieces = 12
+default full_page_size = (711, 996)
+default pieces_coordinates = [(451,149), (719, 139), (868, 238), (421, 399), (658, 318), (700, 488), (796, 538), (453, 718), (776, 773), (464, 925), (743, 958), (921, 888)]
+default initial_place_coordinates=[]
+default finished_pieces=0
+
 init python:
     def setup_puzzle():
         for i in range(page_pieces):
@@ -21,7 +27,17 @@ init python:
 
 label reassemble_complete:
     scene room
-    mc1 "puzzle selesai"
+    mc1 "Hmm? Apa ini?"
+    show full-page
+    with dissolve
+    $ renpy.pause(2.5)
+    italic "Walau masih bingung, [nama1] menyimpan serpihan kertas itu ke dalam saku digitalnya."
+    hide full-page
+    with dissolve
+    mc1 "Baik, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
+    uefi2 "Baik, Tuan [nama1]"
+    italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD."
+    jump act2_ssd
 
 screen reassemble_puzzle:
     image "minigame3/background.png"
@@ -53,12 +69,3 @@ screen reassemble_puzzle:
                 anchor(0.5, 0.5)
                 focus_mask True
                 image "minigame3/piece-%s.png"%(i+1) alpha 0.0 #for invisible
-
-default page_pieces = 12
-default full_page_size = (711, 996)
-default pieces_coordinates = [(451,149), (719, 139), (868, 238), (421, 399), (658, 318), (700, 488), (796, 538), (453, 718), (776, 773), (464, 925), (743, 958), (921, 888)]
-default initial_place_coordinates=[]
-default finished_pieces=0
-
-define gui.name_xpos=520
-define gui.dialogue_xpos=520
