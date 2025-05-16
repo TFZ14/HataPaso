@@ -1,5 +1,5 @@
 screen connect_the_cables:
-    image "bgminigame1.png"
+    image "minigame1/bgminigame1.png"
 
     grid cable_columns cable_rows:
         spacing 0
@@ -7,7 +7,7 @@ screen connect_the_cables:
         anchor(0.0, 0.0)
         for cable in cables:
             if cable in connected_cables:
-                imagebutton idle Transform(cable[1]+"-cable-connected.png", rotate=cable[4], rotate_pad=False) action Function(rotate_cable, cell=cable[3])
+                imagebutton idle Transform("minigame1/%s-cable-connected.png"%cable[1], rotate=cable[4], rotate_pad=False) action Function(rotate_cable, cell=cable[3])
             else:
                 imagebutton idle Transform(cable[0], rotate=cable[4], rotate_pad=False) action Function(rotate_cable, cell=cable[3])
 
@@ -90,7 +90,7 @@ init python:
                     create_cable("square", cell=grid_path[current_cell_index])
 
     def create_cable(type, cell):
-        cable_image="%s-cable.png"%type
+        cable_image="minigame1/%s-cable.png"%type
         cable_end_points=list(cable_types[type])
         final_cable=[cable_image, type, cable_end_points, cell, 0]
         cables.append(final_cable)

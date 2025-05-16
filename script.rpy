@@ -70,6 +70,27 @@ label start:
     show screen score
     scene bg room
 
+    #input nama
+    $ nama1 = renpy.input("{i}Namamu?{size=-5}  tekan enter untuk skip{/size}{/i}", length=20)
+    $ nama1 = nama1.strip()
+    if not nama1:
+        $ nama1 = "Noa"
+    mc1 "saya [nama1] dan dia..."
+
+    $ nama2 = renpy.input("{i}Nama rekanmu?{size=-5}  tekan enter untuk skip{/size}{/i}", length=20)
+    $ nama2 = nama2.strip()
+    if not nama2:
+        $ nama2 = "Franz"
+    mc2 "[nama2]."
+    
+    menu:
+        "yo"
+
+        "minigame1":
+            jump act1_cpu_minigame
+        "minigame2":
+            jump minigame2
+
     show screen locinfo("SchnellFix Service Center")
     with dissolve
     $ renpy.pause(2.5)
@@ -422,6 +443,7 @@ label act1_quiz5:
     italic "ESP atau Extensible Firmware Interface System Partition adalah partisi khusus pada hard drive yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
 
     mc1 "Aku mau cek RAM dulu. Kalau memang bootloadernya belum tersalin, akan ku cek SSD."
+    uefi1 "Baik, Tuan. hati-hati di jalan."
 
     show screen locinfo("Ruang Arsip : RAM")
     with dissolve
@@ -433,12 +455,18 @@ label act1_quiz5:
     mc1 "Astaga, kenapa lagi?!"
     mc2 "Tenang, tenang..."
     italic "Arsip-arsip berhamburan di lantai, beberapa kertas terlihat kusut, namun rak penyimpanan arsip masih terlihat bagus."
-    mc1 "Oke, saatnya beres-beres dulu..."
+    mc1 "..."
+    mc1 "..."
+    mc1 ".........!"
+    mc1 "Hhhh! Oke, saatnya beres-beres dulu..."
     mc2 "... semangat."
     with hpunch
     mc1 "Ssh!"
+    mc1 "Yang nggak bantuin beres-beres diem aja!"
 
     jump act2_bootloader
+    $ setup_files()
+    call screen reassemble_files
     return
 
 label act2_bootloader:
