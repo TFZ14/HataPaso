@@ -10,7 +10,7 @@ define chiefcpu=Character("Chief CPU", who_bold=True)
 define a=Character(
     None,
     window_background=None,
-    what_outlines=[( 1, "#06405b", 0, 0 )],
+    what_outlines=[( 1, "#06405b", 0, 0)],
     what_italic=True,
     what_xalign=0.5,
     what_textalign=0.5,
@@ -68,7 +68,7 @@ screen score():
 
 label start:
     show screen score
-    scene bg room
+    scene toko
 
     show screen locinfo("SchnellFix Service Center")
     with dissolve
@@ -79,9 +79,21 @@ label start:
     #Opening
     klien "Iya, sudah saya bawa ke service center sebelumnya, awalnya bisa dinyalakan, namun, tidak berapa lama, kembali mati lagi, jadi saya coba ke toko ini."
 
+    show mary2
+
     "Ooh, begitu. Masalahnya apa, Bu Mary?"
 
     klien "Layarnya mati walau lampu di tombol powernya sudah nyala, bahkan mesinnya pun sudah terdengar."
+
+    show mary2:
+        xalign 0.8
+        yalign 1.0
+    with moveinright
+
+    show friendidle:
+        xalign 0.2
+        yalign 1.0
+    with dissolve
 
     a "Kamu mendengarkan keluhan-keluhan Bu Mary panjang lebar sambil mengira-ngira akar dari kendala tersebut, sementara rekanmu disamping mencatat detail-detail dari keluhan Bu Mary, jaga-jaga jika kamu terlewat atau melupakan beberapa detail."
 
@@ -104,31 +116,49 @@ label start:
     mc2 "[nama2]."
 
     klien "Baik Pak [nama1], Pak [nama2], kalian, kan, punya NOVA, seharusnya bisa selesai cepat, kan?"
-
     italic "[nama2] menutup note digitalnya dengan seringai tipis."
-
     mc1 "Tentu saja. Bu Mary."
-
     italic "Ucap [nama1] penuh percaya diri."
 
     window hide
+    #show launch
     show screen mission_splash("Misi SchnellFix Service Center menggunakan teknologi NOVA DIMULAI!")
     $ renpy.pause(2.5)
     hide screen mission_splash
 
-    jump act1_quiz1
-
-label act1_quiz1:
+    scene toko
+    with fade
     show screen thinkingpoint
+    show friendidle
+
+    italic "Aku dan [nama2] membongkar dan mengecek hardware laptop Bu Mary, namun semuanya terlihat baik-baik saja, hanya butuh sedikit bersih-bersih saja."
+
+    hide friendidle
+    show friendidle2
+    mc2 "Hhh... kalau sudah begini, saatnya lihat dari dalam."
 
     italic "Mary pamit undur diri, keluar melalui pintu kaca. Kebetulan ini masih sangat pagi dan belum ada klien lain, [nama2] mengusulkan untuk segera mengecek laptop Mary."
 
+    hide friendidle2
+    show friendidle
+
     mc1 "Sesuai kata Bu Mary, memang terlihat nyala laptopnya, tetapi layarnya tetap hitam."
 
+    hide friendidle
+
+    jump act1_quiz1
+    return
+
+label act1_quiz1:
+    show friendidle2
+
     menu:
+        
         mc2 "hmm... pertama-tama, kita cek apanya dulu, ya?"
 
         "Ganti RAM":
+            hide friendidle2
+            show friendconfuse
             with vpunch
             mc2 "Oi, oi, yang bener aja..."
             $ thinking_value-=5
@@ -143,9 +173,10 @@ label act1_quiz1:
         "Cek kabel monitor":
             mc2 "Aah, benar juga, walau bisa menyala, kalau kabel monitor longgar atau rusak, layar tetap mati."
             $ score+=5
-            jump act1_quiz2
 
         "Reset UEFI":
+            hide friendidle2
+            show friendconfuse
             with vpunch
             mc2 "... langsung banget nih?"
             $ thinking_value-=5
@@ -157,23 +188,37 @@ label act1_quiz1:
             else:
                 jump act1_quiz1
 
+    hide friendidle2
+    show friendidle
+
+    italic "Aku dan [nama2] membongkar dan mengecek hardware laptop Bu Mary, namun semuanya terlihat baik-baik saja, hanya butuh sedikit bersih-bersih saja."
+
+    hide friendidle
+    show friendidle2
+    mc2 "Hhh... kalau sudah begini, saatnya lihat dari dalam."
+
+    jump act1_quiz2
+
     return
 
 label act1_quiz2:
     show screen thinkingpoint
+    scene toko
 
-    italic "Aku dan [nama2] membongkar dan mengecek hardware laptop Bu Mary, namun semuanya terlihat baik-baik saja, hanya butuh sedikit bersih-bersih saja."
-
-    mc2 "Hhh... kalau sudah begini, saatnya lihat dari dalam."
+    show friendidle2
 
     menu:
         mc2 "Benar, mungkin bisa kita urut dari awal seperti POST {i}(Power-On Self Test) yang dilakukan oleh...{/i}"
 
         "UEFI":
+            hide friendidle2
+            show friendidle
             mc2 "Oooh! Oke, akan ku kirim ke Lobi UEFI, ya!"
             $ score+=5
 
         "CPU":
+            hide friendidle2
+            show friendconfuse
             with vpunch
             mc2 "... kayaknya bukan, deh..."
             $ thinking_value-=5
@@ -186,6 +231,8 @@ label act1_quiz2:
                 jump act1_quiz2 #Kembali ke menu pilihan
 
         "ALU":
+            hide friendidle2
+            show friendconfuse
             with vpunch
             mc2 "... kayaknya bukan, deh..."
             $ thinking_value-=5
@@ -205,7 +252,7 @@ label act1_quiz2:
     return
 
 #label opening:
-    play movie "opening.mp4"
+    $ renpy.movie_cutscene("oa4_launch.webm")
     jump act1_whatsnova
 
     return
@@ -240,7 +287,7 @@ label act1_whatsnova:
     return
 
 label act1_post:
-    scene bg room
+    scene lobiuefi
 
     #LobiUEFI
     show screen locinfo("Lobi Inisiasi : UEFI")
@@ -508,12 +555,12 @@ label act2_ssd:
     return
 
 label game_over:
-    scene room
+    scene toko
     "gagal"
     return
 
 label selesai:
-    scene room
+    scene toko
     if score<=0:
         "Oi, oi, yang bener aje."
     elif score<=5:

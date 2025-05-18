@@ -202,6 +202,5 @@ init python:
                     renpy.jump("cable_game_success")
 
 label cable_game_success:
-    scene room
     mc1 "kabel selesai"
     jump act1_cpudone
