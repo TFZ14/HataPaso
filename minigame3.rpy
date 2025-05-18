@@ -34,10 +34,19 @@ label reassemble_complete:
     italic "Walau masih bingung, [nama1] menyimpan serpihan kertas itu ke dalam saku digitalnya."
     hide full-page
     with dissolve
+
+    show screen thinkingpoint
+    with dissolve
+    italic "Menerima info baru, Thinking Point bertambah +5."
+    $ thinking_point+=5
+    hide screen thinkingpoint
+    with dissolve
+
     mc1 "Baik, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
     uefi2 "Baik, Tuan [nama1]"
     italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD."
     jump act2_ssd
+    return
 
 screen reassemble_puzzle:
     image "minigame3/background.png"

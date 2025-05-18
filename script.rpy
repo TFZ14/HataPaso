@@ -18,8 +18,7 @@ define a=Character(
 
 define italic=Character(
     None,
-    what_italic=True,
-)
+    what_italic=True)
 
 screen locinfo(text):
     frame:
