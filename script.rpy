@@ -4,7 +4,7 @@ define mc2=Character("[nama2]", who_bold=True)
 define klien=Character("Mary", who_bold=True)
 define uefi1=Character("uefi 1023345", who_bold=True)
 define uefi2=Character("uefi 1023123", who_bold=True)
-define chiefcpu=Character("Chief CPU", who_bold=True)
+define chiefcpu=Character("CPU 1126480", who_bold=True)
 
 #Text
 define a=Character(
@@ -258,6 +258,7 @@ label act1_quiz2:
     return
 
 label act1_whatsnova:
+    scene lorong
     #What is NOVA
     a "{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri."
 
@@ -289,9 +290,9 @@ label act1_whatsnova:
 label act1_post:
     scene lobiuefi
 
-    #LobiUEFI
     show screen locinfo("Lobi Inisiasi : UEFI")
     with dissolve
+
     mc1 "Uwaah..."
     window hide
     $ renpy.pause(2.5)
@@ -302,18 +303,27 @@ label act1_post:
 
     italic "Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Self-Test adalah serangkaian pemeriksaan awal yang dilakukan komputer setiap kali dinyalakan untuk memastikan semua komponen berfungsi sebelum sistem berjalan."
 
+    show iotech1
+    with dissolve
+
     uefi1 "Euh..."
+
+    italic "Teknisi yang berada dibalik counter terlihat sedikit cemas, apa mungkin ada kendala?"
 
     jump act1_quiz3
     return
 
 label act1_quiz3:
+    show screen thinkingpoint
+    with dissolve
+    
     menu :
         mc1 "Biasanya, jika POST di UEFI memiliki kendala, itu karena..."
 
         "Komputer kehabisan baterai CMOS":
             with vpunch
             mc2 "... kayaknya bukan, deh. Baterai CMOS berpengaruh pada penyimpanan pengaturan, bukan langsung ke POST."
+            italic "Suara [nama2] berdengung di kepalamu."
             $ thinking_value-=5
             $ score-=5
             if thinking_value <= 0 or score<=0:
@@ -325,11 +335,13 @@ label act1_quiz3:
 
         "Perangkat keras gagal terdeteksi oleh sistem":
             mc2 "Jika {i}Hardware{/i} (perangkat keras) gagal dideteksi oleh sistem saat POST, maka akan gagal booting."
+            italic "Suara [nama2] berdengung di kepalamu."
             $ score+=5
 
         "Driver belum diinstal":
             with vpunch
             mc2 "... hmm, driver penting setelah OS jalan, tapi POST bekerja sebelum sistem operasi aktif."
+            italic "Suara [nama2] berdengung di kepalamu."
             $ thinking_value-=5
             $ score-=5
             if thinking_value<=0 or score<=0:
@@ -339,14 +351,37 @@ label act1_quiz3:
             else:
                 jump act1_quiz3
 
+    hide screen thinkingpoint
+    with dissolve
+
     mc1 "Bagaimana? Apa ada kendala?"
     uefi1 "Ah Tuan [nama1], kami belum dapat laporan status dari CPU..."
     mc1 "Hmm? Baik akan ku cek."
+    mc1 "[nama2], bisa aku akses CPU?"
+    mc2 "..."
+    $ renpy.pause(2.0)
+    mc2 "Oke, bisa."
+
+    show iotech1:
+        xalign 0.2
+        yalign 1.0
+    with moveinleft
+    show iotech2:
+        xalign 0.8
+        yalign 1.0
+    with moveinright
+
+    uefi2 "Mari saya antar."
+
+    scene lorong
+    #add sfx langkah disini
+    italic "Menuju Ruang CPU dengan Connecting Bridge."
 
     jump act1_cpu
     return
 
 label act1_cpu:
+    #scene bg CPU disini
     show screen locinfo("Ruang Kendali : CPU")
     with dissolve
     $ renpy.pause(2.5)
@@ -364,6 +399,9 @@ label act1_cpu:
     return
 
 label act1_quiz4:
+    show screen thinkingpoint
+    with dissolve
+
     menu:
         mc1 "Ternyata, mereka tidak terjadwal dan terkoordinasi dengan baik dikarenakan..."
 
@@ -397,8 +435,16 @@ label act1_quiz4:
             $ score+=5
 
     italic "Clock Generator menentukan kecepatan kerja komponen dalam satuan MHz atau GHz. Clock Generator mengirim sinyal denyut {i}(clock pulse){/i} agar data diproses secara teratur dan terkoordinasi."
+
+    hide screen thinkingpoint
+    with dissolve
+
     mc1 "...dan Clock Generatornya rusak"
     italic "[nama1] mengurut kening pusing."
+
+    show iotechchiefcpu
+    with dissolve
+
     chiefcpu "Tuan [nama1], sepertinya ada yang salah dengan Clock Generator-nya."
     mc1 "Ya, aku bisa lihat. Coba aku cek dulu, dimana panel kontrolnya?"
     chiefcpu "Sebelah sini..."
@@ -413,14 +459,34 @@ label act1_cpu_minigame:
 
 label act1_cpudone:
     hide cable_game_success
+    
+    show iotechchiefcpu
+
     mc1 "Untung hanya masalah sedikit, tidak sampai perlu ganti komponennya di dunia nyata."
     mc1 "[nama2], catat untuk Bu Mary, kalau pakai laptop, pastikan sumber listriknya stabil. Tegangan yang nggak stabil bisa bikin clock generator error."
     mc2 "Siap!"
+    chiefcpu "Terima kasih. Karena detak jam untuk jadwal kami sudah diperbaiki, kami akan memulai bekerja."
+
+    hide iotechchiefcpu
+    with dissolve
+
+    italic "[chiefcpu] hilang begitu saja, membaur dengan teknisi lain, bekerja dengan giat."
+
+    show iotech2
+    with dissolve
+
+    uefi2 "Baik, mari saya antar kembali ke Lobi."
+
+    scene lobiuefi
+    with fade
     
     show screen locinfo("Lobi Inisiasi : UEFI")
     with dissolve
     $ renpy.pause(2.5)
     hide screen locinfo
+    with dissolve
+
+    show iotech1
     with dissolve
 
     mc1 "Silakan coba booting lagi"
@@ -436,6 +502,9 @@ label act1_cpudone:
     return
 
 label act1_quiz5:
+    show screen thinkingpoint
+    with dissolve
+
     menu:
         mc1 "Sumber utama bootloader..."
 
@@ -467,6 +536,9 @@ label act1_quiz5:
                 jump act1_quiz5
 
     italic "ESP atau Extensible Firmware Interface System Partition adalah partisi khusus pada hard drive yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
+
+    hide screen thinkingpoint
+    with dissolve
 
     mc1 "Aku mau cek RAM dulu. Kalau memang bootloadernya belum tersalin, akan ku cek SSD."
     uefi1 "Baik, Tuan. hati-hati di jalan."
