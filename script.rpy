@@ -69,25 +69,6 @@ label start:
     show screen score
     scene toko
 
-
-    #input nama
-    $ nama1 = renpy.input("{i}Namamu?{size=-5}  tekan enter untuk skip{/size}{/i}", length=20)
-    $ nama1 = nama1.strip()
-    if not nama1:
-        $ nama1 = "Noa"
-    mc1 "saya [nama1] dan dia..."
-
-    $ nama2 = renpy.input("{i}Nama rekanmu?{size=-5}  tekan enter untuk skip{/size}{/i}", length=20)
-    $ nama2 = nama2.strip()
-    if not nama2:
-        $ nama2 = "Franz"
-    mc2 "[nama2]."
-
-    jump act2_ram_minigame
-
-
-
-
     show screen locinfo("SchnellFix Service Center")
     with dissolve
     $ renpy.pause(2.5)

@@ -1,24 +1,24 @@
-default file_pieces = 5
-default all_files_size = (618, 477)
-default files_coordinates = [(508, 685), (559, 584), (601, 489), (663, 388), (700, 285)]
+default file_pieces=5
+default all_files_size=(618, 477)
+default files_coordinates=[(700, 285), (663, 388), (601, 489), (559, 584), (508, 685)]
 default initial_files_coordinates=[]
 default finished_files=0
 
 init python:
     def setup_files():
         for i in range(file_pieces):
-            start_x = 1200
-            start_y = 200
+            start_x = 1500
+            start_y = 600
             end_x = 1700
             end_y = 800
             rand_loc=(renpy.random.randint(start_x, end_x), renpy.random.randint(start_y, end_y))
             initial_files_coordinates.append(rand_loc)
 
-    def file_drop(dropped_on, dragged_file):
+    def file_drop(dropped_file, dragged_file):
         global finished_files
 
-        if dragged_file[0].drag_name==dropped_on.drag_name:
-            dragged_file[0].snap(dropped_on.x, dropped_on.y)
+        if dragged_file[0].drag_name==dropped_file.drag_name:
+            dragged_file[0].snap(dropped_file.x, dropped_file.y)
             dragged_file[0].draggable=False
             finished_files+=1
 
@@ -26,37 +26,21 @@ init python:
                 renpy.jump("manage_complete")
 
 label manage_complete:
-    scene room
-    mc1 "Hmm? Apa ini?"
-    show full-page
-    with dissolve
-    $ renpy.pause(2.5)
-    italic "Walau masih bingung, [nama1] menyimpan serpihan kertas itu ke dalam saku digitalnya."
-    hide full-page
-    with dissolve
-
-    show screen thinkingpoint
-    with dissolve
-    italic "Menerima info baru, Thinking Point bertambah +5."
-    $ thinking_point+=5
-    hide screen thinkingpoint
-    with dissolve
-
-    mc1 "Baik, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
-    uefi2 "Baik, Tuan [nama1]"
-    italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD."
-    jump start
+    mc1 "Huft..."
+    jump act2_ramdone
     return
 
 screen manage_files:
-    image "minigame2/minigame2bg.png"
-    frame:
-        background "minigame2/file-frame.png"
-        xysize all_files_size
-        anchor (0.99, 0.99)
-        pos (618, 477)
+    image "minigame2/lacibg.png"
 
     draggroup:
+        drag:
+            draggable False
+            droppable False
+            pos (0, 0)
+            anchor(0.0, 0.0)
+            image "minigame2/minigame2bg.png"
+
         #file
         for i in range(file_pieces):
             drag:
@@ -64,7 +48,7 @@ screen manage_files:
                 pos initial_files_coordinates[i]
                 anchor(0.5, 0.5)
                 focus_mask True
-                drag_raise True
+                drag_raise False
                 image "minigame2/file-%s.png"%(i+1)
                 
         #snappable spots
@@ -73,8 +57,15 @@ screen manage_files:
                 drag_name i
                 draggable False
                 droppable True
-                dropped piece_drop
+                dropped file_drop
                 pos files_coordinates[i]
                 anchor(0.5, 0.5)
                 focus_mask True
                 image "minigame2/file-%s.png"%(i+1) alpha 0.0
+
+        drag:
+            draggable False
+            droppable False
+            pos (0, 0)
+            anchor(0.0, 0.0)
+            image "minigame2/laci.png"
