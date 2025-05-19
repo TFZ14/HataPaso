@@ -2,9 +2,10 @@
 define mc1=Character("[nama1]", who_bold=True)
 define mc2=Character("[nama2]", who_bold=True)
 define klien=Character("Mary", who_bold=True)
-define uefi1=Character("uefi 1023345", who_bold=True)
-define uefi2=Character("uefi 1023123", who_bold=True)
-define chiefcpu=Character("CPU 1126480", who_bold=True)
+define uefi1=Character("IO Tech 1023345", who_bold=True)
+define uefi2=Character("IO Tech 1023123", who_bold=True)
+define uefi3=Character("IO Tech 1455690", who_bold=True)
+define chiefcpu=Character("IO Tech 1126480", who_bold=True)
 
 #Text
 define a=Character(
@@ -292,13 +293,23 @@ label act1_post:
     show screen locinfo("Lobi Inisiasi : UEFI")
     with dissolve
 
-    mc1 "Uwaah..."
+    mc1 "Kembali lagi ke sini..."
     window hide
     $ renpy.pause(2.5)
     hide screen locinfo
     with dissolve
 
-    italic "Lobi UEFI terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
+    show iotech3
+    with hpunch
+
+    mc1 "Aduh!"
+    uefi3 "Uhh!"
+    uefi3 "Mohon maaf!"
+    hide iotech3
+    with moveinleft
+
+    italic "... dan petugas IO itu pergi begitu saja."
+    italic "Lobi UEFI terlihat memang terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
 
     italic "Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Self-Test adalah serangkaian pemeriksaan awal yang dilakukan komputer setiap kali dinyalakan untuk memastikan semua komponen berfungsi sebelum sistem berjalan."
 
@@ -586,6 +597,7 @@ label act2_ramdone:
     uefi2 "Anu, kertas-kertas yang tercabik ini dikemanakan, Tuan?"
     mc1 "Benar juga, tadi ada visual robekan kertas yang berhamburan."
     mc1 "Sebentar, ya..."
+    italic "Lebih baik tanya [nama2] dulu..."
     mc1 "[nama2], waktu aku membereskan Ruang Arsip RAM, ada visualisasi berkas yang tampak seperti kertas robek. coba pindai dari sebelah sana sebagai Navigator, apa ada sesuatu yang kurang atau ada keanehan?"
     mc2 "Hmm? Aneh."
     mc2 "NOVA seharusnya hanya menyajikan simulasi visual untuk memudahkan pemahaman sehingga semua benda di-generate dalam kondisi ideal, bukan tampilan yang menunjukkan kerusakan fisik seperti kertas robek."
@@ -599,7 +611,7 @@ label act2_ramdone:
         "Antar ke Partisi SSD untuk mengambil bootloader":
             mc1 "Anu, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
             uefi2 "Baik, Tuan [nama1]"
-            italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD."
+            italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD diantar oleh [uefi2]."
             jump act2_ssd
 
         "Aku coba cek dulu robekan kertasnya":
@@ -622,6 +634,17 @@ label act2_ssd:
     $ renpy.pause(2.5)
     hide screen locinfo
     with dissolve
+
+    show iotech3
+    uefi3 "!"
+    with hpunch
+    uefi3 "Tolong kembali! Disini ada Teknisi IO yang terkena virus!"
+
+    mc1 "Eh?"
+    uefi2 "Kami tidak deteksi apa-apa sebelumnya, akan kami laporkan ke front."
+    mc1 "Minggir, akan kuselesaikan."
+    hide iotech3
+    with moveinright
     
     return
 

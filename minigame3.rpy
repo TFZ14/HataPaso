@@ -38,7 +38,7 @@ label reassemble_complete:
     show screen thinkingpoint
     with dissolve
     italic "Menerima info baru, Thinking Point bertambah +5."
-    $ thinking_point+=5
+    $ thinking_value+=5
     hide screen thinkingpoint
     with dissolve
 
