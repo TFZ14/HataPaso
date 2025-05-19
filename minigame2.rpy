@@ -45,7 +45,7 @@ label manage_complete:
     mc1 "Baik, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
     uefi2 "Baik, Tuan [nama1]"
     italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD."
-    jump act2_ssd
+    jump start
     return
 
 screen manage_files:
@@ -53,22 +53,10 @@ screen manage_files:
     frame:
         background "minigame2/file-frame.png"
         xysize all_files_size
-        anchor (0.3, 0.2)
+        anchor (0.99, 0.99)
         pos (618, 477)
 
     draggroup:
-        #snappable spots
-        for i in range(file_pieces):
-            drag:
-                drag_name i
-                draggable False
-                droppable True
-                dropped piece_drop
-                pos pieces_coordinates[i]
-                anchor(0.5, 0.5)
-                focus_mask True
-                image "minigame2/file-%s.png"%(i+1) alpha 0.0
-
         #file
         for i in range(file_pieces):
             drag:
@@ -78,3 +66,15 @@ screen manage_files:
                 focus_mask True
                 drag_raise True
                 image "minigame2/file-%s.png"%(i+1)
+                
+        #snappable spots
+        for i in range(file_pieces):
+            drag:
+                drag_name i
+                draggable False
+                droppable True
+                dropped piece_drop
+                pos files_coordinates[i]
+                anchor(0.5, 0.5)
+                focus_mask True
+                image "minigame2/file-%s.png"%(i+1) alpha 0.0
