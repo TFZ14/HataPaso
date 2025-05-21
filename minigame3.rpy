@@ -45,7 +45,7 @@ label reassemble_complete:
     mc1 "Baik, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
     uefi2 "Baik, Tuan [nama1]"
     italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD."
-    jump act2_ssd
+    jump act2_connecting
     return
 
 screen reassemble_puzzle:

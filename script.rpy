@@ -39,6 +39,7 @@ screen mission_splash(text):
 init python:
     health_value=100
     thinking_value=100
+    enemyhp_value=100
     score=10 #untuk penilaian pemain di akhir
 
 screen healthpoint():
@@ -49,6 +50,15 @@ screen healthpoint():
         hbox:
             spacing 10
             vbar value AnimatedValue(health_value, 100, 0.5)
+
+screen enemyhp():
+    frame:
+        xalign 0.02
+        ypos 100
+        ysize 650
+        hbox:
+            spacing 10
+            vbar value AnimatedValue(enemyhp_value, 100, 0.5)
 
 screen thinkingpoint():
     frame:
@@ -121,7 +131,7 @@ label start:
     italic "Ucap [nama1] penuh percaya diri."
 
     window hide
-    #show launch
+
     show screen mission_splash("Misi SchnellFix Service Center menggunakan teknologi NOVA DIMULAI!")
     $ renpy.pause(2.5)
     hide screen mission_splash
@@ -612,7 +622,7 @@ label act2_ramdone:
             mc1 "Anu, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
             uefi2 "Baik, Tuan [nama1]"
             italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD diantar oleh [uefi2]."
-            jump act2_ssd
+            jump act2_connecting
 
         "Aku coba cek dulu robekan kertasnya":
             jump act2_ram_hint
@@ -628,24 +638,145 @@ label act2_ram_hint:
 
     return
 
-label act2_ssd:
+label act2_connecting:
     show screen locinfo("Connecting Bridge")
     with dissolve
     $ renpy.pause(2.5)
     hide screen locinfo
     with dissolve
 
+    scene lorong
+
     show iotech3
     uefi3 "!"
     with hpunch
     uefi3 "Tolong kembali! Disini ada Teknisi IO yang terkena virus!"
-
     mc1 "Eh?"
-    uefi2 "Kami tidak deteksi apa-apa sebelumnya, akan kami laporkan ke front."
-    mc1 "Minggir, akan kuselesaikan."
     hide iotech3
-    with moveinright
+    with dissolve
+    show iotech2
+    with dissolve
+    uefi2 "Kami tidak deteksi apa-apa sebelumnya, akan kami laporkan ke front."
+    hide iotech2
+    with moveinleft
+    mc1 "Minggir, akan kuselesaikan."
+
+    jump act2_connecting_minigame
     
+    return
+
+label act2_connecting_minigame:
+    show screen mission_splash("Battle Start!")
+    $ renpy.pause(2.5)
+    hide screen mission_splash
+
+    jump act2_connecting_moveset
+
+    return
+
+label act2_connecting_moveset:
+    scene lorong
+    show screen healthpoint
+    show screen enemyhp
+
+    #satu
+    menu:
+        "Serang":
+            with vpunch
+            $ health_value-=10
+            $ enemyhp_value-=10
+            if health_value<=0 and enemyhp_value<=0:
+                a "kalian berdua mati bersama."
+                mc2 "[nama1]!"
+                scene toko
+                with fade
+                a "kamu tertarik ke dunia nyata."
+                jump losebattle
+            elif enemyhp_value<=0:
+                mc1 "Anomali telah dikalahkan."
+                $ renpy.pause(1.0)
+                jump act2_connectingdone
+            elif health_value<=0:
+                mc2 "[nama1]!"
+                scene toko
+                with fade
+                a "kamu tertarik ke dunia nyata."
+                jump losebattle
+            else:
+                window hide
+                a "Kalian sama-sama menyerang."        
+        "Tahan":
+            with hpunch
+            a "Musuh menyerang, kamu bertahan."
+            window hide
+            
+    #dua
+    menu:
+        "Serang":
+            with vpunch
+            $ health_value-=10
+            $ enemyhp_value-=10
+            if health_value<=0 and enemyhp_value<=0:
+                a "kalian berdua mati bersama."
+                mc2 "[nama1]!"
+                scene toko
+                with fade
+                a "kamu tertarik ke dunia nyata."
+                jump losebattle
+            elif enemyhp_value<=0:
+                mc1 "Anomali telah dikalahkan."
+                jump act2_connectingdone
+            elif health_value<=0:
+                mc2 "[nama1]!"
+                scene toko
+                with fade
+                a "kamu tertarik ke dunia nyata."
+                jump losebattle
+            else:
+                a "Kalian sama-sama menyerang."
+                window hide  
+        "Tahan":
+            with hpunch
+            a "Musuh menyerang, kamu bertahan."
+            window hide
+            
+    #tiga
+    menu:
+        "Serang":
+            with vpunch
+            $ enemyhp_value-=15
+            if health_value<=0 and enemyhp_value<=0:
+                a "kalian berdua mati bersama."
+                mc2 "[nama1]!"
+                scene toko
+                with fade
+                a "kamu tertarik ke dunia nyata."
+                jump losebattle
+            elif enemyhp_value<=0:
+                mc1 "Anomali telah dikalahkan."
+                jump act2_connectingdone
+            elif health_value<=0:
+                mc2 "[nama1]!"
+                scene toko
+                with fade
+                a "kamu tertarik ke dunia nyata."
+                jump losebattle
+            else:
+                a "Seranganmu berhasil mengenai musuh."
+                window hide
+        "Tahan":
+            a "Kamu bertahan namun musuh tidak menyerang."
+            window hide
+
+    jump act2_connecting_moveset
+    return
+
+label act2_connectingdone:
+    "done"
+    return
+
+label losebattle:
+    "kalah lawan anomali"
     return
 
 label game_over:
