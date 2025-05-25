@@ -83,6 +83,9 @@ screen score():
 label start:
     show screen score
     scene toko
+    play music "Ravioli.mp3" fadeout 2
+    $ renpy.music.set_volume(0.3, 0.6, channel="music")
+ 
 
     show screen locinfo("SchnellFix Service Center")
     with dissolve
@@ -135,14 +138,21 @@ label start:
     mc1 "Tentu saja. Bu Mary."
     italic "Ucap [nama1] penuh percaya diri."
 
+    stop music fadeout 3
+
     window hide
 
     show screen mission_splash("Misi SchnellFix Service Center menggunakan teknologi NOVA DIMULAI!")
+    play sound "システム決定音_11.mp3"
     $ renpy.pause(2.5)
     hide screen mission_splash
 
     scene toko
     with fade
+
+    play music "モノクロライブラリー.mp3" fadeout 2
+    $ renpy.music.set_volume(0.3, channel="music")
+
     show screen thinkingpoint
     show friendidle
 
@@ -165,6 +175,9 @@ label start:
     return
 
 label act1_quiz1:
+    play music "モノクロライブラリー.mp3" fadeout 2
+    $ renpy.music.set_volume(0.3, channel="music")
+
     show friendidle2
 
     menu:
@@ -174,6 +187,8 @@ label act1_quiz1:
         "Ganti RAM":
             hide friendidle2
             show friendconfuse
+            stop music
+            play sound "打撃・ビンタ音.mp3"
             with vpunch
             mc2 "Oi, oi, yang bener aja..."
             $ thinking_value-=5
@@ -186,12 +201,15 @@ label act1_quiz1:
                 jump act1_quiz1 #Kembali ke menu pilihan
 
         "Cek kabel monitor":
+            play sound "システムSE_決定音1.mp3"
             mc2 "Aah, benar juga, walau bisa menyala, kalau kabel monitor longgar atau rusak, layar tetap mati."
             $ score+=5
 
         "Reset UEFI":
             hide friendidle2
             show friendconfuse
+            stop music
+            play sound "打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... langsung banget nih?"
             $ thinking_value-=5
@@ -217,6 +235,9 @@ label act1_quiz1:
     return
 
 label act1_quiz2:
+    play music "モノクロライブラリー.mp3" fadeout 2
+    $ renpy.music.set_volume(0.3, channel="music")
+
     show screen thinkingpoint
     scene toko
 
@@ -228,12 +249,15 @@ label act1_quiz2:
         "UEFI":
             hide friendidle2
             show friendidle
+            play sound "システムSE_決定音1.mp3"
             mc2 "Oooh! Oke, akan ku kirim ke Lobi UEFI, ya!"
             $ score+=5
 
         "CPU":
             hide friendidle2
             show friendconfuse
+            stop music
+            play sound "打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... kayaknya bukan, deh..."
             $ thinking_value-=5
@@ -248,6 +272,8 @@ label act1_quiz2:
         "ALU":
             hide friendidle2
             show friendconfuse
+            stop music
+            play sound "打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... kayaknya bukan, deh..."
             $ thinking_value-=5
@@ -263,6 +289,8 @@ label act1_quiz2:
     hide screen thinkingpoint
     with dissolve
 
+    stop music fadeout 3
+
     jump act1_whatsnova
     return
 
@@ -274,7 +302,9 @@ label act1_quiz2:
 
 label act1_whatsnova:
     scene lorong
-    #What is NOVA
+    play music "Tactics.Shimtone.mp3" fadeout 1.0
+    $ renpy.music.set_volume(0.3, channel="music")
+    
     a "{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri."
 
     a "Pengguna NOVA minimal ada dua orang, yang masuk ke dalam dunia virtual, disebut sebagai {b}“Diver”{/b}, dan yang menjaga dari dunia nyata, disebut sebagai {b}“Navigator”{/b}. Orang yang menggunakan NOVA akan memasuki zona waktu khusus yang bisa diatur oleh navigator."
@@ -289,6 +319,7 @@ label act1_whatsnova:
 
     a "Komponen keempat, {b}EchoLink Hub{/b} yang digunakan asisten dari pemakai NeuroLink USB, digunakan untuk komunikasi dan navigasi dari dunia luar."
 
+    play sound "システム決定音_9.mp3"
     italic "[nama1] menancapkan NeuroLink USB ke laptop klien lalu memakai NeuroDriver di kepala."
     
     mc1 "Aku serahkan padamu, ya, Tuan Navigator."
@@ -298,6 +329,8 @@ label act1_whatsnova:
     mc1 "Iya, iya."
 
     italic "[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di set up mejanya untuk memulai menavigasi Diver. [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk Diving."
+
+    stop music fadeout 3
 
     jump act1_post
     return
@@ -316,14 +349,23 @@ label act1_post:
 
     show iotech3
     with hpunch
+    play sound "打撃・ビンタ音.mp3"
 
     mc1 "Aduh!"
+    play sound "打撃・ビンタ音.mp3"
     uefi3 "Uhh!"
+    with hpunch
+    play sound "打撃・ビンタ音.mp3"
     uefi3 "Mohon maaf!"
     hide iotech3
     with moveinleft
 
-    italic "... dan petugas IO itu pergi begitu saja."
+    play sound "どうしたの？？.mp3"
+    mc1 "... dan petugas IO itu pergi begitu saja."
+
+    play music "Disital_Delta.mp3" fadeout 1.0
+    $ renpy.music.set_volume(0.3, channel="music")
+
     italic "Lobi UEFI terlihat memang terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
 
     italic "Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Self-Test adalah serangkaian pemeriksaan awal yang dilakukan komputer setiap kali dinyalakan untuk memastikan semua komponen berfungsi sebelum sistem berjalan."
@@ -339,6 +381,9 @@ label act1_post:
     return
 
 label act1_quiz3:
+    play music "モノクロライブラリー.mp3" fadeout 1
+    $ renpy.music.set_volume(0.3, channel="music")
+
     show screen thinkingpoint
     with dissolve
     
@@ -347,6 +392,8 @@ label act1_quiz3:
 
         "Komputer kehabisan baterai CMOS":
             with vpunch
+            stop music
+            play sound "打撃・ビンタ音.mp3"
             mc2 "... kayaknya bukan, deh. Baterai CMOS berpengaruh pada penyimpanan pengaturan, bukan langsung ke POST."
             italic "Suara [nama2] berdengung di kepalamu."
             $ thinking_value-=5
@@ -359,12 +406,15 @@ label act1_quiz3:
                 jump act1_quiz3
 
         "Perangkat keras gagal terdeteksi oleh sistem":
+            play sound "システムSE_決定音1.mp3"
             mc2 "Jika {i}Hardware{/i} (perangkat keras) gagal dideteksi oleh sistem saat POST, maka akan gagal booting."
             italic "Suara [nama2] berdengung di kepalamu."
             $ score+=5
 
         "Driver belum diinstal":
             with vpunch
+            stop music
+            play sound "打撃・ビンタ音.mp3"
             mc2 "... hmm, driver penting setelah OS jalan, tapi POST bekerja sebelum sistem operasi aktif."
             italic "Suara [nama2] berdengung di kepalamu."
             $ thinking_value-=5
