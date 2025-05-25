@@ -42,6 +42,10 @@ init python:
     enemyhp_value=100
     score=10 #untuk penilaian pemain di akhir
 
+    def update_thinking(val):
+        global thinking_value
+        thinking_value = max(0, min(thinking_value+val, 100))
+
 screen healthpoint():
     frame:
         xalign 0.98
@@ -90,6 +94,7 @@ label start:
     klien "Iya, sudah saya bawa ke service center sebelumnya, awalnya bisa dinyalakan, namun, tidak berapa lama, kembali mati lagi, jadi saya coba ke toko ini."
 
     show mary2
+    with dissolve
 
     "Ooh, begitu. Masalahnya apa, Bu Mary?"
 
@@ -379,7 +384,7 @@ label act1_quiz3:
     mc1 "Hmm? Baik akan ku cek."
     mc1 "[nama2], bisa aku akses CPU?"
     mc2 "..."
-    $ renpy.pause(2.0)
+    $ renpy.pause(2.0, hard=True)
     mc2 "Oke, bisa."
 
     show iotech1:
@@ -639,13 +644,12 @@ label act2_ram_hint:
     return
 
 label act2_connecting:
+    scene lorong
     show screen locinfo("Connecting Bridge")
     with dissolve
     $ renpy.pause(2.5)
     hide screen locinfo
     with dissolve
-
-    scene lorong
 
     show iotech3
     uefi3 "!"
@@ -658,7 +662,7 @@ label act2_connecting:
     with dissolve
     uefi2 "Kami tidak deteksi apa-apa sebelumnya, akan kami laporkan ke front."
     hide iotech2
-    with moveinleft
+    with dissolve
     mc1 "Minggir, akan kuselesaikan."
 
     jump act2_connecting_minigame
@@ -687,6 +691,8 @@ label act2_connecting_moveset:
             $ enemyhp_value-=10
             if health_value<=0 and enemyhp_value<=0:
                 a "kalian berdua mati bersama."
+                hide screen enemyhp
+                hide screen healthpoint
                 mc2 "[nama1]!"
                 scene toko
                 with fade
@@ -695,9 +701,13 @@ label act2_connecting_moveset:
             elif enemyhp_value<=0:
                 mc1 "Anomali telah dikalahkan."
                 $ renpy.pause(1.0)
+                hide screen enemyhp
+                hide screen healthpoint
                 jump act2_connectingdone
             elif health_value<=0:
                 mc2 "[nama1]!"
+                hide screen enemyhp
+                hide screen healthpoint
                 scene toko
                 with fade
                 a "kamu tertarik ke dunia nyata."
@@ -719,15 +729,21 @@ label act2_connecting_moveset:
             if health_value<=0 and enemyhp_value<=0:
                 a "kalian berdua mati bersama."
                 mc2 "[nama1]!"
+                hide screen enemyhp
+                hide screen healthpoint
                 scene toko
                 with fade
                 a "kamu tertarik ke dunia nyata."
                 jump losebattle
             elif enemyhp_value<=0:
                 mc1 "Anomali telah dikalahkan."
+                hide screen enemyhp
+                hide screen healthpoint
                 jump act2_connectingdone
             elif health_value<=0:
                 mc2 "[nama1]!"
+                hide screen enemyhp
+                hide screen healthpoint
                 scene toko
                 with fade
                 a "kamu tertarik ke dunia nyata."
@@ -748,15 +764,21 @@ label act2_connecting_moveset:
             if health_value<=0 and enemyhp_value<=0:
                 a "kalian berdua mati bersama."
                 mc2 "[nama1]!"
+                hide screen enemyhp
+                hide screen healthpoint
                 scene toko
                 with fade
                 a "kamu tertarik ke dunia nyata."
                 jump losebattle
             elif enemyhp_value<=0:
                 mc1 "Anomali telah dikalahkan."
+                hide screen enemyhp
+                hide screen healthpoint
                 jump act2_connectingdone
             elif health_value<=0:
                 mc2 "[nama1]!"
+                hide screen enemyhp
+                hide screen healthpoint
                 scene toko
                 with fade
                 a "kamu tertarik ke dunia nyata."
@@ -772,7 +794,201 @@ label act2_connecting_moveset:
     return
 
 label act2_connectingdone:
-    "done"
+    scene lorong
+    mc1 "Hhh... siapa sangka ada virus di sini. Mundur, biar aku pindai untuk berjaga-jaga."
+    italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
+    with hpunch
+    mc1 "Wah?"
+    italic "[nama1] menemukan berkas dengan tanda bootloader."
+    mc1 "Bootloader sudah berhasil di recovery."
+    uefi2 "Baik"
+    italic "[uefi2] mematikan transmisi."
+    uefi2 "Baik, Tuan [nama1], silakan berikan bootloader-nya, saya akan mengantarkannya langsung ke lantai OS."
+    mc1 "Oke, akan kutunggu di Lobi UEFI."
+
+    scene lobiuefi
+    with fade
+    show screen locinfo("Lobi Inisiasi : UEFI")
+    with dissolve
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
+
+    uefi1 "Bootloader sudah diantarkan ke Lantai OS, memulai booting."
+    mc1 "[nama2], bagaimana di luar sana, apa laptop bekerja dengan baik?"
+    mc2 "Sudah bekerja dengan baik, tapi layarnya masih hitam. Mari kita tunggu sebentar lagi."
+
+    $ renpy.pause(3.0, hard=True)
+
+    mc1 "Euh... [nama2]?"
+    mc2 "Haha, memang belum bisa ternyata..."
+
+    jump act2_quiz1
+
+    return
+
+label act2_quiz1:
+    show screen thinkingpoint
+    with dissolve
+
+    mc1 "Jika semua sudah berjalan dengan baik namun hanya layar yang tidak berfungsi, mungkin kita harus mengecek..."
+
+    menu:
+        "Cek kabel monitor":
+            with vpunch
+            mc2 "Bukan kabel... kan, tadi sudah kita cek diawal."
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                mc2 "[nama1]..."
+                jump game_over
+            else:
+                jump act2_quiz1
+            
+        "GPU":
+            mc1 "Mungkin aku harus cek GPU: Studio Visual."
+            $ thinking_value+=5
+
+        "Driver Grafis":
+            with vpunch
+            uefi1 "Yang benar saja, kita bahkan belum bisa masuk ke sistem operasi, jadi, driver belum bisa bekerja."
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                mc2 "[nama1]..."
+                jump game_over
+            else:
+                jump act2_quiz1
+
+    italic "GPU atau Graphic Processing Unit adalah komponen komputer yang berfungsi untuk memproses dan menampilkan grafis, gambar, dan video. Jika GPU tidak bisa bekerja, maka laptop tidak bisa menampilkan informasi."
+
+    mc1 "Minta akses masuk GPU: Studio Visual, [nama2]."
+    mc2 "Sedang diminta."
+    $ renpy.pause(2.5, hard=True)
+    mc2 "Ok, sudah bisa."
+    uefi1 "Sebentar, Tuan, teknisi lain akan mengantar anda."
+    mc1 "Ah, sampaikan padanya untuk menyusul aku di GPU."
+    uefi1 "Baik."
+    italic "[nama1] berjalan menuju GPU melewati lorong."
+
+    hide screen thinkingpoint
+
+    jump act3_gpu
+
+    return
+
+label act3_gpu:
+    #scene gpu
+
+    show screen locinfo("GPU : Studio Visual")
+    with dissolve
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
+
+    italic "Lampu-lampu dalam Studio Visual mulai menyala tanda booting sudah sukses. Di sana, para teknisi segera menyiapkan hal yang diperlukan, seperti menyusun piksel, efek, elemen visual, dan lainnya."
+    mc1 "Hmm?"
+    uefi3 "Ah, halo Tuan."
+    uefi3 "Sedang mengecek Studio Visual, ya."
+    mc1 "..."
+    uefi3 "Kalau begitu, saya permisi dulu."
+    italic "[uefi3] berjalan santai melewati [nama1]."
+    mc1 "..."
+    uefi2 "Permisi Tuan, saya kembali."
+    mc1 "Hei, apa kamu kenal dengan teknisi barusan? Kalian papasan di pintu keluar, kan?"
+    uefi2 "?"
+    uefi2 "Tidak ada yang aneh dari teknisi tadi."
+    italic "[nama1] menepuk dahi dirinya sendiri, merasa bodoh."
+    mc1 "{i}Tentu saja. Mereka kan hanya visualisasi dari NOVA, bukan entitas nyata.{/i}"
+    mc1 "[nama2], aku merasa ada yang mengganjal. Ada salah satu 'teknisi' yang terlihat aneh, seperti dia hanya mondar-mandir tanpa pekerjaan."
+    mc2 "Eeh?"
+
+    jump act3_quiz1
+
+    return
+
+label act3_quiz1:
+    #scene gpu
+    show screen thinkingpoint
+    with dissolve
+
+    mc2 "Jika teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
+
+    menu:   
+        "Firmware":
+            mc1 "Karena Firmware bagaikan protokol resmi. Jika ada masalah pada Firmware, bisa jadi teknisi-teknisi ada yang tidak memiliki pedoman untuk bekerja."
+            mc2 "Benar."
+            $ thinking_value+=5
+
+        "Kerusakan fisik EEPROM":
+            with vpunch
+            mc2 "Kerusakan fisik EEPROM sangat jarang dan biasanya tidak akan menimbulkan kebingungan teknisi, namun kegagalan pembacaan firmware."
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                mc2 "[nama1]..."
+                jump game_over
+            else:
+                jump act3_quiz1
+
+        "RAM berantakan.":
+            with vpunch
+            mc2 "RAM akan mulai terisi saat proses boot, tapi teknisi UEFI tidak    tergantung pada berkas di RAM."
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                mc2 "[nama1]..."
+                jump game_over
+            else:
+                jump act3_quiz1
+    
+    jump act3_quiz2
+    
+    return
+
+label act3_quiz2:
+
+    mc1 "Dan Firmware disimpan di..."
+    
+    menu:
+        "CPU Cache":
+            with vpunch
+            mc2 "CPU Cache adalah memori kecil dan cepat untuk mempercepat proses CPU, bukan tempat menyimpan firmware."
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                mc2 "[nama1]..."
+                jump game_over
+            else:
+                jump act3_quiz2
+
+        "GPU":
+            with vpunch
+            mc2 "Euh... kamu sakit?"
+            with vpunch
+            mc2 "Berapakali kubilang, GPU itu komponen untuk memproses data grafis dan visual!"
+            with vpunch
+            mc2 "Bahkan kamu belum beranjak dari GPU, bisa-bisanya!"
+            with vpunch
+            mc1 "Ampuuun! Ampuuun!!"
+            $ thinking_value-=5
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                mc2 "[nama1]..."
+                jump game_over
+            else:
+                jump act3_quiz2
+        
+        "EEPROM":
+            mc2 "firmware biasanya disimpan di EEPROM — chip memori kecil yang menyimpan kode permanen yang bisa di-update."
+            $ thinking_value+=5
+
     return
 
 label losebattle:
