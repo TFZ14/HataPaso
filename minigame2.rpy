@@ -26,6 +26,7 @@ init python:
                 renpy.jump("manage_complete")
 
 label manage_complete:
+    play sound "sound/システムSE_決定音1.mp3"
     mc1 "Huft..."
     jump act2_ramdone
     return

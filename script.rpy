@@ -83,8 +83,8 @@ screen score():
 label start:
     show screen score
     scene toko
-    play music "Ravioli.mp3" fadeout 2
-    $ renpy.music.set_volume(0.3, 0.6, channel="music")
+    play music "music/Ravioli.mp3" fadein 2
+    $ renpy.music.set_volume(0.4, 0.6, channel="music")
  
 
     show screen locinfo("SchnellFix Service Center")
@@ -138,20 +138,20 @@ label start:
     mc1 "Tentu saja. Bu Mary."
     italic "Ucap [nama1] penuh percaya diri."
 
-    stop music fadeout 3
+    stop music fadeout 2
 
     window hide
 
     show screen mission_splash("Misi SchnellFix Service Center menggunakan teknologi NOVA DIMULAI!")
-    play sound "システム決定音_11.mp3"
+    play sound "sound/システム決定音_11.mp3"
     $ renpy.pause(2.5)
     hide screen mission_splash
 
     scene toko
     with fade
 
-    play music "モノクロライブラリー.mp3" fadeout 2
-    $ renpy.music.set_volume(0.3, channel="music")
+    play music "music/モノクロライブラリー.mp3"
+    $ renpy.music.set_volume(0.4, channel="music")
 
     show screen thinkingpoint
     show friendidle
@@ -175,8 +175,8 @@ label start:
     return
 
 label act1_quiz1:
-    play music "モノクロライブラリー.mp3" fadeout 2
-    $ renpy.music.set_volume(0.3, channel="music")
+    play music "music/モノクロライブラリー.mp3"
+    $ renpy.music.set_volume(0.4, channel="music")
 
     show friendidle2
 
@@ -188,7 +188,7 @@ label act1_quiz1:
             hide friendidle2
             show friendconfuse
             stop music
-            play sound "打撃・ビンタ音.mp3"
+            play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "Oi, oi, yang bener aja..."
             $ thinking_value-=5
@@ -201,7 +201,7 @@ label act1_quiz1:
                 jump act1_quiz1 #Kembali ke menu pilihan
 
         "Cek kabel monitor":
-            play sound "システムSE_決定音1.mp3"
+            play sound "sound/システムSE_決定音1.mp3"
             mc2 "Aah, benar juga, walau bisa menyala, kalau kabel monitor longgar atau rusak, layar tetap mati."
             $ score+=5
 
@@ -209,7 +209,7 @@ label act1_quiz1:
             hide friendidle2
             show friendconfuse
             stop music
-            play sound "打撃・ビンタ音.mp3"
+            play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... langsung banget nih?"
             $ thinking_value-=5
@@ -235,8 +235,8 @@ label act1_quiz1:
     return
 
 label act1_quiz2:
-    play music "モノクロライブラリー.mp3" fadeout 2
-    $ renpy.music.set_volume(0.3, channel="music")
+    play music "music/モノクロライブラリー.mp3"
+    $ renpy.music.set_volume(0.4, channel="music")
 
     show screen thinkingpoint
     scene toko
@@ -249,7 +249,7 @@ label act1_quiz2:
         "UEFI":
             hide friendidle2
             show friendidle
-            play sound "システムSE_決定音1.mp3"
+            play sound "sound/システムSE_決定音1.mp3"
             mc2 "Oooh! Oke, akan ku kirim ke Lobi UEFI, ya!"
             $ score+=5
 
@@ -257,7 +257,7 @@ label act1_quiz2:
             hide friendidle2
             show friendconfuse
             stop music
-            play sound "打撃・ビンタ音.mp3"
+            play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... kayaknya bukan, deh..."
             $ thinking_value-=5
@@ -273,7 +273,7 @@ label act1_quiz2:
             hide friendidle2
             show friendconfuse
             stop music
-            play sound "打撃・ビンタ音.mp3"
+            play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... kayaknya bukan, deh..."
             $ thinking_value-=5
@@ -302,8 +302,8 @@ label act1_quiz2:
 
 label act1_whatsnova:
     scene lorong
-    play music "Tactics.Shimtone.mp3" fadeout 1.0
-    $ renpy.music.set_volume(0.3, channel="music")
+    play music "music/Tactics.Shimtone.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
     
     a "{b}NOVA{/b} atau Neural Operation Virtual Access adalah teknologi terbaru yang akhir-akhir viral, khususnya dikalangan penggiat informatika. Untuk mendapatkan device ini dibutuhkan 6 bulan antri."
 
@@ -319,7 +319,7 @@ label act1_whatsnova:
 
     a "Komponen keempat, {b}EchoLink Hub{/b} yang digunakan asisten dari pemakai NeuroLink USB, digunakan untuk komunikasi dan navigasi dari dunia luar."
 
-    play sound "システム決定音_9.mp3"
+    play sound "sound/システム決定音_9.mp3"
     italic "[nama1] menancapkan NeuroLink USB ke laptop klien lalu memakai NeuroDriver di kepala."
     
     mc1 "Aku serahkan padamu, ya, Tuan Navigator."
@@ -330,7 +330,7 @@ label act1_whatsnova:
 
     italic "[nama2] memakai EchoLink Hub yang terlihat penuh dikepalanya.[nama2] bersiap di set up mejanya untuk memulai menavigasi Diver. [nama1] menyamankan diri di atas kursi malas, memejamkan mata bersiap untuk Diving."
 
-    stop music fadeout 3
+    stop music fadeout 2
 
     jump act1_post
     return
@@ -347,24 +347,26 @@ label act1_post:
     hide screen locinfo
     with dissolve
 
+    play sound "audio/sound/急ぐ足音.mp3"
+    $ renpy.pause(1.0, hard=True)
+    play sound "sound/打撃・ビンタ音.mp3"
     show iotech3
     with hpunch
-    play sound "打撃・ビンタ音.mp3"
 
     mc1 "Aduh!"
-    play sound "打撃・ビンタ音.mp3"
+    play sound "sound/打撃・ビンタ音.mp3"
     uefi3 "Uhh!"
     with hpunch
-    play sound "打撃・ビンタ音.mp3"
     uefi3 "Mohon maaf!"
     hide iotech3
-    with moveinleft
 
-    play sound "どうしたの？？.mp3"
+    play sound "sound/どうしたの？？.mp3"
     mc1 "... dan petugas IO itu pergi begitu saja."
+    mc2 "Ada apa [nama1]?"
+    mc1 "Ga. Gapapa."
 
-    play music "Disital_Delta.mp3" fadeout 1.0
-    $ renpy.music.set_volume(0.3, channel="music")
+    play music "music/Disital_Delta.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
 
     italic "Lobi UEFI terlihat memang terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
 
@@ -373,6 +375,7 @@ label act1_post:
     show iotech1
     with dissolve
 
+    play sound "audio/sound/キーボードで入力する音.mp3"
     uefi1 "Euh..."
 
     italic "Teknisi yang berada dibalik counter terlihat sedikit cemas, apa mungkin ada kendala?"
@@ -381,8 +384,8 @@ label act1_post:
     return
 
 label act1_quiz3:
-    play music "モノクロライブラリー.mp3" fadeout 1
-    $ renpy.music.set_volume(0.3, channel="music")
+    play music "music/モノクロライブラリー.mp3"
+    $ renpy.music.set_volume(0.4, channel="music")
 
     show screen thinkingpoint
     with dissolve
@@ -393,7 +396,7 @@ label act1_quiz3:
         "Komputer kehabisan baterai CMOS":
             with vpunch
             stop music
-            play sound "打撃・ビンタ音.mp3"
+            play sound "sound/打撃・ビンタ音.mp3"
             mc2 "... kayaknya bukan, deh. Baterai CMOS berpengaruh pada penyimpanan pengaturan, bukan langsung ke POST."
             italic "Suara [nama2] berdengung di kepalamu."
             $ thinking_value-=5
@@ -406,7 +409,7 @@ label act1_quiz3:
                 jump act1_quiz3
 
         "Perangkat keras gagal terdeteksi oleh sistem":
-            play sound "システムSE_決定音1.mp3"
+            play sound "sound/システムSE_決定音1.mp3"
             mc2 "Jika {i}Hardware{/i} (perangkat keras) gagal dideteksi oleh sistem saat POST, maka akan gagal booting."
             italic "Suara [nama2] berdengung di kepalamu."
             $ score+=5
@@ -414,7 +417,7 @@ label act1_quiz3:
         "Driver belum diinstal":
             with vpunch
             stop music
-            play sound "打撃・ビンタ音.mp3"
+            play sound "sound/打撃・ビンタ音.mp3"
             mc2 "... hmm, driver penting setelah OS jalan, tapi POST bekerja sebelum sistem operasi aktif."
             italic "Suara [nama2] berdengung di kepalamu."
             $ thinking_value-=5
@@ -428,13 +431,17 @@ label act1_quiz3:
 
     hide screen thinkingpoint
     with dissolve
+    stop music fadeout 2.0
+    play music "music/Disital_Delta.mp3" fadein 1
 
     mc1 "Bagaimana? Apa ada kendala?"
+    play sound "audio/sound/キーボードで入力する音.mp3"
     uefi1 "Ah Tuan [nama1], kami belum dapat laporan status dari CPU..."
     mc1 "Hmm? Baik akan ku cek."
     mc1 "[nama2], bisa aku akses CPU?"
     mc2 "..."
     $ renpy.pause(2.0, hard=True)
+    play sound "audio/sound/システム決定音_9.mp3"
     mc2 "Oke, bisa."
 
     show iotech1:
@@ -449,7 +456,7 @@ label act1_quiz3:
     uefi2 "Mari saya antar."
 
     scene lorong
-    #add sfx langkah disini
+    play sound "audio/sound/ローファー.mp3"
     italic "Menuju Ruang CPU dengan Connecting Bridge."
 
     jump act1_cpu
@@ -457,12 +464,16 @@ label act1_quiz3:
 
 label act1_cpu:
     #scene bg CPU disini
+    play music "music/pandora.mp3"
+    $ renpy.music.set_volume(0.4, channel="music")
+
     show screen locinfo("Ruang Kendali : CPU")
     with dissolve
     $ renpy.pause(2.5)
     hide screen locinfo
     with dissolve
 
+    play sound "sound/え？どうしたの？.mp3"
     mc1 "...!!"
     with hpunch
     mc1 "apa-apaan!"
@@ -481,6 +492,7 @@ label act1_quiz4:
         mc1 "Ternyata, mereka tidak terjadwal dan terkoordinasi dengan baik dikarenakan..."
 
         "RAM tidak cukup besar":
+            play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... kayaknya bukan, deh... RAM memang penting, tapi ini soal koordinasi kerja."
             $ thinking_value-=5
@@ -493,6 +505,7 @@ label act1_quiz4:
                 jump act1_quiz4
 
         "Karena GPU tidak terhubung":
+            play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... hmm, GPU memang penting, tapi ini bukan tugas utamanya..."
             $ thinking_value-=5
@@ -505,6 +518,7 @@ label act1_quiz4:
                 jump act1_quiz4
 
         "Clock Generatornya rusak":
+            play sound "sound/システムSE_決定音1.mp3"
             mc1 "Tanpa Clock Generator yang aktif, tidak ada yang mengatur kapan para pekerja CPU harus bergerak..."
             mc1 "Seperti orkestra tanpa konduktor."
             $ score+=5
@@ -514,6 +528,7 @@ label act1_quiz4:
     hide screen thinkingpoint
     with dissolve
 
+    play sound "audio/sound/ミステリー音.mp3"
     mc1 "...dan Clock Generatornya rusak"
     italic "[nama1] mengurut kening pusing."
 
@@ -542,6 +557,7 @@ label act1_cpudone:
     mc2 "Siap!"
     chiefcpu "Terima kasih. Karena detak jam untuk jadwal kami sudah diperbaiki, kami akan memulai bekerja."
 
+    play sound "audio/sound/ローファー.mp3"
     hide iotechchiefcpu
     with dissolve
 
@@ -552,6 +568,7 @@ label act1_cpudone:
 
     uefi2 "Baik, mari saya antar kembali ke Lobi."
 
+    play sound "audio/sound/ローファー.mp3"
     scene lobiuefi
     with fade
     
@@ -566,8 +583,13 @@ label act1_cpudone:
 
     mc1 "Silakan coba booting lagi"
     uefi1 "Baik."
+    play sound "audio/sound/キーボードで入力する音.mp3"
     italic "[uefi1] mulai menjalankan perintah booting. Namun layar holografik di lobi menunjukkan peringatan merah. [uefi1] mulai terlihat gugup lagi."
+    stop music fadeout 1.0
+    play sound "audio/sound/ミステリー音.mp3"
     uefi1 "I- instruksi booting tidak bisa dilanjutkan."
+    with vpunch
+    play sound "audio/sound/打撃・ビンタ音.mp3"
     mc1 "Eh? Kenapa lagi?"
     uefi1 "CPU melaporkan bahwa instruksi tidak bisa dilanjutkan karena berkas bootloader todak ada di memori."
     mc1 "Tunggu. Kalau begitu... tempat terakhir data berada sebelum eksekusi dimulai adalah RAM, kan?"
@@ -577,6 +599,8 @@ label act1_cpudone:
     return
 
 label act1_quiz5:
+    play music "music/モノクロライブラリー.mp3"
+    $ renpy.music.set_volume(0.4, channel="music")
     show screen thinkingpoint
     with dissolve
 
@@ -584,10 +608,13 @@ label act1_quiz5:
         mc1 "Sumber utama bootloader..."
 
         "SSD":
+            play sound "sound/システムSE_決定音1.mp3"
             mc1 "lebih spesifiknya, bootloader disimpan di partisi khusus ESP dalam SSD atau hard drive"
             $ thinking_value+=5
 
         "RAM":
+            stop music
+            play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             uefi1 "Anu... tadi sudah bicara hal yang sama. Bootloader memang diload di RAM, tapi tempat awalnya bukan dari sana."
             $ thinking_value-=5
@@ -599,6 +626,8 @@ label act1_quiz5:
             else:
                 jump act1_quiz5
         "GPU":
+            stop music
+            play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "Hei! GPU berfungsi untuk rendering grafis, bukan tempat penyimpanan bootloader!"
             $ thinking_value-=5
@@ -619,6 +648,7 @@ label act1_quiz5:
     uefi1 "Baik, Tuan. hati-hati di jalan."
     uefi2 "Akan saya antar, Tuan."
 
+    stop music fadeout 2
     show screen locinfo("Ruang Arsip : RAM")
     with dissolve
     $ renpy.pause(2.5)
@@ -626,14 +656,17 @@ label act1_quiz5:
     with dissolve
 
     with hpunch
+    play sound "sound/え？どうしたの？.mp3"
     mc1 "Astaga, kenapa lagi?!"
     mc2 "Tenang, tenang..."
     italic "Arsip-arsip berhamburan di lantai, beberapa kertas terlihat kusut, bahkan ada yang tercabik-cabik. Namun rak penyimpanan arsip masih terlihat bagus."
     mc1 "..."
+    play music "music/さがしもの.mp3"
     mc1 "..."
     mc1 ".........!"
     mc1 "Hhhh! Oke, saatnya beres-beres dulu..."
     mc2 "... semangat."
+    play sound "sound/打撃・ビンタ音.mp3"
     with hpunch
     mc1 "Ssh!"
     mc1 "Yang nggak bantuin beres-beres diem aja!"
@@ -648,6 +681,8 @@ label act2_ram_minigame:
     return
 
 label act2_ramdone:
+    stop music fadeout 2
+    play music "music/Disital_Delta.mp3" fadein 2
     mc1 "Sudah ku pindai, memang bootloader belum tersalin."
     mc1 "[nama2], apa jalur ke SSD bisa di akses?"
     mc2 "Bisa, namun ada sesuatu yang sedikit aneh. Beberapa kali peta di lorong menuju SSD glitch."
@@ -657,6 +692,7 @@ label act2_ramdone:
     mc2 "Oke."
     a "{b}Debugging Tool{/b} digunakan untuk mendeteksi, menganalisis, dan memperbaiki kesalahan (bug) dalam program atau sistem, seperti menampilkan error, melacak alur program, memeriksa nilai variabel saat program, berjalan, dan lainnya."
     a "NOVA memberikan bentuk Debugging Tool sebagai senjata (weapon) yang digunakan Diver untuk mengatasi bug dalam sistem. Bentuknya menyerupai kursor raksasa, digunakan bagai pisau bilah pendek."
+    play sound "audio/sound/システム決定音_9.mp3"
     mc2 "Akses sudah di approve, ya. Jangan sembarangan dipakai."
     mc1 "Oke, terima kasih."
     uefi2 "Anu, kertas-kertas yang tercabik ini dikemanakan, Tuan?"
@@ -667,6 +703,7 @@ label act2_ramdone:
     mc2 "Hmm? Aneh."
     mc2 "NOVA seharusnya hanya menyajikan simulasi visual untuk memudahkan pemahaman sehingga semua benda di-generate dalam kondisi ideal, bukan tampilan yang menunjukkan kerusakan fisik seperti kertas robek."
     mc1 "Kan? Ada yang janggal."
+    play sound "audio/sound/システム決定音_9.mp3"
     mc2 "Ah!"
     mc2 "Sudah selesai ku pindai, tidak ada yang aneh. Langsung pergi juga tak apa."
 

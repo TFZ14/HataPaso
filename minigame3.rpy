@@ -27,7 +27,9 @@ init python:
 
 label reassemble_complete:
     scene room
+    play sound "sound/システムSE_決定音1.mp3"
     mc1 "Hmm? Apa ini?"
+    play sound "audio/sound/本をめくる音・閉じる音.mp3"
     show full-page
     with dissolve
     $ renpy.pause(2.5)
