@@ -173,126 +173,8 @@ label start:
 
     jump act1_quiz1
     return
-
-label act1_quiz1:
-    play music "music/モノクロライブラリー.mp3"
-    $ renpy.music.set_volume(0.4, channel="music")
-
-    show friendidle2
-
-    menu:
-        
-        mc2 "hmm... pertama-tama, kita cek apanya dulu, ya?"
-
-        "Ganti RAM":
-            hide friendidle2
-            show friendconfuse
-            stop music
-            play sound "sound/打撃・ビンタ音.mp3"
-            with vpunch
-            mc2 "Oi, oi, yang bener aja..."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz1 #Kembali ke menu pilihan
-
-        "Cek kabel monitor":
-            play sound "sound/システムSE_決定音1.mp3"
-            mc2 "Aah, benar juga, walau bisa menyala, kalau kabel monitor longgar atau rusak, layar tetap mati."
-            $ score+=5
-
-        "Reset UEFI":
-            hide friendidle2
-            show friendconfuse
-            stop music
-            play sound "sound/打撃・ビンタ音.mp3"
-            with vpunch
-            mc2 "... langsung banget nih?"
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz1
-
-    hide friendidle2
-    show friendidle
-
-    italic "Aku dan [nama2] membongkar dan mengecek hardware laptop Bu Mary, namun semuanya terlihat baik-baik saja, hanya butuh sedikit bersih-bersih saja."
-
-    hide friendidle
-    show friendidle2
-    mc2 "Hhh... kalau sudah begini, saatnya lihat dari dalam."
-
-    jump act1_quiz2
-
-    return
-
-label act1_quiz2:
-    play music "music/モノクロライブラリー.mp3"
-    $ renpy.music.set_volume(0.4, channel="music")
-
-    show screen thinkingpoint
-    scene toko
-
-    show friendidle2
-
-    menu:
-        mc2 "Benar, mungkin bisa kita urut dari awal seperti POST {i}(Power-On Self Test) yang dilakukan oleh...{/i}"
-
-        "UEFI":
-            hide friendidle2
-            show friendidle
-            play sound "sound/システムSE_決定音1.mp3"
-            mc2 "Oooh! Oke, akan ku kirim ke Lobi UEFI, ya!"
-            $ score+=5
-
-        "CPU":
-            hide friendidle2
-            show friendconfuse
-            stop music
-            play sound "sound/打撃・ビンタ音.mp3"
-            with vpunch
-            mc2 "... kayaknya bukan, deh..."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz2 #Kembali ke menu pilihan
-
-        "ALU":
-            hide friendidle2
-            show friendconfuse
-            stop music
-            play sound "sound/打撃・ビンタ音.mp3"
-            with vpunch
-            mc2 "... kayaknya bukan, deh..."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz2 #Kembali ke menu pilihan
-    
-    mc1 "Ok, aku siapkan NOVA-nya."
-    hide screen thinkingpoint
-    with dissolve
-
-    stop music fadeout 3
-
-    jump act1_whatsnova
-    return
+#act1_quiz1
+#act1_quiz2
 
 #label opening:
     $ renpy.movie_cutscene("oa4_launch.webm")
@@ -302,6 +184,7 @@ label act1_quiz2:
 
 label act1_whatsnova:
     scene lorong
+    with fade
     play music "music/Tactics.Shimtone.mp3" fadein 1.0
     $ renpy.music.set_volume(0.4, channel="music")
     
@@ -337,6 +220,7 @@ label act1_whatsnova:
 
 label act1_post:
     scene lobiuefi
+    with fade
 
     show screen locinfo("Lobi Inisiasi : UEFI")
     with dissolve
@@ -362,7 +246,9 @@ label act1_post:
 
     play sound "sound/どうしたの？？.mp3"
     mc1 "... dan petugas IO itu pergi begitu saja."
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Ada apa [nama1]?"
+    italic "Suara [nama2] berdengung di kepalamu karena jalur komunikasi langsung dari otak ke otak."
     mc1 "Ga. Gapapa."
 
     play music "music/Disital_Delta.mp3" fadein 1.0
@@ -382,85 +268,7 @@ label act1_post:
 
     jump act1_quiz3
     return
-
-label act1_quiz3:
-    play music "music/モノクロライブラリー.mp3"
-    $ renpy.music.set_volume(0.4, channel="music")
-
-    show screen thinkingpoint
-    with dissolve
-    
-    menu :
-        mc1 "Biasanya, jika POST di UEFI memiliki kendala, itu karena..."
-
-        "Komputer kehabisan baterai CMOS":
-            with vpunch
-            stop music
-            play sound "sound/打撃・ビンタ音.mp3"
-            mc2 "... kayaknya bukan, deh. Baterai CMOS berpengaruh pada penyimpanan pengaturan, bukan langsung ke POST."
-            italic "Suara [nama2] berdengung di kepalamu."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value <= 0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz3
-
-        "Perangkat keras gagal terdeteksi oleh sistem":
-            play sound "sound/システムSE_決定音1.mp3"
-            mc2 "Jika {i}Hardware{/i} (perangkat keras) gagal dideteksi oleh sistem saat POST, maka akan gagal booting."
-            italic "Suara [nama2] berdengung di kepalamu."
-            $ score+=5
-
-        "Driver belum diinstal":
-            with vpunch
-            stop music
-            play sound "sound/打撃・ビンタ音.mp3"
-            mc2 "... hmm, driver penting setelah OS jalan, tapi POST bekerja sebelum sistem operasi aktif."
-            italic "Suara [nama2] berdengung di kepalamu."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz3
-
-    hide screen thinkingpoint
-    with dissolve
-    stop music fadeout 2.0
-    play music "music/Disital_Delta.mp3" fadein 1
-
-    mc1 "Bagaimana? Apa ada kendala?"
-    play sound "audio/sound/キーボードで入力する音.mp3"
-    uefi1 "Ah Tuan [nama1], kami belum dapat laporan status dari CPU..."
-    mc1 "Hmm? Baik akan ku cek."
-    mc1 "[nama2], bisa aku akses CPU?"
-    mc2 "..."
-    $ renpy.pause(2.0, hard=True)
-    play sound "audio/sound/システム決定音_9.mp3"
-    mc2 "Oke, bisa."
-
-    show iotech1:
-        xalign 0.2
-        yalign 1.0
-    with moveinleft
-    show iotech2:
-        xalign 0.8
-        yalign 1.0
-    with moveinright
-
-    uefi2 "Mari saya antar."
-
-    scene lorong
-    play sound "audio/sound/ローファー.mp3"
-    italic "Menuju Ruang CPU dengan Connecting Bridge."
-
-    jump act1_cpu
-    return
+#act1_quiz3
 
 label act1_cpu:
     #scene bg CPU disini
@@ -477,70 +285,14 @@ label act1_cpu:
     mc1 "...!!"
     with hpunch
     mc1 "apa-apaan!"
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "kenapa [nama1]? Ada apa?"
     italic "Ruang CPU dipenuhi oleh pekerja yang berbaris rapih menghadap ke arah yang sama. Mereka diam seribu bahasa, mengantisipasi perintah yang entah kapan munculnya, tidak seperti petugas IO di Lobi UEFI yang sibuk berlalu-lalang."
     mc1 "Aah! Pantas saja Lobi UEFI tidak dapat kabar dari CPU..."
 
     jump act1_quiz4
     return
-
-label act1_quiz4:
-    show screen thinkingpoint
-    with dissolve
-
-    menu:
-        mc1 "Ternyata, mereka tidak terjadwal dan terkoordinasi dengan baik dikarenakan..."
-
-        "RAM tidak cukup besar":
-            play sound "sound/打撃・ビンタ音.mp3"
-            with vpunch
-            mc2 "... kayaknya bukan, deh... RAM memang penting, tapi ini soal koordinasi kerja."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<= 0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz4
-
-        "Karena GPU tidak terhubung":
-            play sound "sound/打撃・ビンタ音.mp3"
-            with vpunch
-            mc2 "... hmm, GPU memang penting, tapi ini bukan tugas utamanya..."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz4
-
-        "Clock Generatornya rusak":
-            play sound "sound/システムSE_決定音1.mp3"
-            mc1 "Tanpa Clock Generator yang aktif, tidak ada yang mengatur kapan para pekerja CPU harus bergerak..."
-            mc1 "Seperti orkestra tanpa konduktor."
-            $ score+=5
-
-    italic "Clock Generator menentukan kecepatan kerja komponen dalam satuan MHz atau GHz. Clock Generator mengirim sinyal denyut {i}(clock pulse){/i} agar data diproses secara teratur dan terkoordinasi."
-
-    hide screen thinkingpoint
-    with dissolve
-
-    play sound "audio/sound/ミステリー音.mp3"
-    mc1 "...dan Clock Generatornya rusak"
-    italic "[nama1] mengurut kening pusing."
-
-    show iotechchiefcpu
-    with dissolve
-
-    chiefcpu "Tuan [nama1], sepertinya ada yang salah dengan Clock Generator-nya."
-    mc1 "Ya, aku bisa lihat. Coba aku cek dulu, dimana panel kontrolnya?"
-    chiefcpu "Sebelah sini..."
-
-    jump act1_cpu_minigame
-    return
+#act1_quiz4
 
 label act1_cpu_minigame:
     $ setup_cable_game()
@@ -549,12 +301,13 @@ label act1_cpu_minigame:
 
 label act1_cpudone:
     hide cable_game_success
-    
-    show iotechchiefcpu
 
     mc1 "Untung hanya masalah sedikit, tidak sampai perlu ganti komponennya di dunia nyata."
     mc1 "[nama2], catat untuk Bu Mary, kalau pakai laptop, pastikan sumber listriknya stabil. Tegangan yang nggak stabil bisa bikin clock generator error."
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Siap!"
+    show iotechchiefcpu
+    with dissolve
     chiefcpu "Terima kasih. Karena detak jam untuk jadwal kami sudah diperbaiki, kami akan memulai bekerja."
 
     play sound "audio/sound/ローファー.mp3"
@@ -597,83 +350,7 @@ label act1_cpudone:
 
     jump act1_quiz5
     return
-
-label act1_quiz5:
-    play music "music/モノクロライブラリー.mp3"
-    $ renpy.music.set_volume(0.4, channel="music")
-    show screen thinkingpoint
-    with dissolve
-
-    menu:
-        mc1 "Sumber utama bootloader..."
-
-        "SSD":
-            play sound "sound/システムSE_決定音1.mp3"
-            mc1 "lebih spesifiknya, bootloader disimpan di partisi khusus ESP dalam SSD atau hard drive"
-            $ thinking_value+=5
-
-        "RAM":
-            stop music
-            play sound "sound/打撃・ビンタ音.mp3"
-            with vpunch
-            uefi1 "Anu... tadi sudah bicara hal yang sama. Bootloader memang diload di RAM, tapi tempat awalnya bukan dari sana."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz5
-        "GPU":
-            stop music
-            play sound "sound/打撃・ビンタ音.mp3"
-            with vpunch
-            mc2 "Hei! GPU berfungsi untuk rendering grafis, bukan tempat penyimpanan bootloader!"
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act1_quiz5
-
-    italic "ESP atau Extensible Firmware Interface System Partition adalah partisi khusus pada hard drive yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
-
-    hide screen thinkingpoint
-    with dissolve
-
-    mc1 "Aku mau cek RAM dulu. Kalau memang bootloadernya belum tersalin, akan ku cek SSD."
-    uefi1 "Baik, Tuan. hati-hati di jalan."
-    uefi2 "Akan saya antar, Tuan."
-
-    stop music fadeout 2
-    show screen locinfo("Ruang Arsip : RAM")
-    with dissolve
-    $ renpy.pause(2.5)
-    hide screen locinfo
-    with dissolve
-
-    with hpunch
-    play sound "sound/え？どうしたの？.mp3"
-    mc1 "Astaga, kenapa lagi?!"
-    mc2 "Tenang, tenang..."
-    italic "Arsip-arsip berhamburan di lantai, beberapa kertas terlihat kusut, bahkan ada yang tercabik-cabik. Namun rak penyimpanan arsip masih terlihat bagus."
-    mc1 "..."
-    play music "music/さがしもの.mp3"
-    mc1 "..."
-    mc1 ".........!"
-    mc1 "Hhhh! Oke, saatnya beres-beres dulu..."
-    mc2 "... semangat."
-    play sound "sound/打撃・ビンタ音.mp3"
-    with hpunch
-    mc1 "Ssh!"
-    mc1 "Yang nggak bantuin beres-beres diem aja!"
-    uefi2 "Akan saya bantu, Tuan."
-
-    jump act2_ram_minigame
-    return
+#act1_quiz5
 
 label act2_ram_minigame:
     $ setup_files()
@@ -685,10 +362,13 @@ label act2_ramdone:
     play music "music/Disital_Delta.mp3" fadein 2
     mc1 "Sudah ku pindai, memang bootloader belum tersalin."
     mc1 "[nama2], apa jalur ke SSD bisa di akses?"
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Bisa, namun ada sesuatu yang sedikit aneh. Beberapa kali peta di lorong menuju SSD glitch."
     mc1 "Glitch? Oke, terimakasih infonya. Kalau begitu, aku minta akses debugging tool."
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Hm? Apa ada firasat?"
     mc1 "Untuk jaga-jaga."
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Oke."
     a "{b}Debugging Tool{/b} digunakan untuk mendeteksi, menganalisis, dan memperbaiki kesalahan (bug) dalam program atau sistem, seperti menampilkan error, melacak alur program, memeriksa nilai variabel saat program, berjalan, dan lainnya."
     a "NOVA memberikan bentuk Debugging Tool sebagai senjata (weapon) yang digunakan Diver untuk mengatasi bug dalam sistem. Bentuknya menyerupai kursor raksasa, digunakan bagai pisau bilah pendek."
@@ -700,11 +380,14 @@ label act2_ramdone:
     mc1 "Sebentar, ya..."
     italic "Lebih baik tanya [nama2] dulu..."
     mc1 "[nama2], waktu aku membereskan Ruang Arsip RAM, ada visualisasi berkas yang tampak seperti kertas robek. coba pindai dari sebelah sana sebagai Navigator, apa ada sesuatu yang kurang atau ada keanehan?"
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Hmm? Aneh."
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "NOVA seharusnya hanya menyajikan simulasi visual untuk memudahkan pemahaman sehingga semua benda di-generate dalam kondisi ideal, bukan tampilan yang menunjukkan kerusakan fisik seperti kertas robek."
     mc1 "Kan? Ada yang janggal."
-    play sound "audio/sound/システム決定音_9.mp3"
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Ah!"
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Sudah selesai ku pindai, tidak ada yang aneh. Langsung pergi juga tak apa."
 
     menu:
@@ -731,6 +414,8 @@ label act2_ram_hint:
     return
 
 label act2_connecting:
+    play music "music/pandora.mp3" fadein 2
+    $ renpy.music.set_volume(0.4, channel="music")
     scene lorong
     show screen locinfo("Connecting Bridge")
     with dissolve
@@ -740,6 +425,7 @@ label act2_connecting:
 
     show iotech3
     uefi3 "!"
+    play sound "audio/sound/打撃・ビンタ音.mp3"
     with hpunch
     uefi3 "Tolong kembali! Disini ada Teknisi IO yang terkena virus!"
     mc1 "Eh?"
@@ -747,7 +433,11 @@ label act2_connecting:
     with dissolve
     show iotech2
     with dissolve
-    uefi2 "Kami tidak deteksi apa-apa sebelumnya, akan kami laporkan ke front."
+    uefi2 "Kami tidak deteksi apa-apa sebelumnya. Saya laporkan pada front."
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    italic "[uefi2] melaporkan situasi melewati radio komunikasi."
+    uefi2 "Permisi, saya harus ambil alat-alat pencegahan dari front."
+    play sound "audio/sound/急ぐ足音.mp3"
     hide iotech2
     with dissolve
     mc1 "Minggir, akan kuselesaikan."
@@ -757,6 +447,7 @@ label act2_connecting:
     return
 
 label act2_connecting_minigame:
+    play sound "audio/sound/システム決定音_11.mp3"
     show screen mission_splash("Battle Start!")
     $ renpy.pause(2.5)
     hide screen mission_splash
@@ -765,123 +456,13 @@ label act2_connecting_minigame:
 
     return
 
-label act2_connecting_moveset:
-    scene lorong
-    show screen healthpoint
-    show screen enemyhp
-
-    #satu
-    menu:
-        "Serang":
-            with vpunch
-            $ health_value-=10
-            $ enemyhp_value-=10
-            if health_value<=0 and enemyhp_value<=0:
-                a "kalian berdua mati bersama."
-                hide screen enemyhp
-                hide screen healthpoint
-                mc2 "[nama1]!"
-                scene toko
-                with fade
-                a "kamu tertarik ke dunia nyata."
-                jump losebattle
-            elif enemyhp_value<=0:
-                mc1 "Anomali telah dikalahkan."
-                $ renpy.pause(1.0)
-                hide screen enemyhp
-                hide screen healthpoint
-                jump act2_connectingdone
-            elif health_value<=0:
-                mc2 "[nama1]!"
-                hide screen enemyhp
-                hide screen healthpoint
-                scene toko
-                with fade
-                a "kamu tertarik ke dunia nyata."
-                jump losebattle
-            else:
-                window hide
-                a "Kalian sama-sama menyerang."        
-        "Tahan":
-            with hpunch
-            a "Musuh menyerang, kamu bertahan."
-            window hide
-            
-    #dua
-    menu:
-        "Serang":
-            with vpunch
-            $ health_value-=10
-            $ enemyhp_value-=10
-            if health_value<=0 and enemyhp_value<=0:
-                a "kalian berdua mati bersama."
-                mc2 "[nama1]!"
-                hide screen enemyhp
-                hide screen healthpoint
-                scene toko
-                with fade
-                a "kamu tertarik ke dunia nyata."
-                jump losebattle
-            elif enemyhp_value<=0:
-                mc1 "Anomali telah dikalahkan."
-                hide screen enemyhp
-                hide screen healthpoint
-                jump act2_connectingdone
-            elif health_value<=0:
-                mc2 "[nama1]!"
-                hide screen enemyhp
-                hide screen healthpoint
-                scene toko
-                with fade
-                a "kamu tertarik ke dunia nyata."
-                jump losebattle
-            else:
-                a "Kalian sama-sama menyerang."
-                window hide  
-        "Tahan":
-            with hpunch
-            a "Musuh menyerang, kamu bertahan."
-            window hide
-            
-    #tiga
-    menu:
-        "Serang":
-            with vpunch
-            $ enemyhp_value-=15
-            if health_value<=0 and enemyhp_value<=0:
-                a "kalian berdua mati bersama."
-                mc2 "[nama1]!"
-                hide screen enemyhp
-                hide screen healthpoint
-                scene toko
-                with fade
-                a "kamu tertarik ke dunia nyata."
-                jump losebattle
-            elif enemyhp_value<=0:
-                mc1 "Anomali telah dikalahkan."
-                hide screen enemyhp
-                hide screen healthpoint
-                jump act2_connectingdone
-            elif health_value<=0:
-                mc2 "[nama1]!"
-                hide screen enemyhp
-                hide screen healthpoint
-                scene toko
-                with fade
-                a "kamu tertarik ke dunia nyata."
-                jump losebattle
-            else:
-                a "Seranganmu berhasil mengenai musuh."
-                window hide
-        "Tahan":
-            a "Kamu bertahan namun musuh tidak menyerang."
-            window hide
-
-    jump act2_connecting_moveset
-    return
-
 label act2_connectingdone:
     scene lorong
+    with fade
+
+    hide screen healthpoint
+    hide screen enemyhp
+
     mc1 "Hhh... siapa sangka ada virus di sini. Mundur, biar aku pindai untuk berjaga-jaga."
     italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
     with hpunch
@@ -889,9 +470,12 @@ label act2_connectingdone:
     italic "[nama1] menemukan berkas dengan tanda bootloader."
     mc1 "Bootloader sudah berhasil di recovery."
     uefi2 "Baik"
+    play sound "audio/sound/LAPUTA_alert.mp3"
     italic "[uefi2] mematikan transmisi."
     uefi2 "Baik, Tuan [nama1], silakan berikan bootloader-nya, saya akan mengantarkannya langsung ke lantai OS."
     mc1 "Oke, akan kutunggu di Lobi UEFI."
+
+    play sound "audio/sound/ローファー.mp3"
 
     scene lobiuefi
     with fade
@@ -903,68 +487,19 @@ label act2_connectingdone:
 
     uefi1 "Bootloader sudah diantarkan ke Lantai OS, memulai booting."
     mc1 "[nama2], bagaimana di luar sana, apa laptop bekerja dengan baik?"
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Sudah bekerja dengan baik, tapi layarnya masih hitam. Mari kita tunggu sebentar lagi."
 
     $ renpy.pause(3.0, hard=True)
 
     mc1 "Euh... [nama2]?"
+    play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Haha, memang belum bisa ternyata..."
 
     jump act2_quiz1
 
     return
-
-label act2_quiz1:
-    show screen thinkingpoint
-    with dissolve
-
-    mc1 "Jika semua sudah berjalan dengan baik namun hanya layar yang tidak berfungsi, mungkin kita harus mengecek..."
-
-    menu:
-        "Cek kabel monitor":
-            with vpunch
-            mc2 "Bukan kabel... kan, tadi sudah kita cek diawal."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act2_quiz1
-            
-        "GPU":
-            mc1 "Mungkin aku harus cek GPU: Studio Visual."
-            $ thinking_value+=5
-
-        "Driver Grafis":
-            with vpunch
-            uefi1 "Yang benar saja, kita bahkan belum bisa masuk ke sistem operasi, jadi, driver belum bisa bekerja."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act2_quiz1
-
-    italic "GPU atau Graphic Processing Unit adalah komponen komputer yang berfungsi untuk memproses dan menampilkan grafis, gambar, dan video. Jika GPU tidak bisa bekerja, maka laptop tidak bisa menampilkan informasi."
-
-    mc1 "Minta akses masuk GPU: Studio Visual, [nama2]."
-    mc2 "Sedang diminta."
-    $ renpy.pause(2.5, hard=True)
-    mc2 "Ok, sudah bisa."
-    uefi1 "Sebentar, Tuan, teknisi lain akan mengantar anda."
-    mc1 "Ah, sampaikan padanya untuk menyusul aku di GPU."
-    uefi1 "Baik."
-    italic "[nama1] berjalan menuju GPU melewati lorong."
-
-    hide screen thinkingpoint
-
-    jump act3_gpu
-
-    return
+#act2_quiz1
 
 label act3_gpu:
     #scene gpu
@@ -979,6 +514,7 @@ label act3_gpu:
     mc1 "Hmm?"
     uefi3 "Ah, halo Tuan."
     uefi3 "Sedang mengecek Studio Visual, ya."
+    play sound "audio/sound/ミステリー音.mp3"
     mc1 "..."
     uefi3 "Kalau begitu, saya permisi dulu."
     italic "[uefi3] berjalan santai melewati [nama1]."
@@ -995,88 +531,11 @@ label act3_gpu:
     jump act3_quiz1
 
     return
+#act3_quiz1
+#act3_quiz2
 
-label act3_quiz1:
-    #scene gpu
-    show screen thinkingpoint
-    with dissolve
-
-    mc2 "Jika teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
-
-    menu:   
-        "Firmware":
-            mc1 "Karena Firmware bagaikan protokol resmi. Jika ada masalah pada Firmware, bisa jadi teknisi-teknisi ada yang tidak memiliki pedoman untuk bekerja."
-            mc2 "Benar."
-            $ thinking_value+=5
-
-        "Kerusakan fisik EEPROM":
-            with vpunch
-            mc2 "Kerusakan fisik EEPROM sangat jarang dan biasanya tidak akan menimbulkan kebingungan teknisi, namun kegagalan pembacaan firmware."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act3_quiz1
-
-        "RAM berantakan.":
-            with vpunch
-            mc2 "RAM akan mulai terisi saat proses boot, tapi teknisi UEFI tidak    tergantung pada berkas di RAM."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act3_quiz1
-    
-    jump act3_quiz2
-    
-    return
-
-label act3_quiz2:
-
-    mc1 "Dan Firmware disimpan di..."
-    
-    menu:
-        "CPU Cache":
-            with vpunch
-            mc2 "CPU Cache adalah memori kecil dan cepat untuk mempercepat proses CPU, bukan tempat menyimpan firmware."
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act3_quiz2
-
-        "GPU":
-            with vpunch
-            mc2 "Euh... kamu sakit?"
-            with vpunch
-            mc2 "Berapakali kubilang, GPU itu komponen untuk memproses data grafis dan visual!"
-            with vpunch
-            mc2 "Bahkan kamu belum beranjak dari GPU, bisa-bisanya!"
-            with vpunch
-            mc1 "Ampuuun! Ampuuun!!"
-            $ thinking_value-=5
-            $ score-=5
-            if thinking_value<=0 or score<=0:
-                $ thinking_value-=100
-                mc2 "[nama1]..."
-                jump game_over
-            else:
-                jump act3_quiz2
-        
-        "EEPROM":
-            mc2 "firmware biasanya disimpan di EEPROM — chip memori kecil yang menyimpan kode permanen yang bisa di-update."
-            $ thinking_value+=5
-
-    return
+label act3_eeprom:
+    #scene eeprom
 
 label losebattle:
     "kalah lawan anomali"

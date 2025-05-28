@@ -202,8 +202,12 @@ init python:
                     renpy.jump("cable_game_success")
 
 label cable_game_success:
-    play music "music/Disital_Delta.mp3" fadein 1.0
-    $ renpy.music.set_volume(0.4, channel="music")
+    hide iotechchiefcpu
     play sound "sound/システムSE_決定音1.mp3"
     mc1 "kabel selesai"
+    play sound "audio/sound/時計が秒針を刻む音.mp3"
+    $ renpy.pause(2.5, hard=True)
+    stop sound
+    play music "music/Disital_Delta.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
     jump act1_cpudone

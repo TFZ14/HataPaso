@@ -27,6 +27,7 @@ init python:
 
 label reassemble_complete:
     scene room
+    stop music fadeout 2.0
     play sound "sound/システムSE_決定音1.mp3"
     mc1 "Hmm? Apa ini?"
     play sound "audio/sound/本をめくる音・閉じる音.mp3"
@@ -39,6 +40,7 @@ label reassemble_complete:
 
     show screen thinkingpoint
     with dissolve
+    play sound "audio/sound/システム決定音_9.mp3"
     italic "Menerima info baru, Thinking Point bertambah +5."
     $ thinking_value+=5
     hide screen thinkingpoint
