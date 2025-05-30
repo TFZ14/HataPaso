@@ -406,7 +406,7 @@ label act3_quiz1:
     show screen thinkingpoint
     with dissolve
 
-    mc2 "Jika teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
+    mc2 "Jika ada teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
 
     menu:   
         "Firmware":

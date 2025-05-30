@@ -283,6 +283,7 @@ label act1_cpu:
 
     play sound "sound/え？どうしたの？.mp3"
     mc1 "...!!"
+    play sound "audio/sound/打撃・ビンタ音.mp3"
     with hpunch
     mc1 "apa-apaan!"
     play sound "audio/sound/LAPUTA_alert.mp3"
@@ -341,8 +342,8 @@ label act1_cpudone:
     stop music fadeout 1.0
     play sound "audio/sound/ミステリー音.mp3"
     uefi1 "I- instruksi booting tidak bisa dilanjutkan."
-    with vpunch
     play sound "audio/sound/打撃・ビンタ音.mp3"
+    with vpunch
     mc1 "Eh? Kenapa lagi?"
     uefi1 "CPU melaporkan bahwa instruksi tidak bisa dilanjutkan karena berkas bootloader todak ada di memori."
     mc1 "Tunggu. Kalau begitu... tempat terakhir data berada sebelum eksekusi dimulai adalah RAM, kan?"
@@ -440,6 +441,8 @@ label act2_connecting:
     play sound "audio/sound/急ぐ足音.mp3"
     hide iotech2
     with dissolve
+    show mcnovafight
+    with dissolve
     mc1 "Minggir, akan kuselesaikan."
 
     jump act2_connecting_minigame
@@ -466,8 +469,13 @@ label act2_connectingdone:
     mc1 "Hhh... siapa sangka ada virus di sini. Mundur, biar aku pindai untuk berjaga-jaga."
     italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
     with hpunch
+    play sound "audio/sound/ミステリー音.mp3"
     mc1 "Wah?"
     italic "[nama1] menemukan berkas dengan tanda bootloader."
+
+    play music "audio/music/Disital_Delta.mp3"
+    $ renpy.music.set_volume(0.4, channel="music")
+
     mc1 "Bootloader sudah berhasil di recovery."
     uefi2 "Baik"
     play sound "audio/sound/LAPUTA_alert.mp3"
@@ -504,6 +512,7 @@ label act2_connectingdone:
 label act3_gpu:
     #scene gpu
 
+    play sound "audio/sound/ローファー.mp3"
     show screen locinfo("GPU : Studio Visual")
     with dissolve
     $ renpy.pause(2.5)
@@ -514,6 +523,7 @@ label act3_gpu:
     mc1 "Hmm?"
     uefi3 "Ah, halo Tuan."
     uefi3 "Sedang mengecek Studio Visual, ya."
+    stop music fadeout 2
     play sound "audio/sound/ミステリー音.mp3"
     mc1 "..."
     uefi3 "Kalau begitu, saya permisi dulu."
@@ -523,10 +533,16 @@ label act3_gpu:
     mc1 "Hei, apa kamu kenal dengan teknisi barusan? Kalian papasan di pintu keluar, kan?"
     uefi2 "?"
     uefi2 "Tidak ada yang aneh dari teknisi tadi."
+    play sound "audio/sound/打撃・ビンタ音.mp3"
+    with hpunch
     italic "[nama1] menepuk dahi dirinya sendiri, merasa bodoh."
     mc1 "{i}Tentu saja. Mereka kan hanya visualisasi dari NOVA, bukan entitas nyata.{/i}"
     mc1 "[nama2], aku merasa ada yang mengganjal. Ada salah satu 'teknisi' yang terlihat aneh, seperti dia hanya mondar-mandir tanpa pekerjaan."
-    mc2 "Eeh?"
+    mc1 "Kulihat ada beberapa, mungkin tidak banyak, namun ada. Sesuatu yang janggal terjadi pada Teknisi IO untuk bersantai atau mondar-mandir, bukan? Mereka juga bukan manusia, untuk apa melakukan itu semua?"
+    play sound "audio/sound/ミステリー音.mp3"
+    mc2 "Eeh? Masuk akal."
+
+    stop music fadeout 2.0
 
     jump act3_quiz1
 
@@ -536,6 +552,42 @@ label act3_gpu:
 
 label act3_eeprom:
     #scene eeprom
+    play music "audio/music/Another_World.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
+
+    italic "[nama1] terdiam sedikit lebih lama untuk berpikir."
+    mc1 "Kamu,"
+    show iotech2
+    with dissolve
+    uefi2 "Ya?"
+    mc1 "Coba antar aku ke Ruang Archive Protokol Firmware : EEPROM."
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "Apa ada ide?"
+    play sound "audio/sound/システム決定音_9.mp3"
+    italic "Suara 'approve' terdengar walau [nama1] belum meminta akses menuju EEPROM."
+    mc1 "Aku mau cek sesuatu."
+
+    play sound "audio/sound/ローファー.mp3"
+    show screen locinfo("Ruang Archive Protokol Firmware : EEPROM")
+    with dissolve
+    $ renpy.pause(2.5)
+    hide screen locinfo
+    with dissolve
+
+    italic "[nama1] membukan laci satu dan lainnya, mencari sesuatu."
+    play sound "audio/sound/ミステリー音.mp3"
+    mc1 "Ah! Akhirnya ketemu."
+    italic "[nama1] mengeluarkan debugging toolnya lagi untuk memindai dokumen itu."
+    mc1 "Ketakutanku terbukti. Signature pada firmware ini rusak."
+    play soun "audio/sound/ミステリー音.mp3"
+    with hpunch
+    mc2 "Rusak??"
+    a "{b}Signature{/b} merujuk pada tanda tangan digital yang digunakan untuk memverifikasi bahwa firmware berasal dari sumber resmi dan belum mengalami perubahan sejak dibuat."
+    a "Signature dalam firmware tergantung pada vendor pembuatnya. Jika tanda tangan digital ini berbeda, bahkan sedikit saja, maka firmware tersebut bisa dianggap tidak asli, rusak, termodifikasi, atau terinfeksi malware."
+
+    return
+
+
 
 label losebattle:
     "kalah lawan anomali"
