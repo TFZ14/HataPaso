@@ -116,6 +116,7 @@ label act1_quiz2:
     stop music fadeout 3
 
     jump act1_whatsnova
+    #jump opening
     return
 
 label act1_quiz3:

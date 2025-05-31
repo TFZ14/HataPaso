@@ -1,6 +1,5 @@
 label act2_connecting_moveset:
     scene lorong
-    with fade
     show screen healthpoint
     show screen enemyhp
 

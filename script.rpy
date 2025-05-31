@@ -443,7 +443,11 @@ label act2_connecting:
     with dissolve
     show mcnovafight
     with dissolve
+    play sound "audio/sound/打撃・ビンタ音.mp3"
+    with hpunch
     mc1 "Minggir, akan kuselesaikan."
+    
+    stop music fadeout 2.0
 
     jump act2_connecting_minigame
     
@@ -454,6 +458,9 @@ label act2_connecting_minigame:
     show screen mission_splash("Battle Start!")
     $ renpy.pause(2.5)
     hide screen mission_splash
+
+    play music "audio/music/Certain_Curse.mp3" fadein 1
+    $ renpy.music.set_volume(0.4, channel="music")
 
     jump act2_connecting_moveset
 
@@ -469,11 +476,12 @@ label act2_connectingdone:
     mc1 "Hhh... siapa sangka ada virus di sini. Mundur, biar aku pindai untuk berjaga-jaga."
     italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
     with hpunch
+    stop music
     play sound "audio/sound/ミステリー音.mp3"
     mc1 "Wah?"
     italic "[nama1] menemukan berkas dengan tanda bootloader."
 
-    play music "audio/music/Disital_Delta.mp3"
+    play music "audio/music/Disital_Delta.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
 
     mc1 "Bootloader sudah berhasil di recovery."
@@ -578,15 +586,66 @@ label act3_eeprom:
     play sound "audio/sound/ミステリー音.mp3"
     mc1 "Ah! Akhirnya ketemu."
     italic "[nama1] mengeluarkan debugging toolnya lagi untuk memindai dokumen itu."
+    mc1 "Bisa aku minta list private key dari vendor AMI untuk laptop model ini?"
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "Sekarang? Request ini bakal memakan waktu yang sedikit lama, loh. Aku harus menghubungi pihak vendor dulu soalnya."
+    mc1 "Tak apa."
+    play sound "audio/sound/ローファー.mp3"
+    italic "[nama1] berjalan pelan ke pinggir ruangan, duduk di lantai untuk istirahat."
+    $ renpy.pause(1.0)
+    italic "Tiga jam berlalu, [nama2] menghidupkan kembali alat komunikasi."
+    $ renpy.pause(1.0)
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "Hei, [nama1], jangan tidur dulu. Sudah ku kirim private key-nya, ya."
+    italic "[nama1] menyentuh kotak penyimpanan digital yang ada di dada kirinya, layar hologram muncul, menampilkan binary file yang berisi deretan huruf. Itu adalah bentuk encoded dalam format Base64."
+    mc1 "Wow, kamu bisa dapatkan ini dalam waktu tiga jam? Ternyata kerjasama NOVA dengan vendor-vendor nggak main-main."
+    a "{b}Private Key{/b} adalah kode rahasia dalam kriptografi yang digunakan oleh vendor untuk membuat tanda tangan digital (signature) yang membuktikan bahwa firmware tersebut asli dan belum dimodifikasi."
+    a "Private key tidak boleh bocor. Jika bocor, siapa pun bisa membuat firmware palsu dengan signature yang seolah-olah valid."
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "Yah, ada harga, ada kualitas. Lagipula, tidak semua orang bisa memiliki NOVA."
+    mc1 "... kau benar. Berapa perjanjian yang harus kita tanda tangani... apalagi menunggu waktu verifikasi yang lumayan lama juga."
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "Yap, itu penting agar tidak ada celah kejahatan."
+    italic "[nama1] melakukan crosscheck antara signature dengan private key milik vendor."
+    stop music fadeout 1.0
+    play sound "audio/sound/ネガティブズーン.mp3"
     mc1 "Ketakutanku terbukti. Signature pada firmware ini rusak."
-    play soun "audio/sound/ミステリー音.mp3"
+    play sound "audio/sound/ミステリー音.mp3"
     with hpunch
     mc2 "Rusak??"
     a "{b}Signature{/b} merujuk pada tanda tangan digital yang digunakan untuk memverifikasi bahwa firmware berasal dari sumber resmi dan belum mengalami perubahan sejak dibuat."
     a "Signature dalam firmware tergantung pada vendor pembuatnya. Jika tanda tangan digital ini berbeda, bahkan sedikit saja, maka firmware tersebut bisa dianggap tidak asli, rusak, termodifikasi, atau terinfeksi malware."
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "OK, jadi kali ini karena apa rusaknya? Apa jangan-jangan virus?"
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "Maksudku, tadi kita sempat bertemu teknisi yang terjangkit virus."
+    mc1 "Bisa jadi."
+    play sound "audio/sound/打撃・ビンタ音.mp3"
+    with hpunch
+    mc1 "Pause seluruh pekerjaan dan coba crosscheck seluruh teknisi dan perintah yang mereka terima."
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "Oke, pekerjaan sudah di pause. Untuk mengecek perintah tiap teknisi, kamu bisa pindai menyeluruh."
+
+    jump act3_mebromi
+    #jump vidcutscene
+    return
+
+#label vidcutscene:
+    $ renpy.movie_cutscene("oa4_launch.webm")
+    jump act1_whatsnova
 
     return
 
+label act3_mebromi:
+    play sound "audio/sound/ミステリー音.mp3"
+    with hpunch
+    mc1 "kamu?!"
+    play sound "audio/sound/え？どうしたの？.mp3"
+    with hpunch
+    uefi3 "Eh? Iya, Tuan??"
+    mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya. Komponen yang bekerja sebelum OS dimulai, yaitu{/i}"
+    
+    return
 
 
 label losebattle:
