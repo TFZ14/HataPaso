@@ -26,14 +26,14 @@ init python:
                 renpy.jump("reassemble_complete")
 
 label reassemble_complete:
-    scene room
+    scene ramroom
     stop music fadeout 2.0
     play sound "sound/システムSE_決定音1.mp3"
     mc1 "Hmm? Apa ini?"
     play sound "audio/sound/本をめくる音・閉じる音.mp3"
     show full-page
     with dissolve
-    $ renpy.pause(2.5)
+    $ renpy.pause(5.0)
     italic "Walau masih bingung, [nama1] menyimpan serpihan kertas itu ke dalam saku digitalnya."
     hide full-page
     with dissolve

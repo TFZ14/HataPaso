@@ -247,6 +247,8 @@ label act1_quiz4:
     mc1 "...dan Clock Generatornya rusak"
     italic "[nama1] mengurut kening pusing."
 
+    scene cpuroom
+    with fade
     show iotechchiefcpu
     with dissolve
 
@@ -309,6 +311,10 @@ label act1_quiz5:
 
     stop music fadeout 2
     play sound "audio/sound/ローファー.mp3"
+
+    scene ramroom-chaos
+    with fade
+    
     show screen locinfo("Ruang Arsip : RAM")
     with dissolve
     $ renpy.pause(2.5)
@@ -323,8 +329,11 @@ label act1_quiz5:
     italic "Arsip-arsip berhamburan di lantai, beberapa kertas terlihat kusut, bahkan ada yang tercabik-cabik. Namun rak penyimpanan arsip masih terlihat bagus."
     play music "music/さがしもの.mp3"
     mc1 "..."
+    $ renpy.pause(1.0, hard=True)
     mc1 "......"
+    $ renpy.pause(1.0, hard=True)
     mc1 ".........!"
+    $ renpy.pause(1.0, hard=True)
     mc1 "Hhhh! Oke, saatnya beres-beres dulu..."
     play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "... semangat."
@@ -390,9 +399,16 @@ label act2_quiz1:
     $ renpy.pause(2.5, hard=True)
     play sound "audio/sound/システム決定音_9.mp3"
     mc2 "Ok, sudah bisa."
+    play sound "audio/sound/急ぐ足音.mp3"
+    show iotech1
+    with moveinright
     uefi1 "Sebentar, Tuan, teknisi lain akan mengantar anda."
+    stop sound
     mc1 "Ah, sampaikan padanya untuk menyusul aku di GPU."
     uefi1 "Baik."
+    hide iotech1
+    with dissolve
+    play sound "audio/sound/ローファー.mp3"
     italic "[nama1] berjalan menuju GPU melewati lorong."
 
     jump act3_gpu

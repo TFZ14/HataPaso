@@ -27,6 +27,8 @@ init python:
 
 label manage_complete:
     play sound "sound/システムSE_決定音1.mp3"
+    scene ramroom
+    with dissolve
     mc1 "Huft..."
     jump act2_ramdone
     return

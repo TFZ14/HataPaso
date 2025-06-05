@@ -271,9 +271,11 @@ label act1_post:
 #act1_quiz3
 
 label act1_cpu:
-    #scene bg CPU disini
     play music "music/pandora.mp3"
     $ renpy.music.set_volume(0.4, channel="music")
+
+    scene cutscene2
+    with fade
 
     show screen locinfo("Ruang Kendali : CPU")
     with dissolve
@@ -441,8 +443,19 @@ label act2_connecting:
     play sound "audio/sound/急ぐ足音.mp3"
     hide iotech2
     with dissolve
-    show mcnovafight
+    show iotechvirus
     with dissolve
+    italic "Teknisi yang berada di hadapan [nama1] terlihat tidak terkendali. Penutup matanya sudah lepas, menampakkan mata merah menyala."
+
+    show iotechvirus:
+        xalign 0.2
+        yalign 1.0
+    with moveinleft
+    show mcnovafight:
+        xalign 0.8
+        yalign 1.0
+    with moveinright
+
     play sound "audio/sound/打撃・ビンタ音.mp3"
     with hpunch
     mc1 "Minggir, akan kuselesaikan."
@@ -473,12 +486,17 @@ label act2_connectingdone:
     hide screen healthpoint
     hide screen enemyhp
 
+    show iotechvirus
+    with vpunch
+
     mc1 "Hhh... siapa sangka ada virus di sini. Mundur, biar aku pindai untuk berjaga-jaga."
     italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
     with hpunch
     stop music
     play sound "audio/sound/ミステリー音.mp3"
     mc1 "Wah?"
+    hide iotechvirus
+    with dissolve
     italic "[nama1] menemukan berkas dengan tanda bootloader."
 
     play music "audio/music/Disital_Delta.mp3" fadein 1
