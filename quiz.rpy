@@ -426,13 +426,15 @@ label act3_quiz1:
     mc2 "Jika ada teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
 
     menu:   
-        "Firmware":
+        mc2 "Jika ada teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
+
+        "Firmware - pedoman kerja":
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Karena Firmware bagaikan protokol resmi. Jika ada masalah pada Firmware, bisa jadi teknisi-teknisi ada yang tidak memiliki pedoman untuk bekerja."
             mc2 "Benar."
             $ thinking_value+=5
 
-        "Kerusakan fisik EEPROM":
+        "Kerusakan fisik EEPROM - Kerusakan kantor":
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -447,7 +449,7 @@ label act3_quiz1:
             else:
                 jump act3_quiz1
 
-        "RAM berantakan.":
+        "RAM berantakan - urutan perintah tidak beraturan":
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -473,6 +475,8 @@ label act3_quiz2:
     mc1 "Dan Firmware disimpan di..."
     
     menu:
+        mc1 "Dan Firmware disimpan di..."
+
         "CPU Cache":
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
@@ -502,6 +506,7 @@ label act3_quiz2:
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc1 "Ampuuun! Ampuuun!!"
+            italic "[nama1] diomeli habis-habisan oleh [nama2]."
             $ thinking_value-=5
             $ score-=5
             if thinking_value<=0 or score<=0:
@@ -518,4 +523,10 @@ label act3_quiz2:
 
     jump act3_eeprom
 
+    return
+
+label act3_quiz3:
+
+    mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya, yaitu{/i}"
+    
     return

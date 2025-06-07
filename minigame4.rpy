@@ -137,7 +137,7 @@ label act2_connecting_moveset:
         "Pulihkan diri":
             play sound "audio/sound/神々しい神楽鈴の音.mp3"
             show heal
-            with hpunch
+            with dissolve
             $ health_value+=5
             a "Berhasil menyembuhkan diri ketika musuh lengah."
             window hide

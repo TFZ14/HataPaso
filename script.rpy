@@ -78,7 +78,9 @@ screen score():
         xalign 0.99 ypos 30
         text "Skor : [score]":
             size 30
- 
+
+#misc
+define flash = Fade(0.2, 0.0, 0.8, color='#fff')
 
 label start:
     show screen score
@@ -536,9 +538,11 @@ label act2_connectingdone:
 #act2_quiz1
 
 label act3_gpu:
-    #scene gpu
-
     play sound "audio/sound/ローファー.mp3"
+
+    scene gpuroom
+    with fade
+
     show screen locinfo("GPU : Studio Visual")
     with dissolve
     $ renpy.pause(2.5)
@@ -546,15 +550,25 @@ label act3_gpu:
     with dissolve
 
     italic "Lampu-lampu dalam Studio Visual mulai menyala tanda booting sudah sukses. Di sana, para teknisi segera menyiapkan hal yang diperlukan, seperti menyusun piksel, efek, elemen visual, dan lainnya."
+    play sound "audio/sound/ローファー.mp3"
     mc1 "Hmm?"
     uefi3 "Ah, halo Tuan."
+    italic "Suara yang familiar memanggilmu."
     uefi3 "Sedang mengecek Studio Visual, ya."
     stop music fadeout 2
     play sound "audio/sound/ミステリー音.mp3"
+    show iotech3
+    with flash
     mc1 "..."
+    italic "[nama1] tak mengatakan apapun, namun tatapannya menyiratkan kebingungan."
     uefi3 "Kalau begitu, saya permisi dulu."
+    play sound "audio/sound/ローファー.mp3"
+    hide iotech3
+    with dissolve
     italic "[uefi3] berjalan santai melewati [nama1]."
     mc1 "..."
+    show iotech2
+    with dissolve
     uefi2 "Permisi Tuan, saya kembali."
     mc1 "Hei, apa kamu kenal dengan teknisi barusan? Kalian papasan di pintu keluar, kan?"
     uefi2 "?"
@@ -577,7 +591,6 @@ label act3_gpu:
 #act3_quiz2
 
 label act3_eeprom:
-    #scene eeprom
     play music "audio/music/Another_World.mp3" fadein 1.0
     $ renpy.music.set_volume(0.4, channel="music")
 
@@ -592,8 +605,12 @@ label act3_eeprom:
     play sound "audio/sound/システム決定音_9.mp3"
     italic "Suara 'approve' terdengar walau [nama1] belum meminta akses menuju EEPROM."
     mc1 "Aku mau cek sesuatu."
+    hide iotech2
+    with dissolve
 
     play sound "audio/sound/ローファー.mp3"
+    scene ramroom
+    with fade
     show screen locinfo("Ruang Archive Protokol Firmware : EEPROM")
     with dissolve
     $ renpy.pause(2.5)
@@ -610,7 +627,7 @@ label act3_eeprom:
     mc1 "Tak apa."
     play sound "audio/sound/ローファー.mp3"
     italic "[nama1] berjalan pelan ke pinggir ruangan, duduk di lantai untuk istirahat."
-    $ renpy.pause(1.0)
+    $ renpy.pause(3.0)
     italic "Tiga jam berlalu, [nama2] menghidupkan kembali alat komunikasi."
     $ renpy.pause(1.0)
     play sound "audio/sound/LAPUTA_alert.mp3"
@@ -661,8 +678,8 @@ label act3_mebromi:
     play sound "audio/sound/え？どうしたの？.mp3"
     with hpunch
     uefi3 "Eh? Iya, Tuan??"
-    mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya. Komponen yang bekerja sebelum OS dimulai, yaitu{/i}"
     
+    jump act3_quiz3
     return
 
 
