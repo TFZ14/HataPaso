@@ -1,11 +1,11 @@
 ﻿#Character
 define mc1=Character("[nama1]", who_bold=True)
-define mc2=Character("[nama2]", who_bold=True)
-define klien=Character("Mary", who_bold=True)
-define uefi1=Character("IO Tech 1023345", who_bold=True)
-define uefi2=Character("IO Tech 1023123", who_bold=True)
-define uefi3=Character("IO Tech 1455690", who_bold=True)
-define chiefcpu=Character("IO Tech 1126480", who_bold=True)
+define mc2=Character("[nama2]", who_bold=True, who_color="#30e5f9")
+define klien=Character("Mary", who_bold=True, who_color="#dc8c8d")
+define uefi1=Character("IO Tech 1023345", who_bold=True, who_color="#bd75b7")
+define uefi2=Character("IO Tech 1023123", who_bold=True, who_color="#969ecf")
+define uefi3=Character("IO Tech 1455690", who_bold=True, who_color="#cf8f2c")
+define chiefcpu=Character("IO Tech 1126480", who_bold=True, who_color="#4aacb2")
 
 #Text
 define a=Character(
@@ -428,11 +428,16 @@ label act2_connecting:
     hide screen locinfo
     with dissolve
 
-    show iotech3
+    show iotechvirus
+    with hpunch
     uefi3 "!"
     play sound "audio/sound/打撃・ビンタ音.mp3"
+    hide iotechvirus
+    show iotech3
     with hpunch
     uefi3 "Tolong kembali! Disini ada Teknisi IO yang terkena virus!"
+    play sound "audio/sound/ミステリー音.mp3"
+    with hpunch
     mc1 "Eh?"
     hide iotech3
     with dissolve
@@ -491,14 +496,21 @@ label act2_connectingdone:
     show iotechvirus
     with vpunch
 
-    mc1 "Hhh... siapa sangka ada virus di sini. Mundur, biar aku pindai untuk berjaga-jaga."
-    italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
-    with hpunch
-    stop music
-    play sound "audio/sound/ミステリー音.mp3"
-    mc1 "Wah?"
+    mc1 "Hhh... siapa sangka ada virus di sini. Menyerahlah!"
+    italic "Teknisi yang terkena virus masih terdiam namun tubuhnya tidak bergerak. Untuk berjaga-jaga, [nama1] menyuruh [uefi2] untuk menahan Teknisi tersebut."
     hide iotechvirus
     with dissolve
+    show iotechviruskeep
+    with dissolve
+    italic "[uefi2] mengeluarkan alat seperti Lampu LED Emergency Portable dan mengarahkannya pada Teknisi yang terkena virus."
+    italic "Seketika bayangan tipis berbentuk balok mengurung Teknisi tersebut."
+    italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
+    stop music
+    hide iotechvirus
+    with dissolve
+    play sound "audio/sound/ミステリー音.mp3"
+    with hpunch
+    mc1 "Wah?"
     italic "[nama1] menemukan berkas dengan tanda bootloader."
 
     play music "audio/music/Disital_Delta.mp3" fadein 1
@@ -521,6 +533,7 @@ label act2_connectingdone:
     hide screen locinfo
     with dissolve
 
+    play sound "audio/sound/キーボードで入力する音.mp3"
     uefi1 "Bootloader sudah diantarkan ke Lantai OS, memulai booting."
     mc1 "[nama2], bagaimana di luar sana, apa laptop bekerja dengan baik?"
     play sound "audio/sound/LAPUTA_alert.mp3"
@@ -578,7 +591,7 @@ label act3_gpu:
     italic "[nama1] menepuk dahi dirinya sendiri, merasa bodoh."
     mc1 "{i}Tentu saja. Mereka kan hanya visualisasi dari NOVA, bukan entitas nyata.{/i}"
     mc1 "[nama2], aku merasa ada yang mengganjal. Ada salah satu 'teknisi' yang terlihat aneh, seperti dia hanya mondar-mandir tanpa pekerjaan."
-    mc1 "Kulihat ada beberapa, mungkin tidak banyak, namun ada. Sesuatu yang janggal terjadi pada Teknisi IO untuk bersantai atau mondar-mandir, bukan? Mereka juga bukan manusia, untuk apa melakukan itu semua?"
+    mc1 "Kulihat ada beberapa... mungkin tidak banyak, tapi tetap ada. Sesuatu terasa janggal. Teknisi IO tidak seharusnya bersantai atau mondar-mandir tanpa tujuan, bukan? Mereka bukan manusia... lalu, untuk apa melakukan semua itu?"
     play sound "audio/sound/ミステリー音.mp3"
     mc2 "Eeh? Masuk akal."
 

@@ -271,7 +271,7 @@ label act1_quiz5:
         "SSD":
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "lebih spesifiknya, bootloader disimpan di partisi khusus ESP dalam SSD atau hard drive"
-            $ thinking_value+=5
+            $ score+=5
 
         "RAM":
             stop music
@@ -300,7 +300,7 @@ label act1_quiz5:
             else:
                 jump act1_quiz5
 
-    italic "ESP atau Extensible Firmware Interface System Partition adalah partisi khusus pada hard drive yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
+    italic "ESP atau Extensible Firmware Interface System Partition adalah partisi khusus pada hard drive atau SSD yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
 
     hide screen thinkingpoint
     with dissolve
@@ -353,7 +353,7 @@ label act2_quiz1:
     show screen thinkingpoint
     with dissolve
 
-    mc1 "Jika semua sudah berjalan dengan baik namun hanya layar yang tidak berfungsi, mungkin kita harus mengecek..."
+    mc1 "Hanya layar yang tidak berfungsi, mungkin kita harus mengecek komponen yang berhubungan dengan pemrosesan grafik yaitu..."
 
     menu:
         "Cek kabel monitor":
@@ -373,7 +373,7 @@ label act2_quiz1:
         "GPU":
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Mungkin aku harus cek GPU: Studio Visual."
-            $ thinking_value+=5
+            $ score+=5
 
         "Driver Grafis":
             stop music
@@ -404,12 +404,14 @@ label act2_quiz1:
     with moveinright
     uefi1 "Sebentar, Tuan, teknisi lain akan mengantar anda."
     stop sound
-    mc1 "Ah, sampaikan padanya untuk menyusul aku di GPU."
+    mc1 "Ah, sampaikan padanya untuk menyusul aku di GPU: Studio Visual."
     uefi1 "Baik."
     hide iotech1
     with dissolve
+    scene lorong
+    with fade
     play sound "audio/sound/ローファー.mp3"
-    italic "[nama1] berjalan menuju GPU melewati lorong."
+    italic "[nama1] berjalan menuju GPU: Studio Visual melewati lorong."
 
     jump act3_gpu
 
@@ -432,13 +434,13 @@ label act3_quiz1:
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Karena Firmware bagaikan protokol resmi. Jika ada masalah pada Firmware, bisa jadi teknisi-teknisi ada yang tidak memiliki pedoman untuk bekerja."
             mc2 "Benar."
-            $ thinking_value+=5
+            $ score+=5
 
         "Kerusakan fisik EEPROM - Kerusakan kantor":
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
-            mc2 "Kerusakan fisik EEPROM sangat jarang dan biasanya tidak akan menimbulkan kebingungan teknisi, namun kegagalan pembacaan firmware."
+            mc2 "Kerusakan fisik EEPROM sangat jarang dan biasanya tidak akan menimbulkan kebingungan teknisi, namun kegagalan pembacaan firmware yang mengakibatkan seluruh teknisi samasekali tidak mendapat perintah."
             mc2 "Jadi, kalau memang benar fisik EEPROM rusak, seharusnya, sejak awal POST tidak bisa dilakukan."
             $ thinking_value-=5
             $ score-=5
@@ -491,7 +493,7 @@ label act3_quiz2:
             else:
                 jump act3_quiz2
 
-        "GPU":
+        "GPU: Studio Visual":
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -507,7 +509,7 @@ label act3_quiz2:
             with vpunch
             mc1 "Ampuuun! Ampuuun!!"
             italic "[nama1] diomeli habis-habisan oleh [nama2]."
-            $ thinking_value-=5
+            $ thinking_value-=15
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
@@ -516,10 +518,10 @@ label act3_quiz2:
             else:
                 jump act3_quiz2
         
-        "EEPROM":
+        "Ruang Archive Protokol Firmware : EEPROM":
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "firmware biasanya disimpan di EEPROM — chip memori kecil yang menyimpan kode permanen yang bisa di-update."
-            $ thinking_value+=5
+            $ score+=5
 
     jump act3_eeprom
 
@@ -528,5 +530,12 @@ label act3_quiz2:
 label act3_quiz3:
 
     mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya, yaitu{/i}"
+
+    menu:
+        mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya, yaitu{/i}"
+
+        "Chip EEPROM - Lobi UEFI":
+            play sound "sound/システムSE_決定音1.mp3"
+            $ score+=5
     
     return
