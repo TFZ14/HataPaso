@@ -30,7 +30,7 @@ label manage_complete:
     scene ramroom
     with dissolve
     mc1 "Huft..."
-    jump act2_ramdone
+    jump act2_1_ramdone
     return
 
 screen manage_files:

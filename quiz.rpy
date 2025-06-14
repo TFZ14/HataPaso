@@ -1,3 +1,4 @@
+#semua rute
 label act1_quiz1:
     play music "music/モノクロライブラリー.mp3"
     $ renpy.music.set_volume(0.4, channel="music")
@@ -19,7 +20,7 @@ label act1_quiz1:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz1 #Kembali ke menu pilihan
@@ -40,7 +41,7 @@ label act1_quiz1:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz1
@@ -88,7 +89,7 @@ label act1_quiz2:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz2 #Kembali ke menu pilihan
@@ -104,7 +105,7 @@ label act1_quiz2:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz2 #Kembali ke menu pilihan
@@ -139,7 +140,7 @@ label act1_quiz3:
             $ score-=5
             if thinking_value <= 0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz3
@@ -160,7 +161,7 @@ label act1_quiz3:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz3
@@ -214,7 +215,7 @@ label act1_quiz4:
             $ score-=5
             if thinking_value<=0 or score<= 0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz4
@@ -227,7 +228,7 @@ label act1_quiz4:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz4
@@ -282,7 +283,7 @@ label act1_quiz5:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz5
@@ -295,58 +296,21 @@ label act1_quiz5:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
                 jump act1_quiz5
 
-    italic "ESP atau Extensible Firmware Interface System Partition adalah partisi khusus pada hard drive atau SSD yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
+    italic "ESP atau EFI (Extensible Firmware Interface) System Partition adalah partisi khusus pada hard drive atau SSD yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
 
     hide screen thinkingpoint
     with dissolve
 
-    mc1 "Aku mau cek RAM dulu. Kalau memang bootloadernya belum tersalin, akan ku cek SSD."
-    uefi1 "Baik, Tuan. hati-hati di jalan."
-    uefi2 "Akan saya antar, Tuan."
-
-    stop music fadeout 2
-    play sound "audio/sound/ローファー.mp3"
-
-    scene ramroom-chaos
-    with fade
-    
-    show screen locinfo("Ruang Arsip : RAM")
-    with dissolve
-    $ renpy.pause(2.5)
-    hide screen locinfo
-    with dissolve
-
-    with hpunch
-    play sound "sound/え？どうしたの？.mp3"
-    mc1 "Astaga, kenapa lagi?!"
-    play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "Tenang, tenang..."
-    italic "Arsip-arsip berhamburan di lantai, beberapa kertas terlihat kusut, bahkan ada yang tercabik-cabik. Namun rak penyimpanan arsip masih terlihat bagus."
-    play music "music/さがしもの.mp3"
-    mc1 "..."
-    $ renpy.pause(1.0, hard=True)
-    mc1 "......"
-    $ renpy.pause(1.0, hard=True)
-    mc1 ".........!"
-    $ renpy.pause(1.0, hard=True)
-    mc1 "Hhhh! Oke, saatnya beres-beres dulu..."
-    play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "... semangat."
-    play sound "sound/打撃・ビンタ音.mp3"
-    with hpunch
-    mc1 "Ssh!"
-    mc1 "Yang nggak bantuin beres-beres diem aja!"
-    uefi2 "Akan saya bantu, Tuan."
-
-    jump act2_ram_minigame
+    jump bootloader_branch
     return
 
-label act2_quiz1:
+#rute ending 1
+label act2_1_quiz1:
     play music "audio/music/モノクロライブラリー.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
 
@@ -365,10 +329,10 @@ label act2_quiz1:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act2_quiz1
+                jump act2_1_quiz1
             
         "GPU":
             play sound "sound/システムSE_決定音1.mp3"
@@ -384,10 +348,10 @@ label act2_quiz1:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act2_quiz1
+                jump act2_1_quiz1
 
     italic "GPU atau Graphic Processing Unit adalah komponen komputer yang berfungsi untuk memproses dan menampilkan grafis, gambar, dan video. Jika GPU tidak bisa bekerja, maka laptop tidak bisa menampilkan informasi."
 
@@ -413,11 +377,11 @@ label act2_quiz1:
     play sound "audio/sound/ローファー.mp3"
     italic "[nama1] berjalan menuju GPU: Studio Visual melewati lorong."
 
-    jump act3_gpu
+    jump act3_1_gpu
 
     return
 
-label act3_quiz1:
+label act3_1_quiz1:
     #scene gpu
     play music "audio/music/モノクロライブラリー.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
@@ -425,10 +389,10 @@ label act3_quiz1:
     show screen thinkingpoint
     with dissolve
 
-    mc2 "Jika ada teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
+    mc2 "Jika ada sebagian teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
 
     menu:   
-        mc2 "Jika ada teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
+        mc2 "Jika ada sebagian teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
 
         "Firmware - pedoman kerja":
             play sound "sound/システムSE_決定音1.mp3"
@@ -436,7 +400,7 @@ label act3_quiz1:
             mc2 "Benar."
             $ score+=5
 
-        "Kerusakan fisik EEPROM - Kerusakan kantor":
+        "Kerusakan fisik EEPROM - Kerusakan Kantor":
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -446,10 +410,10 @@ label act3_quiz1:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act3_quiz1
+                jump act3_1_quiz1
 
         "RAM berantakan - urutan perintah tidak beraturan":
             stop music
@@ -461,16 +425,16 @@ label act3_quiz1:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act3_quiz1
+                jump act3_1_quiz1
     
-    jump act3_quiz2
+    jump act3_1_quiz2
     
     return
 
-label act3_quiz2:
+label act3_1_quiz2:
     play music "audio/music/モノクロライブラリー.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
 
@@ -483,15 +447,15 @@ label act3_quiz2:
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
-            mc2 "CPU Cache adalah memori kecil dan cepat untuk mempercepat proses CPU, bukan tempat menyimpan firmware."
+            mc2 "CPU Cache adalah memori kecil untuk mempercepat proses CPU, bukan tempat menyimpan firmware."
             $ thinking_value-=5
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act3_quiz2
+                jump act3_1_quiz2
 
         "GPU: Studio Visual":
             stop music
@@ -513,29 +477,60 @@ label act3_quiz2:
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
-                mc2 "[nama1]..."
+                mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act3_quiz2
+                jump act3_1_quiz2
         
-        "Ruang Archive Protokol Firmware : EEPROM":
+        "Chip EEPROM - Ruang Archive Protokol Firmware":
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "firmware biasanya disimpan di EEPROM — chip memori kecil yang menyimpan kode permanen yang bisa di-update."
             $ score+=5
 
-    jump act3_eeprom
+    jump act3_1_eeprom
 
     return
 
-label act3_quiz3:
+label act3_1_quiz3:
 
     mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya, yaitu{/i}"
 
     menu:
         mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya, yaitu{/i}"
 
+        "ESP - Extensible Firmware Interface System Partition":
+            stop music
+            play sound "sound/打撃・ビンタ音.mp3"
+            with vpunch
+            mc1 "{i}ESP adalah partisi di hard disk atau SSD yang menyimpan bootloader. Sebelum bootloader, ada program lain yang dijalankan sebelum bootloader di load.{/i}"
+            $ thinking_value-=10
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                mc2 "[nama1]!"
+                jump game_over
+            else:
+                jump act3_quiz3
+
+        "Driver - Teknisi Penerjemah":
+            stop music
+            play sound "sound/打撃・ビンタ音.mp3"
+            with vpunch
+            mc1 "{i}Driver itu seperti penerjemah antara hardware dan sistem operasi. Mereka dibutuhkan untuk membuat hardware berfungsi, tapi mereka dimuat setelah firmware awal berjalan dan biasanya setelah sistem operasi mulai dimuat. Jadi, mereka bukan komponen yang pertama kali berjalan sendiri saat komputer dihidupkan.{/i}"
+            $ thinking_value-=10
+            $ score-=5
+            if thinking_value<=0 or score<=0:
+                $ thinking_value-=100
+                mc2 "[nama1]!"
+                jump game_over
+            else:
+                jump act3_quiz3
+
         "Chip EEPROM - Lobi UEFI":
             play sound "sound/システムSE_決定音1.mp3"
+            mc1 "Yep! Firmware utama, seperti UEFI atau BIOS, tersimpan di dalam chip memori khusus di motherboard, yang seringkali adalah EEPROM... atau jenis Flash memory serupa. Ketika komputer dinyalakan, CPU akan langsung menjalankan instruksi dari chip ini terlebih dahulu."
             $ score+=5
+    
+    mc1 "Kamu waktu itu ada di Lobi UEFI, kan?"
     
     return

@@ -1,4 +1,5 @@
-label act2_connecting_moveset:
+#rute ending 1
+label act2_1_connecting_moveset:
     scene lorong
     show screen healthpoint
     show screen enemyhp
@@ -27,7 +28,7 @@ label act2_connecting_moveset:
                 $ renpy.pause(1.0)
                 hide screen enemyhp
                 hide screen healthpoint
-                jump act2_connectingdone
+                jump act2_1_connectingdone
             elif health_value<=0:
                 hide seri-virus
                 mc2 "[nama1]!"
@@ -81,7 +82,7 @@ label act2_connecting_moveset:
                 mc1 "Anomali telah dikalahkan."
                 hide screen enemyhp
                 hide screen healthpoint
-                jump act2_connectingdone
+                jump act2_1_connectingdone
             elif health_value<=0:
                 hide seri-virus
                 mc2 "[nama1]!"
@@ -123,7 +124,7 @@ label act2_connecting_moveset:
                 mc1 "Anomali telah dikalahkan."
                 hide screen enemyhp
                 hide screen healthpoint
-                jump act2_connectingdone
+                jump act2_1_connectingdone
             else:
                 a "Seranganmu berhasil mengenai musuh."
                 window hide
@@ -143,7 +144,7 @@ label act2_connecting_moveset:
             window hide
             hide heal
 
-    jump act2_connecting_moveset
+    jump act2_1_connecting_moveset
     return
 
 label act3_mebromi_moveset:
