@@ -2,6 +2,10 @@
     "kalah lawan anomali"
     return
 
+#ending 1 last boss quiz
+label losemebromi_1:
+    return
+
 label game_over:
     scene toko
     "gagal"

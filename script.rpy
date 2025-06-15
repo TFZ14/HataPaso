@@ -279,7 +279,7 @@ label act1_cpu:
     scene cutscene2
     with fade
 
-    show screen locinfo("Ruang Kendali : CPU")
+    show screen locinfo("CPU: Ruang Kendali")
     with dissolve
     $ renpy.pause(2.5)
     hide screen locinfo
@@ -350,7 +350,7 @@ label act1_cpudone:
     with vpunch
     mc1 "Eh? Kenapa lagi?"
     uefi1 "CPU melaporkan bahwa instruksi tidak bisa dilanjutkan karena berkas bootloader todak ada di memori."
-    mc1 "Tunggu. Kalau begitu... tempat terakhir data berada sebelum eksekusi dimulai adalah RAM, kan?"
+    mc1 "Tunggu. Kalau begitu... tempat terakhir data berada sebelum eksekusi dimulai adalah RAM: Ruang Transit Data, kan?"
     uefi1 "Benar. Tapi jika berkas bootloader memang tidak sempat tersalin, Tuan harus mencarinya langsung dari sumber utama..."
 
     jump act1_quiz5
@@ -363,10 +363,10 @@ label bootloader_branch:
     menu:
         mc1 "Sebaiknya..."
 
-        "langsung cek ESP di Ruang Data: SSD":
+        "langsung cek ESP di SSD: Gudang Data":
             jump act1_3_esp
         
-        "cek RAM terlebih dahulu":
+        "cek RAM: Ruang Transit Data terlebih dahulu":
             jump act1_1_ram
     
     return

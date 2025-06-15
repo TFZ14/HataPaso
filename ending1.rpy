@@ -1,7 +1,7 @@
 ﻿label act1_1_ram:
     scene lobiuefi
 
-    mc1 "Aku mau cek RAM dulu. Kalau memang bootloadernya belum tersalin, akan ku cek SSD."
+    mc1 "Aku mau cek RAM: Ruang Transit Data dulu. Kalau memang bootloadernya belum transit, akan ku cek SSD: Gudang Data."
     uefi1 "Baik, Tuan. hati-hati di jalan."
     uefi2 "Akan saya antar, Tuan."
 
@@ -11,7 +11,7 @@
     scene ramroom-chaos
     with fade
     
-    show screen locinfo("Ruang Arsip : RAM")
+    show screen locinfo("RAM: Ruang Transit Data")
     with dissolve
     $ renpy.pause(2.5)
     hide screen locinfo
@@ -52,10 +52,15 @@ label act2_1_ramdone:
     stop music fadeout 2
     play music "music/Disital_Delta.mp3" fadein 2
     
-    mc1 "Sudah ku pindai, memang bootloader belum tersalin."
-    mc1 "[nama2], apa jalur ke SSD bisa di akses?"
+    mc1 "Sudah ku pindai bereskan."
+    italic "[nama1] menyeka keringat imajiner."
+    italic "[nama1] memperhatikan rak=rak berkas yang memiliki kabel di masing-masing sekatnya. Kabel tersebut menjalar keatas hingga ke langit-langit ruangan."
+    italic "Kabel-kabel tersebut terhubung antara ruang satu dengan ruang lainnya."
+    italic "[nama1] melirik kotak berkas yang seharusnya jadi tempat transit bootloader. Tidak ada nyala cahaya biru. Pun kabel yang terhubung dengan kotak berkas itu tidak dialiri cahaya apapun."
+    mc1 "Kupikir macet sehingga bootloader tidak terbaca, ternyata bootloader memang belum transit ke sini."
+    mc1 "[nama2], apa jalur ke SSD: Gudang Data bisa di akses?"
     play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "Bisa, namun ada sesuatu yang sedikit aneh. Beberapa kali peta di lorong menuju SSD glitch."
+    mc2 "Bisa, namun ada sesuatu yang sedikit aneh. Beberapa kali peta di lorong menuju SSD: Gudang Data glitch."
     mc1 "Glitch? Oke, terimakasih infonya. Kalau begitu, aku minta akses debugging tool."
     play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Hm? Apa ada firasat?"
@@ -71,7 +76,7 @@ label act2_1_ramdone:
     mc1 "Benar juga, tadi ada visual robekan kertas yang berhamburan."
     mc1 "Sebentar, ya..."
     italic "Lebih baik tanya [nama2] dulu..."
-    mc1 "[nama2], waktu aku membereskan Ruang Arsip RAM, ada visualisasi berkas yang tampak seperti kertas robek. coba pindai dari sebelah sana sebagai Navigator, apa ada sesuatu yang kurang atau ada keanehan?"
+    mc1 "[nama2], waktu aku membereskan RAM: Ruang Transit Data, ada visualisasi berkas yang tampak seperti kertas robek. coba pindai dari sebelah sana sebagai Navigator, apa ada sesuatu yang kurang atau ada keanehan?"
     play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Hmm? Aneh."
     play sound "audio/sound/LAPUTA_alert.mp3"
@@ -90,10 +95,10 @@ label hint_branch:
     menu:
         mc1 "Hmm..."
 
-        "Antar ke Partisi SSD untuk mengambil bootloader":
+        "Antar ke Partisi SSD: Gudang Data untuk mengambil bootloader":
             mc1 "Anu, bisa antar saya ke Partisi SSD yang menyimpan bootloader?"
             uefi2 "Baik, Tuan [nama1]"
-            italic "[nama1] segera meninggalkan Ruang Arsip RAM dan menuju ke arah Partisi SSD diantar oleh [uefi2]."
+            italic "[nama1] segera meninggalkan RAM: Ruang Transit Data dan menuju ke arah Partisi SSD diantar oleh [uefi2]."
             jump act2_2_ssd
 
         "Aku coba cek dulu robekan kertasnya":
@@ -140,6 +145,7 @@ label act2_1_connecting:
     play sound "audio/sound/急ぐ足音.mp3"
     hide iotech2
     with dissolve
+    play sound "audio/sound/古いロボットの音.mp3"
     show iotechvirus
     with dissolve
     italic "Teknisi yang berada di hadapan [nama1] terlihat tidak terkendali. Penutup matanya sudah lepas, menampakkan mata merah menyala."
@@ -196,7 +202,7 @@ label act2_1_connectingdone:
     italic "Seketika bayangan tipis berbentuk balok mengurung Teknisi tersebut."
     italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
     stop music
-    hide iotechvirus
+    hide iotechviruskeep
     with dissolve
     play sound "audio/sound/ミステリー音.mp3"
     with hpunch
@@ -211,8 +217,40 @@ label act2_1_connectingdone:
     play sound "audio/sound/LAPUTA_alert.mp3"
     italic "[uefi2] mematikan transmisi."
     uefi2 "Baik, Tuan [nama1], silakan berikan bootloader-nya, saya akan mengantarkannya langsung ke lantai OS."
-    mc1 "Oke, akan kutunggu di Lobi UEFI."
+    mc1 "Baik, setelah aku musnahkan virus ini."
 
+    #scene cutscene disini
+
+    italic "[nama1] mengangkat debugging tool yang serupa kursor itu dan menusukkannya ke dada kanan Teknisi yang terkena virus. [nama1] melepas gagang kursor dan mulai memunculkan window terminal seperti hologram di hadapannya."
+    italic "Selagi [nama1] mengoperasikan terminal, cahaya kehijauan menguar dari tempat tusuk tersebut, tanda virus sedang dinetralkan."
+    
+    scene lorong
+    with dissolve
+    show mcnovaidle2:
+        xalign 0.1
+        yalign 1.0
+    with dissolve
+    play sound "audio/sound/ローファー.mp3"
+    show iotech2:
+        xalign 0.9
+        yalign 1.0
+    with moveinright
+    stop sound
+    italic "[nama1] memberikan bootloader pada [uefi2] dan menunjuk ke arah teknisi yang baru saja dipurifikasi."
+    mc1 "Sekalian panggilkan teknisi lain untuk treatment dia."
+    uefi2 "Sudah saya panggil."
+    mc1 "Oke, kalau begitu, mari kembalikan bootloader pada tempatnya!"
+
+    #cutscene cek ESP
+    a "[nama1] sampai di ESP bersama [uefi2] dan mendapati tidak ada keanehan lainnya selain brankas bootloader terkesan seperti dibuka paksa. Dengan debugging tool-nya, ia perbaiki kerusakan minor itu. Lalu ia simpan bootloader di tempat semestinya."
+    a "Cahaya biru menyala dari tengah brankas itu, lalu menjalar di kabel panjang. Jalur kabel menuju atas dan merambat di langit-langit ruangan."
+    a "Jika ditelusuri, kabel-kabel itu memiliki banyak cabang, yang salah satunya menyambung dengan kabel yang ada di RAM: Ruang Transit Data."
+    a "Begitu selesai, ia melangkah menuju Lobi UEFI."
+
+    hide mcnovaidle2
+    with dissolve
+    hide iotech2
+    with dissolve
     play sound "audio/sound/ローファー.mp3"
 
     scene lobiuefi
@@ -223,11 +261,20 @@ label act2_1_connectingdone:
     hide screen locinfo
     with dissolve
 
+    show iotech1
+    with dissolve
+
     play sound "audio/sound/キーボードで入力する音.mp3"
-    uefi1 "Bootloader sudah diantarkan ke Lantai OS, memulai booting."
+    uefi1 "Bootloader sudah terbaca, memulai booting."
     mc1 "[nama2], bagaimana di luar sana, apa laptop bekerja dengan baik?"
     play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "Sudah bekerja dengan baik, tapi layarnya masih hitam. Mari kita tunggu sebentar lagi."
+    mc2 "Sudah bekerja dengan baik, tapi layarnya masih hitam."
+    mc1 "Apa bootloadernya ngga sampe ke OS? Coba cek status OS."
+    play sound "audio/sound/キーボードで入力する音.mp3"
+    uefi1 "Sudah bekerja."
+    mc1 "Ok, mari kita tunggu sebentar lagi."
+    hide iotech1
+    with dissolve
 
     $ renpy.pause(3.0, hard=True)
 
@@ -299,22 +346,25 @@ label act3_1_eeprom:
 
     italic "[nama1] terdiam sedikit lebih lama untuk berpikir."
     mc1 "Kamu,"
+    italic "[nama1] menunjuk [uefi2]."
     show iotech2
     with dissolve
     uefi2 "Ya?"
-    mc1 "Coba antar aku ke Ruang Archive Protokol Firmware : EEPROM."
+    mc1 "Coba antar aku ke EEPROM: Ruang Arsip Protokol."
     play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Apa ada ide?"
     play sound "audio/sound/システム決定音_9.mp3"
-    italic "Suara 'approve' terdengar walau [nama1] belum meminta akses menuju EEPROM."
+    italic "Suara 'approve' terdengar walau [nama1] belum meminta akses menuju EEPROM: Ruang Arsip Protokol."
     mc1 "Aku mau cek sesuatu."
     hide iotech2
     with dissolve
 
     play sound "audio/sound/ローファー.mp3"
+    italic "[nama1] berjalan cepat, berbalik arah menuju Lobi UEFI."
+    italic "Namun, urusan [nama1] bukan di Lobi UEFI, melainkan dibalik Lobi tersebut, yaitu EEPROM: Ruang Arsip Protokol."
     scene ramroom
     with fade
-    show screen locinfo("Ruang Archive Protokol Firmware : EEPROM")
+    show screen locinfo("Ruang Arsip Protokol : EEPROM")
     with dissolve
     $ renpy.pause(2.5)
     hide screen locinfo
@@ -324,35 +374,36 @@ label act3_1_eeprom:
     play sound "audio/sound/ミステリー音.mp3"
     mc1 "Ah! Akhirnya ketemu."
     italic "[nama1] mengeluarkan debugging toolnya lagi untuk memindai dokumen itu."
-    mc1 "Bisa aku minta list private key dari vendor AMI untuk laptop model ini?"
+    show mcnovaring
+    with dissolve
+    mc1 "Bisa aku minta list public key dari vendor Yell untuk laptop model ini?"
     play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "Sekarang? Request ini bakal memakan waktu yang sedikit lama, loh. Aku harus menghubungi pihak vendor dulu soalnya."
-    mc1 "Tak apa."
-    play sound "audio/sound/ローファー.mp3"
-    italic "[nama1] berjalan pelan ke pinggir ruangan, duduk di lantai untuk istirahat."
-    $ renpy.pause(3.0)
-    italic "Tiga jam berlalu, [nama2] menghidupkan kembali alat komunikasi."
-    $ renpy.pause(1.0)
-    play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "Hei, [nama1], jangan tidur dulu. Sudah ku kirim private key-nya, ya."
-    italic "[nama1] menyentuh kotak penyimpanan digital yang ada di dada kirinya, layar hologram muncul, menampilkan binary file yang berisi deretan huruf. Itu adalah bentuk encoded dalam format Base64."
-    mc1 "Wow, kamu bisa dapatkan ini dalam waktu tiga jam? Ternyata kerjasama NOVA dengan vendor-vendor nggak main-main."
-    a "{b}Private Key{/b} adalah kode rahasia dalam kriptografi yang digunakan oleh vendor untuk membuat tanda tangan digital (signature) yang membuktikan bahwa firmware tersebut asli dan belum dimodifikasi."
+    mc2 "Kamu mau cek signature-nya?"
+    a "{b}Signature{/b} merujuk pada tanda tangan digital yang digunakan untuk memverifikasi bahwa firmware berasal dari sumber resmi dan belum mengalami perubahan sejak dibuat."
+    a "Signature dalam firmware tergantung pada vendor pembuatnya. Jika tanda tangan digital ini berbeda, bahkan sedikit saja, maka firmware tersebut bisa dianggap tidak asli, rusak, termodifikasi, atau terinfeksi malware."
+    mc1 "Yep, benar. Ada kemungkinan protokol kerja dalam firmware telah dimodifikasi, membuat beberapa teknisi kebingungan... atau bahkan pikirannya terkorosi virus, seperti yang terjadi di Connecting Bridge menuju SSD: Gudang Data."
+    play sound "audio/sound/システム決定音_9.mp3"
+    italic "Notifikasi File baru terdengar, [nama2] baru saja mengirimkan list public key tanpa basa-basi."
+    a "{b}Public Key{/b} adalah pasangan dari private key, yang bersifat terbuka dan digunakan untuk memverifikasi tanda tangan digital (signature) yang dibuat dengan private key."
+    a "Dengan public key, sistem bisa mengecek apakah file atau firmware benar-benar dibuat oleh pemilik private key yang sah."
+    a "Jika hasil verifikasi gagal, itu artinya file mungkin sudah dimodifikasi atau berasal dari sumber yang tidak resmi."
+    a "Public key bisa mengecek keaslian signature firmware namun tidak bisa menyalinnya."
+    a "Sedangkan {b}Private Key{/b} adalah kode rahasia dalam kriptografi yang digunakan oleh vendor untuk membuat tanda tangan digital (signature) yang membuktikan bahwa firmware tersebut asli dan belum dimodifikasi."
     a "Private key tidak boleh bocor. Jika bocor, siapa pun bisa membuat firmware palsu dengan signature yang seolah-olah valid."
-    play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "Yah, ada harga, ada kualitas. Lagipula, tidak semua orang bisa memiliki NOVA."
-    mc1 "... kau benar. Berapa perjanjian yang harus kita tanda tangani... apalagi menunggu waktu verifikasi yang lumayan lama juga."
-    play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "Yap, itu penting agar tidak ada celah kejahatan."
+    hide mcnovaring
+    with dissolve
+    italic "[nama1] menyentuh modul penyimpanan digital yang ada di dada kirinya, layar hologram muncul, menampilkan binary file yang berisi deretan huruf. Itu adalah bentuk encoded dalam format Base64."
+    show mcnovaidle2
+    with dissolve
     italic "[nama1] melakukan crosscheck antara signature dengan private key milik vendor."
+    $ renpy.pause(2.0, hard=True)
     stop music fadeout 1.0
+    mc1 "Ketakutanku terbukti..."
     play sound "audio/sound/ネガティブズーン.mp3"
-    mc1 "Ketakutanku terbukti. Signature pada firmware ini rusak."
+    mc1 "Signature pada firmware ini rusak."
     play sound "audio/sound/ミステリー音.mp3"
     with hpunch
     mc2 "Rusak??"
-    a "{b}Signature{/b} merujuk pada tanda tangan digital yang digunakan untuk memverifikasi bahwa firmware berasal dari sumber resmi dan belum mengalami perubahan sejak dibuat."
-    a "Signature dalam firmware tergantung pada vendor pembuatnya. Jika tanda tangan digital ini berbeda, bahkan sedikit saja, maka firmware tersebut bisa dianggap tidak asli, rusak, termodifikasi, atau terinfeksi malware."
     play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "OK, jadi kali ini karena apa rusaknya? Apa jangan-jangan virus?"
     play sound "audio/sound/LAPUTA_alert.mp3"
@@ -381,11 +432,13 @@ label act3_1_mebromi:
     show mcnovaring
     with hpunch
     mc1 "kamu?!"
+    italic "[nama1] refleks mengacungkan senjatanya ke arah [uefi3]."
     hide mcnovaring
     play sound "audio/sound/え？どうしたの？.mp3"
     show iotech3
     with hpunch
     uefi3 "Eh? Iya, Tuan??"
+    italic "[uefi3] sedikit terlonjak namun tetap mempertahankan ekspresi biasanya."
     
     jump act3_1_quiz3
     return

@@ -1,7 +1,44 @@
+#timer
+default retrace = None
+
+transform alpha_dissolve:
+    alpha 0.0
+    linear 0.5 alpha 1.0
+    on hide:
+        linear 0.5 alpha 0
+init:
+    $ timer_range=0
+    $ timer_jump=0
+    $ time=0
+
+screen countdown:
+    timer 0.01 repeat True action If(time>0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
+    bar value time range timer_range xalign 0.5 yalign 0.04 xmaximum 900 at alpha_dissolve
+
+label zoneout:
+    with vpunch
+    play sound "sound/打撃・ビンタ音.mp3"
+    mc2 "Woy, bangun!"
+    with vpunch
+    play sound "sound/打撃・ビンタ音.mp3"
+    mc2 "Malah ngelamun!"
+    play sound "audio/sound/どうしたの？？.mp3"
+    mc1 "Maaf, maaf, tadi kamu ngomong apa?"
+    $ thinking_value-=5
+
+    jump expression retrace
+    return
+
 #semua rute
 label act1_quiz1:
     play music "music/モノクロライブラリー.mp3"
     $ renpy.music.set_volume(0.4, channel="music")
+
+    $ retrace='act1_quiz1'
+    $ time=20
+    $ timer_range=20.5
+    $ timer_jump='zoneout'
+    show screen countdown
 
     show friendidle2
 
@@ -10,6 +47,7 @@ label act1_quiz1:
         mc2 "hmm... pertama-tama, kita cek apanya dulu, ya?"
 
         "Ganti RAM":
+            hide screen countdown
             hide friendidle2
             show friendconfuse
             stop music
@@ -26,11 +64,13 @@ label act1_quiz1:
                 jump act1_quiz1 #Kembali ke menu pilihan
 
         "Cek kabel monitor":
+            hide screen countdown
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "Aah, benar juga, walau bisa menyala, kalau kabel monitor longgar atau rusak, layar tetap mati."
             $ score+=5
 
         "Reset UEFI":
+            hide screen countdown
             hide friendidle2
             show friendconfuse
             stop music
@@ -63,6 +103,12 @@ label act1_quiz2:
     play music "music/モノクロライブラリー.mp3"
     $ renpy.music.set_volume(0.4, channel="music")
 
+    $ retrace='act1_quiz2'
+    $ time=20
+    $ timer_range=20.5
+    $ timer_jump='zoneout'
+    show screen countdown
+
     show screen thinkingpoint
     scene toko
 
@@ -72,6 +118,7 @@ label act1_quiz2:
         mc2 "Benar, mungkin bisa kita urut dari awal seperti POST {i}(Power-On Self Test) yang dilakukan oleh...{/i}"
 
         "UEFI":
+            hide screen countdown
             hide friendidle2
             show friendidle
             play sound "sound/システムSE_決定音1.mp3"
@@ -79,6 +126,7 @@ label act1_quiz2:
             $ score+=5
 
         "CPU":
+            hide screen countdown
             hide friendidle2
             show friendconfuse
             stop music
@@ -95,6 +143,7 @@ label act1_quiz2:
                 jump act1_quiz2 #Kembali ke menu pilihan
 
         "ALU":
+            hide screen countdown
             hide friendidle2
             show friendconfuse
             stop music
@@ -124,6 +173,12 @@ label act1_quiz3:
     play music "music/モノクロライブラリー.mp3"
     $ renpy.music.set_volume(0.4, channel="music")
 
+    $ retrace='act1_quiz3'
+    $ time=20
+    $ timer_range=20.5
+    $ timer_jump='zoneout'
+    show screen countdown
+
     show screen thinkingpoint
     with dissolve
     
@@ -131,6 +186,7 @@ label act1_quiz3:
         mc1 "Biasanya, jika POST di UEFI memiliki kendala, itu karena..."
 
         "Komputer kehabisan baterai CMOS":
+            hide screen countdown
             with vpunch
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
@@ -146,12 +202,14 @@ label act1_quiz3:
                 jump act1_quiz3
 
         "Perangkat keras gagal terdeteksi oleh sistem":
+            hide screen countdown
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "Jika {i}Hardware{/i} (perangkat keras) gagal dideteksi oleh sistem saat POST, maka akan gagal booting."
             italic "Suara [nama2] berdengung di kepalamu."
             $ score+=5
 
         "Driver belum diinstal":
+            hide screen countdown
             with vpunch
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
@@ -201,13 +259,20 @@ label act1_quiz3:
     return
 
 label act1_quiz4:
+    $ retrace='act1_quiz4'
+    $ time=20
+    $ timer_range=20.5
+    $ timer_jump='zoneout'
+    show screen countdown
+    
     show screen thinkingpoint
     with dissolve
 
     menu:
         mc1 "Ternyata, mereka tidak terjadwal dan terkoordinasi dengan baik dikarenakan..."
 
-        "RAM tidak cukup besar":
+        "Ruang RAM tidak cukup besar":
+            hide screen countdown
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... kayaknya bukan, deh... RAM memang penting, tapi ini soal koordinasi kerja."
@@ -221,6 +286,7 @@ label act1_quiz4:
                 jump act1_quiz4
 
         "Karena GPU tidak terhubung":
+            hide screen countdown
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... hmm, GPU memang penting, tapi ini bukan tugas utamanya..."
@@ -234,6 +300,7 @@ label act1_quiz4:
                 jump act1_quiz4
 
         "Clock Generatornya rusak":
+            hide screen countdown
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Tanpa Clock Generator yang aktif, tidak ada yang mengatur kapan para pekerja CPU harus bergerak..."
             mc1 "Seperti orkestra tanpa konduktor."
@@ -263,18 +330,27 @@ label act1_quiz4:
 label act1_quiz5:
     play music "music/モノクロライブラリー.mp3"
     $ renpy.music.set_volume(0.4, channel="music")
+
+    $ retrace='act1_quiz5'
+    $ time=20
+    $ timer_range=20.5
+    $ timer_jump='zoneout'
+    show screen countdown
+
     show screen thinkingpoint
     with dissolve
 
     menu:
         mc1 "Sumber utama bootloader..."
 
-        "SSD":
+        "SSD: Gudang Data":
+            hide screen countdown
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "lebih spesifiknya, bootloader disimpan di partisi khusus ESP dalam SSD atau hard drive"
             $ score+=5
 
-        "RAM":
+        "RAM: Ruang Transit Data":
+            hide screen countdown
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -287,7 +363,9 @@ label act1_quiz5:
                 jump game_over
             else:
                 jump act1_quiz5
-        "GPU":
+
+        "GPU: Studio Visual":
+            hide screen countdown
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -334,12 +412,12 @@ label act2_1_quiz1:
             else:
                 jump act2_1_quiz1
             
-        "GPU":
+        "GPU: Studio Visual":
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Mungkin aku harus cek GPU: Studio Visual."
             $ score+=5
 
-        "Driver Grafis":
+        "Driver Grafis - Teknisi Penerjemah Grafis":
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -415,7 +493,7 @@ label act3_1_quiz1:
             else:
                 jump act3_1_quiz1
 
-        "RAM berantakan - urutan perintah tidak beraturan":
+        "RAM: Ruang Transit Data berantakan - urutan perintah tidak beraturan":
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -492,25 +570,41 @@ label act3_1_quiz2:
     return
 
 label act3_1_quiz3:
+    show iotech3
 
-    mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya, yaitu{/i}"
+    mc1 "Pertama kali kita bertemu adalah saat aku baru memasuki sistem yang pertama kali aktif ketika komputer dinyalakan, yaitu..."
 
     menu:
-        mc1 "{i}Pertamakali kita bertemu ketika aku baru masuk ke komponen yang pertamakali berjalan dibanding komponen lainnya, yaitu{/i}"
+        mc1 "Pertama kali kita bertemu adalah saat aku baru memasuki sistem yang pertama kali aktif ketika komputer dinyalakan, yaitu..."
 
-        "ESP - Extensible Firmware Interface System Partition":
-            stop music
+        "SSD: Gudang Data - ESP: Partisi Khusus":
+            play sound "audio/sound/ミステリー音.mp3"
+            show mcnovafight
+            with flash
+            mc1 "Kita bertemu di ESP!"
+            hide mcnovafight
+            show iotech2
+            with dissolve
+            uefi2 "Maksud Tuan, kita bertemu sebelum Tuan menuju ESP?"
+            play sound "audio/sound/ミステリー音.mp3"
+            show mcnovaidle2
+            with hpunch
+            mc1 "Eh?"
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
-            mc1 "{i}ESP adalah partisi di hard disk atau SSD yang menyimpan bootloader. Sebelum bootloader, ada program lain yang dijalankan sebelum bootloader di load.{/i}"
-            $ thinking_value-=10
+            mc2 "Woy!"
+            play sound "audio/sound/LAPUTA_alert.mp3"
+            mc2 "ESP adalah partisi di hard disk atau SSD yang menyimpan bootloader. Ada program lain yang dijalankan sebelum bootloader di load."
+            play sound "sound/打撃・ビンタ音.mp3"
+            mc2 "Lagian mana ada aku kirim kamu ke ESP, pertamakali aku kirim kamu bukan ke ESP!"
+            $ thinking_value-=15
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act3_quiz3
+                jump act3_1_quiz3
 
         "Driver - Teknisi Penerjemah":
             stop music
@@ -524,7 +618,7 @@ label act3_1_quiz3:
                 mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act3_quiz3
+                jump act3_1_quiz3
 
         "Chip EEPROM - Lobi UEFI":
             play sound "sound/システムSE_決定音1.mp3"
