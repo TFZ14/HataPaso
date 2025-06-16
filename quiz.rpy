@@ -39,6 +39,7 @@ label act1_quiz1:
     $ timer_range=20.5
     $ timer_jump='zoneout'
     show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
 
     show friendidle2
 
@@ -48,6 +49,7 @@ label act1_quiz1:
 
         "Ganti RAM":
             hide screen countdown
+            stop sound
             hide friendidle2
             show friendconfuse
             stop music
@@ -65,12 +67,14 @@ label act1_quiz1:
 
         "Cek kabel monitor":
             hide screen countdown
+            stop sound
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "Aah, benar juga, walau bisa menyala, kalau kabel monitor longgar atau rusak, layar tetap mati."
             $ score+=5
 
         "Reset UEFI":
             hide screen countdown
+            stop sound
             hide friendidle2
             show friendconfuse
             stop music
@@ -108,6 +112,7 @@ label act1_quiz2:
     $ timer_range=20.5
     $ timer_jump='zoneout'
     show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
 
     show screen thinkingpoint
     scene toko
@@ -119,6 +124,7 @@ label act1_quiz2:
 
         "UEFI":
             hide screen countdown
+            stop sound
             hide friendidle2
             show friendidle
             play sound "sound/システムSE_決定音1.mp3"
@@ -127,6 +133,7 @@ label act1_quiz2:
 
         "CPU":
             hide screen countdown
+            stop sound
             hide friendidle2
             show friendconfuse
             stop music
@@ -144,6 +151,7 @@ label act1_quiz2:
 
         "ALU":
             hide screen countdown
+            stop sound
             hide friendidle2
             show friendconfuse
             stop music
@@ -178,6 +186,7 @@ label act1_quiz3:
     $ timer_range=20.5
     $ timer_jump='zoneout'
     show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
 
     show screen thinkingpoint
     with dissolve
@@ -187,6 +196,7 @@ label act1_quiz3:
 
         "Komputer kehabisan baterai CMOS":
             hide screen countdown
+            stop sound
             with vpunch
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
@@ -203,6 +213,7 @@ label act1_quiz3:
 
         "Perangkat keras gagal terdeteksi oleh sistem":
             hide screen countdown
+            stop sound
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "Jika {i}Hardware{/i} (perangkat keras) gagal dideteksi oleh sistem saat POST, maka akan gagal booting."
             italic "Suara [nama2] berdengung di kepalamu."
@@ -210,6 +221,7 @@ label act1_quiz3:
 
         "Driver belum diinstal":
             hide screen countdown
+            stop sound
             with vpunch
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
@@ -264,6 +276,7 @@ label act1_quiz4:
     $ timer_range=20.5
     $ timer_jump='zoneout'
     show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
     
     show screen thinkingpoint
     with dissolve
@@ -273,6 +286,7 @@ label act1_quiz4:
 
         "Ruang RAM tidak cukup besar":
             hide screen countdown
+            stop sound
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... kayaknya bukan, deh... RAM memang penting, tapi ini soal koordinasi kerja."
@@ -287,6 +301,7 @@ label act1_quiz4:
 
         "Karena GPU tidak terhubung":
             hide screen countdown
+            stop sound
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "... hmm, GPU memang penting, tapi ini bukan tugas utamanya..."
@@ -301,6 +316,7 @@ label act1_quiz4:
 
         "Clock Generatornya rusak":
             hide screen countdown
+            stop sound
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Tanpa Clock Generator yang aktif, tidak ada yang mengatur kapan para pekerja CPU harus bergerak..."
             mc1 "Seperti orkestra tanpa konduktor."
@@ -336,6 +352,7 @@ label act1_quiz5:
     $ timer_range=20.5
     $ timer_jump='zoneout'
     show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
 
     show screen thinkingpoint
     with dissolve
@@ -345,12 +362,14 @@ label act1_quiz5:
 
         "SSD: Gudang Data":
             hide screen countdown
+            stop sound
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "lebih spesifiknya, bootloader disimpan di partisi khusus ESP dalam SSD atau hard drive"
             $ score+=5
 
         "RAM: Ruang Transit Data":
             hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -366,6 +385,7 @@ label act1_quiz5:
 
         "GPU: Studio Visual":
             hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -392,6 +412,13 @@ label act2_1_quiz1:
     play music "audio/music/モノクロライブラリー.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
 
+    $ retrace='act2_1_quiz1'
+    $ time=15
+    $ timer_range=15.5
+    $ timer_jump='zoneout'
+    show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
+
     show screen thinkingpoint
     with dissolve
 
@@ -399,6 +426,8 @@ label act2_1_quiz1:
 
     menu:
         "Cek kabel monitor":
+            hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -413,11 +442,15 @@ label act2_1_quiz1:
                 jump act2_1_quiz1
             
         "GPU: Studio Visual":
+            hide screen countdown
+            stop sound
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Mungkin aku harus cek GPU: Studio Visual."
             $ score+=5
 
         "Driver Grafis - Teknisi Penerjemah Grafis":
+            hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -464,6 +497,13 @@ label act3_1_quiz1:
     play music "audio/music/モノクロライブラリー.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
 
+    $ retrace='act3_1_quiz1'
+    $ time=10
+    $ timer_range=10.5
+    $ timer_jump='zoneout'
+    show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
+
     show screen thinkingpoint
     with dissolve
 
@@ -473,12 +513,16 @@ label act3_1_quiz1:
         mc2 "Jika ada sebagian teknisi UEFI kehilangan arah tentang apa yang harus mereka kerjakan, kira-kira masalahnya ada di..."
 
         "Firmware - pedoman kerja":
+            hide screen countdown
+            stop sound
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Karena Firmware bagaikan protokol resmi. Jika ada masalah pada Firmware, bisa jadi teknisi-teknisi ada yang tidak memiliki pedoman untuk bekerja."
             mc2 "Benar."
             $ score+=5
 
         "Kerusakan fisik EEPROM - Kerusakan Kantor":
+            hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -494,6 +538,8 @@ label act3_1_quiz1:
                 jump act3_1_quiz1
 
         "RAM: Ruang Transit Data berantakan - urutan perintah tidak beraturan":
+            hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -516,12 +562,21 @@ label act3_1_quiz2:
     play music "audio/music/モノクロライブラリー.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
 
+    $ retrace='act3_1_quiz2'
+    $ time=10
+    $ timer_range=10.5
+    $ timer_jump='zoneout'
+    show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
+
     mc1 "Dan Firmware disimpan di..."
     
     menu:
         mc1 "Dan Firmware disimpan di..."
 
         "CPU Cache":
+            hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -536,6 +591,8 @@ label act3_1_quiz2:
                 jump act3_1_quiz2
 
         "GPU: Studio Visual":
+            hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -561,6 +618,8 @@ label act3_1_quiz2:
                 jump act3_1_quiz2
         
         "Chip EEPROM - Ruang Archive Protokol Firmware":
+            hide screen countdown
+            stop sound
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "firmware biasanya disimpan di EEPROM — chip memori kecil yang menyimpan kode permanen yang bisa di-update."
             $ score+=5
@@ -570,6 +629,17 @@ label act3_1_quiz2:
     return
 
 label act3_1_quiz3:
+
+    $ retrace='act3_1_quiz3'
+    $ time=10
+    $ timer_range=10.5
+    $ timer_jump='zoneout'
+    show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
+
+    show thinkingpoint
+    with dissolve
+
     show iotech3
 
     mc1 "Pertama kali kita bertemu adalah saat aku baru memasuki sistem yang pertama kali aktif ketika komputer dinyalakan, yaitu..."
@@ -578,6 +648,8 @@ label act3_1_quiz3:
         mc1 "Pertama kali kita bertemu adalah saat aku baru memasuki sistem yang pertama kali aktif ketika komputer dinyalakan, yaitu..."
 
         "SSD: Gudang Data - ESP: Partisi Khusus":
+            hide screen countdown
+            stop sound
             play sound "audio/sound/ミステリー音.mp3"
             show mcnovafight
             with flash
@@ -607,6 +679,8 @@ label act3_1_quiz3:
                 jump act3_1_quiz3
 
         "Driver - Teknisi Penerjemah":
+            hide screen countdown
+            stop sound
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
@@ -621,10 +695,15 @@ label act3_1_quiz3:
                 jump act3_1_quiz3
 
         "Chip EEPROM - Lobi UEFI":
+            hide screen countdown
+            stop sound
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Yep! Firmware utama, seperti UEFI atau BIOS, tersimpan di dalam chip memori khusus di motherboard, yang seringkali adalah EEPROM... atau jenis Flash memory serupa. Ketika komputer dinyalakan, CPU akan langsung menjalankan instruksi dari chip ini terlebih dahulu."
             $ score+=5
     
     mc1 "Kamu waktu itu ada di Lobi UEFI, kan?"
     
+    hide thinkingpoint
+    with dissolve
+
     return
