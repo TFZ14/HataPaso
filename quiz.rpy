@@ -240,6 +240,7 @@ label act1_quiz3:
     with dissolve
     stop music fadeout 2.0
     play music "music/Disital_Delta.mp3" fadein 1
+    $ renpy.music.set_volume(0.4, channel="music")
 
     mc1 "Bagaimana? Apa ada kendala?"
     play sound "audio/sound/キーボードで入力する音.mp3"
@@ -262,12 +263,7 @@ label act1_quiz3:
 
     uefi2 "Mari saya antar."
 
-    scene lorong
-    with fade
-    play sound "audio/sound/ローファー.mp3"
-    italic "Menuju Ruang CPU dengan Connecting Bridge."
-
-    jump act1_cpu
+    jump act1_alrzone
     return
 
 label act1_quiz4:
@@ -322,7 +318,7 @@ label act1_quiz4:
             mc1 "Seperti orkestra tanpa konduktor."
             $ score+=5
 
-    italic "Clock Generator menentukan kecepatan kerja komponen dalam satuan MHz atau GHz. Clock Generator mengirim sinyal denyut {i}(clock pulse){/i} agar data diproses secara teratur dan terkoordinasi."
+    a "Clock Generator menentukan kecepatan kerja komponen dalam satuan MHz atau GHz. Clock Generator mengirim sinyal denyut {i}(clock pulse){/i} agar data diproses secara teratur dan terkoordinasi."
 
     hide screen thinkingpoint
     with dissolve
@@ -330,15 +326,18 @@ label act1_quiz4:
     play sound "audio/sound/ミステリー音.mp3"
     mc1 "...dan Clock Generatornya rusak"
     italic "[nama1] mengurut kening pusing."
-
+    italic "[nama1] berjalan mendekat Teknisi yang terlihat sebagai pemimpin kelompok tersebut. Teknisi itu menoleh ke arah [nama1] ketika Zona ALR yang mengenai tubuhnya."
     scene cpuroom
     with fade
     show iotechchiefcpu
     with dissolve
+    show kekkai
+    with dissolve
 
-    chiefcpu "Tuan [nama1], sepertinya ada yang salah dengan Clock Generator-nya."
-    mc1 "Ya, aku bisa lihat. Coba aku cek dulu, dimana panel kontrolnya?"
+    chiefcpu "Tuan [nama1], ada apa ya?"
+    mc1 "Ada masalah di Clock Generatornya makanya kalian tidak bisa bekerja. Coba aku cek dulu, dimana panel kontrolnya?"
     chiefcpu "Sebelah sini..."
+    italic "[chiefcpu] mengantar [nama1] ke arah panel kontrol."
 
     jump act1_cpu_minigame
     return
@@ -399,7 +398,7 @@ label act1_quiz5:
             else:
                 jump act1_quiz5
 
-    italic "ESP atau EFI (Extensible Firmware Interface) System Partition adalah partisi khusus pada hard drive atau SSD yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
+    a "ESP atau EFI (Extensible Firmware Interface) System Partition adalah partisi khusus pada hard drive atau SSD yang berisi file bootloader dan konfigurasi lainnya. Jika ESP hilang atau rusak, maka sistem tidak bisa booting meskipun OS masih utuh."
 
     hide screen thinkingpoint
     with dissolve
@@ -408,6 +407,9 @@ label act1_quiz5:
     return
 
 #rute ending 1
+init:
+    $ mayoi=0
+
 label act2_1_quiz1:
     play music "audio/music/モノクロライブラリー.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
@@ -464,7 +466,7 @@ label act2_1_quiz1:
             else:
                 jump act2_1_quiz1
 
-    italic "GPU atau Graphic Processing Unit adalah komponen komputer yang berfungsi untuk memproses dan menampilkan grafis, gambar, dan video. Jika GPU tidak bisa bekerja, maka laptop tidak bisa menampilkan informasi."
+    a "GPU atau Graphic Processing Unit adalah komponen komputer yang berfungsi untuk memproses dan menampilkan grafis, gambar, dan video. Jika GPU tidak bisa bekerja, maka laptop tidak bisa menampilkan informasi."
 
     hide screen thinkingpoint
 
@@ -598,6 +600,7 @@ label act3_1_quiz2:
             with vpunch
             mc2 "Euh... kamu sakit???"
             play music "audio/music/さがしもの.mp3"
+            $ renpy.music.set_volume(0.4, channel="music")
             play sound "sound/打撃・ビンタ音.mp3"
             with vpunch
             mc2 "Berapakali kubilang, GPU itu komponen untuk memproses data grafis dan visual!"
@@ -628,21 +631,271 @@ label act3_1_quiz2:
 
     return
 
+#2 question
 label act3_1_quiz3:
+    play music "audio/music/Chain_Datura.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
+    screen ramroom
 
-    $ retrace='act3_1_quiz3'
+    $ mayoi=0
+
+    show screen thinkingpoint
+    with dissolve
+
+    show mcnovafight
+    with hpunch
+    mc1 "Kamu ada urusan apa ke EEPROM?"
+    hide mcnovafight
+    show iotech3
+    uefi3 "Saya akan melakukan pengecekan rutin saat protokol awal yaitu checksum."
+
     $ time=10
     $ timer_range=10.5
     $ timer_jump='zoneout'
     show screen countdown
     play sound "audio/sound/LAPUTA_counter.mp3" loop
 
-    show thinkingpoint
-    with dissolve
+    menu:
+        uefi3 "Saya hanya melakukan verifikasi rutin yaitu checksum."
 
+        "Percaya":
+            hide screen countdown
+            stop sound
+            hide iotech3
+            show mcnovaidle2
+            mc1 "..."
+            a "checksum adalah urutan angka dan huruf yang digunakan untuk memeriksa kesalahan data."
+            a "Saat data dikirim atau disimpan, sistem menghitung nilai checksum, yang biasanya berupa hash atau angka tertentu, dan mengecek ulang nanti apakah nilai tersebut masih cocok."
+            a "Kalau tidak cocok, berarti datanya kemungkinan rusak atau dimodifikasi."
+            a "Checksum bisa dilakukan di berbagai tahap sistem komputer seperti saat POST untuk mengecek apakah UEFI rusak atau komponen seperti RAM, GPU, dan storage masih berfungsi dengan baik."
+            a "Contoh lainnya ialah saat bootloader akan dimuat, checksum digunakan untuk mengecek apakah bootloader ini sudah di modifikasi atau tidak."
+            mc1 "Oke, tapi sebelum mengecek, biarkan aku menanyaimu sampai aku puas."
+            hide mcnovaidle2
+            show iotech3
+            uefi3 "Baik, Tuan."
+            $ score+=5
+
+        "Tidak percaya":
+            hide screen countdown
+            stop sound
+            hide iotech3
+            play sound "audio/sound/ミステリー音.mp3"
+            show mcnovaidle2
+            mc1 "... mencurigakan."
+            hide mcnovaidle2
+            show iotech3
+            uefi3 "Dimananya Tuan?"
+            hide iotech3
+            show mcnovaidle2
+            mc1 "Kamu cuma alasan melakukan checksum agar bisa masuk EEPROM, kan?"
+            hide mcnovaidle2
+            show iotech3
+            play sound "audio/sound/どうしたの？？.mp3"
+            uefi3 "Maaf, saya tidak mengerti maksud Tuan."
+            uefi3 "Atau begini, Tuan paham, kan, apa itu checksum?"
+            hide iotech3
+            play sound "audio/sound/打撃・ビンタ音.mp3"
+            with vpunch
+            show mcnovafight
+            mc1 "Tentu saja!"
+
+            $ time=10
+            $ timer_range=10.5
+            $ timer_jump='zoneout'
+            show screen countdown
+            play sound "audio/sound/LAPUTA_counter.mp3" loop
+            
+            menu:
+                mc1 "Checksum itu..."
+                
+                "Checksum adalah file cadangan yang menyimpan salinan lengkap dari sistem operasi.":
+                    hide screen countdown
+                    stop sound
+                    stop music
+                    play sound "audio/sound/LAPUTA_alert.mp3"
+                    mc2 "Sudah lah, [nama1], jangan permalukan dirimu lagi."
+                    hide mcnovafight
+                    show mcnovaring
+                    with hpunch
+                    mc1 "Eh??"
+                    play sound "audio/sound/LAPUTA_alert.mp3"
+                    mc2 "Yang kamu jawab itu definisi dari backup..."
+                    hide mcnovaring
+                    show iotech3
+                    uefi3 "..."
+                    uefi3 "Sepertinya Tuan memang kurang paham... kalau begitu, permisi saya izin melanjutkan kerjaan."
+                    hide iotech3
+                    show mcnovaidle2
+                    play sound "audio/sound/ネガティブズーン.mp3"
+                    mc1 "Tch."
+                    hide mcnovaidle2
+                    show mcnovafight
+                    with hpunch
+                    mc1 "Biarkan aku tanya satu lagi!"
+                    $ mayoi+=5
+
+                "Checksum adalah nilai numerik yang dihasilkan dari data untuk memverifikasi integritas.":
+                    hide screen countdown
+                    stop sound
+                    hide mcnovafight
+                    show iotech3
+                    uefi3 "..."
+                    hide iotech3
+                    show mcnovafight
+                    mc1 "Checksum digunakan untuk mendeteksi kesalahan pada data."
+                    mc1 "Saat data dikirim atau disimpan, sistem menghitung nilai checksum, yang biasanya berupa hash atau angka tertentu, dan mengecek ulang nanti apakah nilai tersebut masih cocok."
+                    mc1 "Kalau tidak cocok, berarti datanya kemungkinan rusak atau dimodifikasi."
+                    hide mcnovafight
+                    stop music
+                    show iotech2
+                    with dissolve
+                    uefi2 "..."
+                    hide iotech2
+                    show iotech3
+                    with dissolve
+                    uefi3 "..."
+                    mc2 "..."
+                    uefi3 "... Tuan hanya mengulangi perkataan saya sebelumnya. Sudah saya katakan, saya hanya ingin melakukan verifikasi rutin, Kenapa tadi Tuan tidak percaya saya?"
+                    hide iotech3
+                    play sound "audio/sound/ミステリー音.mp3"
+                    show mcnovaidle2
+                    with flash
+                    mc1 "Ah-"
+                    italic "[nama1] bisa mendengar [nama2] mengerang malu, lelah dengan kelakuan [nama1] yang tidak masuk akal."
+                    hide mcnovaidle2
+                    show mcnovaidle
+                    mc1 "Ahaha..."
+                    hide mcnovaidle
+                    show iotech3
+                    uefi3 "kalau begitu, permisi saya izin melanjutkan kerjaan."
+                    hide iotech3
+                    show mcnovafight
+                    with hpunch
+                    mc1 "Biarkan aku tanya satu lagi!"
+                    $ mayoi+=5
+                    $ thinking_value-=10
+                    
+                "Checksum adalah alat fisik di motherboard yang mempercepat koneksi internet.":
+                    hide screen countdown
+                    stop sound
+                    stop music
+                    play sound "audio/sound/LAPUTA_alert.mp3"
+                    mc2 "Sudah lah, [nama1], jangan permalukan dirimu lagi."
+                    hide mcnovafight
+                    show mcnovaring
+                    with hpunch
+                    mc1 "Eh??"
+                    mc1 "A- aku salah, kah?"
+                    play sound "audio/sound/打撃・ビンタ音.mp3"
+                    with vpunch
+                    mc2 "BANGET!!"
+                    play sound "audio/sound/LAPUTA_alert.mp3"
+                    mc2 "Checksum bukan perangkat keras, melainkan bagian dari proses perangkat lunak. Lagipula, mempercepat internet juga tidak ada hubungannya dengan checksum—yang tugasnya hanya memastikan data tidak korup atau rusak."
+                    hide mcnovaring
+                    show iotech3
+                    uefi3 "..."
+                    uefi3 "Sepertinya Tuan memang kurang paham... kalau begitu, permisi saya izin melanjutkan kerjaan."
+                    hide iotech3
+                    show mcnovaidle2
+                    play sound "audio/sound/ネガティブズーン.mp3"
+                    mc1 "Tch."
+                    hide mcnovaidle2
+                    show mcnovafight
+                    with hpunch
+                    mc1 "Biarkan aku tanya satu lagi!"
+                    $ mayoi+=5
+            $ mayoi+=5
+
+    jump act3_1_quiz4
+    return
+
+label act3_1_quiz4:
+    play music "audio/music/Chain_Datura.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
+    scene ramroom
+
+    show mcnovafight
+    mc1 "Kita sempat papasan di GPU: Studio Visual..."
+    mc1 "Apa yang kamu lakukan di sana?"
+    hide mcnovafight
     show iotech3
+    uefi3 "Saya hanya lewat saja, Tuan."
+    hide iotech3
+    show mcnovafight
+    mc1 "Lewat?"
+    hide mcnovafight
+    show iotech3
+    uefi3 "Saya tidak ada tugas di sana. Saya sungguhan hanya mampir."
 
-    mc1 "Pertama kali kita bertemu adalah saat aku baru memasuki sistem yang pertama kali aktif ketika komputer dinyalakan, yaitu..."
+    $ time=10
+    $ timer_range=10.5
+    $ timer_jump='zoneout'
+    show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
+
+    menu:
+        "Percaya":
+            hide screen countdown
+            stop sound
+            hide iotech3
+            show mcnovaidle2
+            mc1 "Yah... kalau dipikir-pikir, memang tidak ada keganjilan apapun. sih, di GPU: Studio Visual."
+            hide mcnovaidle2
+            show iotech3
+            uefi3 "Sudah? Saya izin melanjutkan kerjaan, Tuan."
+            hide iotech3
+            play sound "audio/sound/ミステリー音.mp3"
+            show mcnovafight
+            with flash
+            mc1 "Uit!! Satu pertanyaan lagi!"
+            hide mcnovafight
+            show iotech3
+            italic "Walau wajah [uefi3] datar, [nama1] merasa [uefi3] sedikit jengkel."
+            uefi3 "Baik, beneran terakhir, ya. Kalau bisa dipercepat."
+            $ mayoi+=5
+            
+        "Tidak Percaya":
+            hide screen countdown
+            stop sound
+            hide iotech3
+            play sound "audio/sound/打撃・ビンタ音.mp3"
+            show mcnovafight
+            with hpunch
+            mc1 "Kalau memang tidak ada tugas di sana, kenapa datang ke GPU: Studio Visual?"
+            play sound "audio/sound/LAPUTA_alert.mp3"
+            with hpunch
+            mc2 "Ah! Benar juga."
+            mc1 "Tiap Teknisi memiliki tugasnya masing-masing, sesuai protokol."
+            mc1 "Dan Teknisi bukan lah makhluk yang bisa memikirkan hal lain selain tugasnya sendiri."
+            mc1 "Yang bisa melakukan hal itu hanya lah manusia..."
+            play sound "audio/sound/ネガティブズーン.mp3"
+            mc1 "Dan malware yang memang tidak memiliki kewajiban untuk mengikuti protokol!"
+            hide mcnovafight
+            play sound "audio/sound/打撃・ビンタ音.mp3"
+            show iotech3
+            with vpunch
+            uefi3 "Ah-"
+            $ score+=5
+            $ thinking_value+=10
+
+    jump act3_1_quiz5
+    return
+
+#2 Pertanyaan
+label act3_1_quiz5:
+    play music "audio/music/Chain_Datura.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
+    screen ramroom
+
+    show mcnovafight
+    italic "Semua mulai terlihat jelas."
+    mc1 "Jangan-jangan, pertemuan pertama kita bukan suatu kebetulan..."
+
+    $ time=5
+    $ timer_range=5.5
+    $ timer_jump='zoneout'
+    show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
 
     menu:
         mc1 "Pertama kali kita bertemu adalah saat aku baru memasuki sistem yang pertama kali aktif ketika komputer dinyalakan, yaitu..."
@@ -656,9 +909,12 @@ label act3_1_quiz3:
             mc1 "Kita bertemu di ESP!"
             hide mcnovafight
             show iotech2
-            with dissolve
-            uefi2 "Maksud Tuan, kita bertemu sebelum Tuan menuju ESP?"
+            stop music
+            play music "audio/music/さがしもの.mp3"
+            $ renpy.music.set_volume(0.4, channel="music")
+            uefi2 "Maksud Tuan, kita bertemu dia sebelum Tuan menuju ESP?"
             play sound "audio/sound/ミステリー音.mp3"
+            hide iotech2
             show mcnovaidle2
             with hpunch
             mc1 "Eh?"
@@ -676,34 +932,97 @@ label act3_1_quiz3:
                 mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act3_1_quiz3
+                jump act3_1_quiz5
 
         "Driver - Teknisi Penerjemah":
             hide screen countdown
             stop sound
+            play sound "audio/sound/ミステリー音.mp3"
+            show mcnovafight
+            with flash
+            mc1 "Kita ketemuan sama teknisi penerjemah, kan!"
+            a "Driver itu seperti penerjemah antara hardware dan sistem operasi. Mereka dibutuhkan untuk membuat hardware berfungsi, tapi mereka dimuat setelah firmware awal berjalan dan biasanya setelah sistem operasi mulai dimuat. Jadi, mereka bukan komponen yang pertama kali berjalan sendiri saat komputer dihidupkan."
+            hide mcnovafight
+            show iotech3
+            uefi3 "..."
             stop music
             play sound "sound/打撃・ビンタ音.mp3"
+            hide iotech3
+            show mcnovaring
             with vpunch
-            mc1 "{i}Driver itu seperti penerjemah antara hardware dan sistem operasi. Mereka dibutuhkan untuk membuat hardware berfungsi, tapi mereka dimuat setelah firmware awal berjalan dan biasanya setelah sistem operasi mulai dimuat. Jadi, mereka bukan komponen yang pertama kali berjalan sendiri saat komputer dihidupkan.{/i}"
-            $ thinking_value-=10
+            mc2 "Kamu gaada cerita ketemuan sama Driver?"
+            hide mcnovaring
+            play sound "sound/打撃・ビンタ音.mp3"
+            show iotech2
+            with vpunch
+            uefi2 "Seingat saya, Tuan tidak bertemu Teknisi Penerjemah manapun."
+            play sound "audio/sound/LAPUTA_alert.mp3"
+            mc2 "Hhhh... skizo."
+            hide iotech2
+            $ thinking_value-=15
             $ score-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
                 jump game_over
             else:
-                jump act3_1_quiz3
+                jump act3_1_quiz5
 
         "Chip EEPROM - Lobi UEFI":
             hide screen countdown
             stop sound
             play sound "sound/システムSE_決定音1.mp3"
-            mc1 "Yep! Firmware utama, seperti UEFI atau BIOS, tersimpan di dalam chip memori khusus di motherboard, yang seringkali adalah EEPROM... atau jenis Flash memory serupa. Ketika komputer dinyalakan, CPU akan langsung menjalankan instruksi dari chip ini terlebih dahulu."
+            mc1 "{i}Yep! Firmware utama, seperti UEFI atau BIOS, tersimpan di dalam chip memori khusus di motherboard, yang seringkali adalah EEPROM... atau jenis Flash memory serupa. Ketika komputer dinyalakan, CPU akan langsung menjalankan instruksi dari chip ini terlebih dahulu.{/i}"
             $ score+=5
-    
-    mc1 "Kamu waktu itu ada di Lobi UEFI, kan?"
-    
-    hide thinkingpoint
-    with dissolve
 
+    scene ramroom
+    with dissolve
+    show mcnovaidle2
+    mc1 "Kamu waktu itu ada di Lobi UEFI, kan? Kamu ngapain di sana?"
+    hide mcnovaidle2
+    show iotech3
+    uefi3 "Saya... saya buru-buru ke CPU untuk bekerja. Tapi sebelum masuk, saya melihat clock generatornya rusak."
+    uefi3 "Saya laporkan ini ke [uefi1], Teknisi yang ada dibalik counter di Lobi UEFI."
+    uefi3 "Setelahnya, saya dapat pekerjaan baru, jadi saya segera menuju tempat yang diinstruksikan oleh protokol kerja."
+
+    $ time=5
+    $ timer_range=5.5
+    $ timer_jump='zoneout'
+    show screen countdown
+    play sound "audio/sound/LAPUTA_counter.mp3" loop
+
+    menu:
+        "Percaya":
+            hide screen countdown
+            stop sound
+            hide iotech3
+            show mcnovaidle2
+            mc1 "..."
+            mc1 "Masuk akal..."
+            italic "Tapi, kok, aku rasa ada yang mengganjal, ya..."
+            italic "Apa..."
+            $ mayoi+=10
+            jump ending_1
+
+        "Tidak percaya":
+            hide screen countdown
+            stop sound
+            hide iotech3
+            play sound "audio/sound/ミステリー音.mp3"
+            show mcnovaidle2
+            mc1 "CPU hanya bisa bekerja jika mendapat sinyal dari clock generator. Tanpa clock, CPU tidak bisa mengeksekusi apa pun, termasuk program POST."
+            mc1 "Jadi, jika clock rusak, semua proses akan terhenti."
+            play sound "audio/sound/打撃・ビンタ音.mp3"
+            with vpunch
+            mc1 "Dan semua Teknisi terhenti!"
+            play sound "audio/sound/システムSE_決定音1.mp3"
+            hide mcnovaidle2
+            show iotech3
+            with hpunch
+            show correct
+            uefi3 "Ah!"
+            hide correct
+            $ score+=5
+
+    jump ending_1
     return

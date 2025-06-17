@@ -5,6 +5,7 @@ define klien=Character("Mary", who_bold=True, who_color="#dc8c8d")
 define uefi1=Character("IO Tech 1023345", who_bold=True, who_color="#bd75b7")
 define uefi2=Character("IO Tech 1023123", who_bold=True, who_color="#969ecf")
 define uefi3=Character("IO Tech 1455690", who_bold=True, who_color="#cf8f2c")
+define mebromi=Character("Mebromi", who_bold=True, who_color="#cf8f2c")
 define chiefcpu=Character("IO Tech 1126480", who_bold=True, who_color="#4aacb2")
 
 #Text
@@ -247,7 +248,7 @@ label act1_post:
     hide iotech3
 
     play sound "sound/どうしたの？？.mp3"
-    mc1 "... dan petugas IO itu pergi begitu saja."
+    mc1 "... dan Teknisi IO itu pergi begitu saja."
     play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Ada apa [nama1]?"
     italic "Suara [nama2] berdengung di kepalamu karena jalur komunikasi langsung dari otak ke otak."
@@ -256,7 +257,7 @@ label act1_post:
     play music "music/Disital_Delta.mp3" fadein 1.0
     $ renpy.music.set_volume(0.4, channel="music")
 
-    italic "Lobi UEFI terlihat memang terlihat sibuk, banyak Petugas IO berlalu-lalang untuk mempersiapkan laptop."
+    italic "Lobi UEFI terlihat memang terlihat sibuk, banyak Teknisi IO berlalu-lalang untuk mempersiapkan laptop."
 
     italic "Saat ini, kegiatan {b}POST{/b} sedang berjalan. POST atau Power-On Self-Test adalah serangkaian pemeriksaan awal yang dilakukan komputer setiap kali dinyalakan untuk memastikan semua komponen berfungsi sebelum sistem berjalan."
 
@@ -272,11 +273,41 @@ label act1_post:
     return
 #act1_quiz3
 
+label act1_alrzone:
+    scene lorong
+    with fade
+    play sound "audio/sound/ローファー.mp3"
+    italic "Menuju Ruang CPU dengan Connecting Bridge."
+    italic "Ditengah perjalanan, lampu dan cahaya kebiruan dari kabel-kabel yang menjalar hidup-mati dengan aneh."
+    italic "Bahkan Teknisi IO yang mengantarnya terdiam di tempat."
+
+    show mcnovaidle2
+    with dissolve
+    mc1 "Ada yang nggak beres."
+    hide mcnovaidle2
+
+    italic "[nama1] menekan tombol dari modul yang ada di dada kirinya. Layar hologram muncul, menampilkan beberapa menu."
+    italic "[nama1] mengaktifkan Zona Pemulihan Logika Buatan dan mendekati [uefi2]- Teknisi yang tadi sedang mengantarnya."
+    show kekkai
+    with dissolve
+    a "Zona ALR, atau Artificial Logic Recovery Zone, adalah salah satu fitur milik NOVA khusus untuk Diver."
+    a "Zona ini menciptakan ruang terbatas yang independen dari kondisi sistem utama perangkat, memungkinkan unit dasar seperti Teknisi tetap aktif meski lingkungan aslinya lumpuh."
+    a "Kekurangan atau kesalahan yang membuat Teknisi tidak bisa berfungsi akan ditambal oleh sistem milik NOVA sehingga teknisi bisa tetap berfungsi, selama Teknisi itu berada dalam jangkauan Zona ALR."
+    mc1 "Kamu, jangan jauh-jauh dariku."
+    mc1 "{i}Tidak ada gunanya menjelaskan tentang Zona ALR pada Teknisi. Mereka hanya visualisasi sistem saja.{/i}"
+    uefi2 "Baik."
+    italic "Sesuai dugaan [nama1], Teknisi tersebut berlaku selayaknya tidak ada yang salah."
+    play sound "audio/sound/ローファー.mp3"
+    italic "Mereka melanjutkan perjalanan menuju CPU: Ruang Kendali."
+
+    jump act1_cpu
+    return
+
 label act1_cpu:
     play music "music/pandora.mp3"
     $ renpy.music.set_volume(0.4, channel="music")
 
-    scene cutscene2
+    scene cutscene2-alr
     with fade
 
     show screen locinfo("CPU: Ruang Kendali")
@@ -292,7 +323,7 @@ label act1_cpu:
     mc1 "apa-apaan!"
     play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "kenapa [nama1]? Ada apa?"
-    italic "Ruang CPU dipenuhi oleh pekerja yang berbaris rapih menghadap ke arah yang sama. Mereka diam seribu bahasa, mengantisipasi perintah yang entah kapan munculnya, tidak seperti petugas IO di Lobi UEFI yang sibuk berlalu-lalang."
+    italic "Ruang CPU dipenuhi oleh pekerja yang berbaris rapih menghadap ke arah yang sama. Mereka diam seribu bahasa, mengantisipasi perintah yang entah kapan munculnya, tidak seperti Teknisi IO di Lobi UEFI yang sibuk berlalu-lalang."
     mc1 "Aah! Pantas saja Lobi UEFI tidak dapat kabar dari CPU..."
 
     jump act1_quiz4
@@ -311,8 +342,14 @@ label act1_cpudone:
     mc1 "[nama2], catat untuk Bu Mary, kalau pakai laptop, pastikan sumber listriknya stabil. Tegangan yang nggak stabil bisa bikin clock generator error."
     play sound "audio/sound/LAPUTA_alert.mp3"
     mc2 "Siap!"
+    italic "[nama1] mematikan Zona ALR melalui layar hologram yang dipancarkan modul di dada kirinya."
+    hide kekkai
+    with dissolve
     show iotechchiefcpu
     with dissolve
+    play sound "audio/sound/ローファー.mp3"
+    italic "[chiefcpu] menghampiri [nama1]."
+    stop sound
     chiefcpu "Terima kasih. Karena detak jam untuk jadwal kami sudah diperbaiki, kami akan memulai bekerja."
 
     play sound "audio/sound/ローファー.mp3"
@@ -350,8 +387,11 @@ label act1_cpudone:
     with vpunch
     mc1 "Eh? Kenapa lagi?"
     uefi1 "CPU melaporkan bahwa instruksi tidak bisa dilanjutkan karena berkas bootloader todak ada di memori."
-    mc1 "Tunggu. Kalau begitu... tempat terakhir data berada sebelum eksekusi dimulai adalah RAM: Ruang Transit Data, kan?"
-    uefi1 "Benar. Tapi jika berkas bootloader memang tidak sempat tersalin, Tuan harus mencarinya langsung dari sumber utama..."
+    play sound "audio/sound/ミステリー音.mp3"
+    mc1 "Memori...? Maksudmu RAM?"
+    uefi1 "Benar. RAM: Ruang Transit Data seharusnya menjadi tempat sementara bagi bootloader sebelum dijalankan."
+    mc1 "Jadi kemungkinan... data bootloader belum pernah sampai ke sana?"
+    uefi1 "Itu yang saya khawatirkan. Jika memang tidak sempat tersalin, Tuan harus mencarinya langsung dari sumber aslinya."
 
     jump act1_quiz5
     return

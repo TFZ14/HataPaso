@@ -51,6 +51,7 @@ label act2_1_ram_minigame:
 label act2_1_ramdone:
     stop music fadeout 2
     play music "music/Disital_Delta.mp3" fadein 2
+    $ renpy.music.set_volume(0.4, channel="music")
     
     mc1 "Sudah ku pindai bereskan."
     italic "[nama1] menyeka keringat imajiner."
@@ -130,7 +131,7 @@ label act2_1_connecting:
     hide iotechvirus
     show iotech3
     with hpunch
-    uefi3 "Tolong kembali! Disini ada Teknisi IO yang terkena virus!"
+    uefi3 "Tolong kembali! Disini ada Teknisi IO yang terkena malware!"
     play sound "audio/sound/ミステリー音.mp3"
     with hpunch
     mc1 "Eh?"
@@ -192,15 +193,15 @@ label act2_1_connectingdone:
     show iotechvirus
     with vpunch
 
-    mc1 "Hhh... siapa sangka ada virus di sini. Menyerahlah!"
-    italic "Teknisi yang terkena virus masih terdiam namun tubuhnya tidak bergerak. Untuk berjaga-jaga, [nama1] menyuruh [uefi2] untuk menahan Teknisi tersebut."
+    mc1 "Hhh... siapa sangka ada malware di sini. Menyerahlah!"
+    italic "Teknisi yang terkena malware masih terdiam namun tubuhnya tidak bergerak. Untuk berjaga-jaga, [nama1] menyuruh [uefi2] untuk menahan Teknisi tersebut."
     hide iotechvirus
     with dissolve
     show iotechviruskeep
     with dissolve
-    italic "[uefi2] mengeluarkan alat seperti Lampu LED Emergency Portable dan mengarahkannya pada Teknisi yang terkena virus."
+    italic "[uefi2] mengeluarkan alat seperti Lampu LED Emergency Portable dan mengarahkannya pada Teknisi yang terkena malware."
     italic "Seketika bayangan tipis berbentuk balok mengurung Teknisi tersebut."
-    italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai virus untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki virus."
+    italic "[nama1] maju dan mengeluarkan debugging tool : scan. Digunakan untuk memindai malware untuk mengetahui apakah ada sesuatu yang dibawa atau dihilangkan, juga untuk melihat daya gangguan yang dimiliki malware."
     stop music
     hide iotechviruskeep
     with dissolve
@@ -217,12 +218,12 @@ label act2_1_connectingdone:
     play sound "audio/sound/LAPUTA_alert.mp3"
     italic "[uefi2] mematikan transmisi."
     uefi2 "Baik, Tuan [nama1], silakan berikan bootloader-nya, saya akan mengantarkannya langsung ke lantai OS."
-    mc1 "Baik, setelah aku musnahkan virus ini."
+    mc1 "Baik, setelah aku musnahkan malware ini."
 
     #scene cutscene disini
 
-    italic "[nama1] mengangkat debugging tool yang serupa kursor itu dan menusukkannya ke dada kanan Teknisi yang terkena virus. [nama1] melepas gagang kursor dan mulai memunculkan window terminal seperti hologram di hadapannya."
-    italic "Selagi [nama1] mengoperasikan terminal, cahaya kehijauan menguar dari tempat tusuk tersebut, tanda virus sedang dinetralkan."
+    italic "[nama1] mengangkat debugging tool yang serupa kursor itu dan menusukkannya ke dada kanan Teknisi yang terkena malware. [nama1] melepas gagang kursor dan mulai memunculkan window terminal seperti hologram di hadapannya."
+    italic "Selagi [nama1] mengoperasikan terminal, cahaya kehijauan menguar dari tempat tusuk tersebut, tanda malware sedang dinetralkan."
     
     scene lorong
     with dissolve
@@ -381,7 +382,7 @@ label act3_1_eeprom:
     mc2 "Kamu mau cek signature-nya?"
     a "{b}Signature{/b} merujuk pada tanda tangan digital yang digunakan untuk memverifikasi bahwa firmware berasal dari sumber resmi dan belum mengalami perubahan sejak dibuat."
     a "Signature dalam firmware tergantung pada vendor pembuatnya. Jika tanda tangan digital ini berbeda, bahkan sedikit saja, maka firmware tersebut bisa dianggap tidak asli, rusak, termodifikasi, atau terinfeksi malware."
-    mc1 "Yep, benar. Ada kemungkinan protokol kerja dalam firmware telah dimodifikasi, membuat beberapa teknisi kebingungan... atau bahkan pikirannya terkorosi virus, seperti yang terjadi di Connecting Bridge menuju SSD: Gudang Data."
+    mc1 "Yep, benar. Ada kemungkinan protokol kerja dalam firmware telah dimodifikasi, membuat beberapa teknisi kebingungan... atau bahkan pikirannya terkorosi mmalware, seperti yang terjadi di Connecting Bridge menuju SSD: Gudang Data."
     play sound "audio/sound/システム決定音_9.mp3"
     italic "Notifikasi File baru terdengar, [nama2] baru saja mengirimkan list public key tanpa basa-basi."
     a "{b}Public Key{/b} adalah pasangan dari private key, yang bersifat terbuka dan digunakan untuk memverifikasi tanda tangan digital (signature) yang dibuat dengan private key."
@@ -405,9 +406,9 @@ label act3_1_eeprom:
     with hpunch
     mc2 "Rusak??"
     play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "OK, jadi kali ini karena apa rusaknya? Apa jangan-jangan virus?"
+    mc2 "OK, jadi kali ini karena apa rusaknya? Apa jangan-jangan malware?"
     play sound "audio/sound/LAPUTA_alert.mp3"
-    mc2 "Maksudku, tadi kita sempat bertemu teknisi yang terjangkit virus."
+    mc2 "Maksudku, tadi kita sempat bertemu teknisi yang terjangkit malware."
     mc1 "Bisa jadi."
     play sound "audio/sound/打撃・ビンタ音.mp3"
     with hpunch
@@ -427,7 +428,9 @@ label act3_1_eeprom:
 
 label act3_1_mebromi:
     scene ramroom
-    
+    play music "audio/music/Another_World.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
+
     play sound "audio/sound/ミステリー音.mp3"
     show mcnovaring
     with hpunch
@@ -439,6 +442,102 @@ label act3_1_mebromi:
     with hpunch
     uefi3 "Eh? Iya, Tuan??"
     italic "[uefi3] sedikit terlonjak namun tetap mempertahankan ekspresi biasanya."
+    stop music fadeout 1.0
     
     jump act3_1_quiz3
+    return
+
+    label ending_1:
+        scene ramroom
+        with fade
+        stop music fadeout 1.0
+
+        if mayoi<15:
+            play sound "audio/sound/打撃・ビンタ音.mp3"
+            show mcnovafight
+            with hpunch
+            mc1 "Kamu sudah tidak bisa mengelak lagi! Menyerah saja!"
+            hide mcnovafight
+            show iotech3
+            uefi3 "Hmph..."
+
+            #buka mata
+
+            hide iotech3
+            show iotechmebromi
+            with hpunch
+            uefi3 "Ha ha ha ha ha!"
+            italic "Akhirnya [uefi3] menjatuhkan topengnya."
+            hide iotechmebromi
+            show mcnovafight
+            with hpunch
+            mc1 "Dasar Malware!"
+            hide mcnovafight
+            show iotechmebromi
+            uefi3 "Ha Ha Ha! Bagaimana penampilanku? Cukup bikin mikir, kan?"
+            mebromi "Aku adalah malware berjenis firmware rootkit-"
+            play sound "audio/sound/ネガティブズーン.mp3"
+            mebromi "Mebromi!"
+            a "Mebromi adalah jenis malware yang menyusup ke firmware komputer—tepatnya di BIOS atau UEFI."
+            a "Ia bersembunyi di lapisan terdalam sistem, bahkan sebelum sistem operasi aktif."
+            a "Karena berada di firmware, Mebromi bisa hidup kembali meski harddisk atau SSD diformat, bahkan jika OS diinstal ulang."
+            a "Mebromi pertama kali ditemukan dan dianalisis secara publik pada Agustus 2011 oleh peneliti keamanan dari Webroot."
+            a "Mebromi menjadi perhatian besar karena merupakan salah satu malware pertama yang mampu menginfeksi BIOS (Basic Input/Output System), bukan hanya sistem operasi, yang membuatnya sangat sulit dihapus dan terdeteksi oleh antivirus biasa."
+            italic "Dengan pesatnya perkembangan teknologi di sini, yang memungkinkan perangkat semacam NOVA bisa dibuat, malware-malware lama banyak yang diupgrade menjadi lebih canggih."
+            hide iotechmebromi
+            show mcnovafight
+            with dissolve
+            mc1 "Contohnya ada di hadapanku, Mebromi X-47."
+            play sound "audio/sound/打撃・ビンタ音.mp3"
+            with hpunch
+            mc1 "Siap-siap aku hapus kamu dari sistem!"
+            
+            $ enemyhp_value=100
+            $ health_value=100
+            hide screen thinkingpoint
+            with dissolve
+
+            jump act3_1_mebromi_moveset
+
+        if mayoi>=15:
+            stop music fadeout 1.0
+            scene ramroom
+            with fade
+            show iotech3
+            uefi3 "Kalau begitu, saya izin mengecek, Tuan."
+            hide iotech3
+            show mcnovafight
+            with vpunch
+            mc1 "Tunggu!"
+            hide mcnovafight
+            with dissolve
+            italic "Namun, [uefi3] tidak mengindahkan teriakan [nama1]. Ia tetap berjalan pelan melewati [nama1]."
+            italic "[nama1] juga kehabisan kata-kata."
+            italic "Dalam hatinya, ia yakin ada yang tidak beres dengan teknisi itu, namun tak ada satu pun kalimat yang tepat ia lontarkan."
+            play sound "audio/sound/LAPUTA_alert.mp3"
+            mc2 "[nama1]."
+            italic "Suara [nama2] terdengar dari transmisi. Walau [nama1] tidak bisa melihat wajah [nama2] sekarang, dari nada bicaranya, [nama2] terdengar kecewa."
+            play sound "audio/sound/LAPUTA_alert.mp3"
+            mc2 "Kamu terlihat kurang istirahat. Kembali lah, biar aku yang gantikan."
+            
+            jump game_over
+        return
+
+label closing_1:
+    play music "audio/music/inner_flame.mp3" fadein 1.0
+    $ renpy.music.set_volume(0.4, channel="music")
+    scene ramroom
+    with dissolve
+    italic "[nama1] berhasil mengalahkan penyebab utama kerusakan laptop Bu Mary."
+    italic "[nama1] melakukan proses flash dengan debugging tool yang ia pegang untuk memulihkan firmware yang sudah termodifikasi."
+    italic "Setelahnya, ia mencoba mengulangi inisiasi laptop dari awal untuk memastikan tidak ada lagi gangguan atau kesalahan."
+    scene lobiuefi
+    with fade
+    italic "Proses berjalan sukses, laptop Bu Mary sudah bisa berfungsi dengan baik."
+    play sound "audio/sound/LAPUTA_alert.mp3"
+    mc2 "Oke, aku tarik keluar ke dunia nyata, ya."
+    italic "[nama1] setuju. Ia melakukan log out dari modul di dada kirinya."
+    play sound "audio/sound/システム決定音_11.mp3"
+    
+    jump selesai
     return
