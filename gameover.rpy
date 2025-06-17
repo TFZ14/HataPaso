@@ -1,4 +1,5 @@
 ﻿label losebattle:
+    stop music
     scene black
     with fade
     italic "Kesadaranmu perlahan hilang. Tubuhmu tak bisa digerakkan."

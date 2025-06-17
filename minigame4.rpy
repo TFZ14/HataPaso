@@ -134,11 +134,21 @@ label virusbattle:
                 play sound "audio/sound/斬撃音.mp3"
                 show kena-virus
                 with hpunch
-                a "Kamu lengah, musuh berhasil menyerang."
                 $ health_value-=10
-                window hide
-                hide kena-virus
-                jump expression arena
+                a "Kamu lengah, musuh berhasil menyerang."
+                if health_value<=0:
+                    hide seri-virus
+                    mc2 "[nama1]!"
+                    hide screen enemyhp
+                    hide screen healthpoint
+                    scene toko
+                    with fade
+                    a "kamu tertarik ke dunia nyata."
+                    jump losebattle
+                else:
+                    window hide
+                    hide kena-virus
+                    jump expression arena
     else:
         menu:
             "Serang":
@@ -282,9 +292,19 @@ label mebromibattle:
                 with hpunch
                 a "Kamu lengah, musuh berhasil menyerang."
                 $ health_value-=10
-                window hide
-                hide kena-mebromi
-                jump act3_1_mebromi_moveset
+                if health_value<=0:
+                    hide seri-virus
+                    mc2 "[nama1]!"
+                    hide screen enemyhp
+                    hide screen healthpoint
+                    scene toko
+                    with fade
+                    a "kamu tertarik ke dunia nyata."
+                    jump losebattle
+                else :
+                    window hide
+                    hide kena-mebromi
+                    jump act3_1_mebromi_moveset
     else:
         menu:
             "Serang":
