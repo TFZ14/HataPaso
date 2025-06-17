@@ -42,12 +42,43 @@ label game_over:
     $ renpy.full_restart()
     return
 
+screen result():
+    frame:
+        xsize 500
+        ysize 600
+        xpos 80
+        ypos 60
+        background "#0008"  # opsional: warna latar semi-transparan
+
+        vbox:
+            spacing 10
+            text "Skor : [score]/70":
+                size 60
+            null height 5
+            text "Rincian:":
+                size 40
+            null height 5
+            text "Pemahaman Dasar Game dan Analogi Komputer : 10/10"
+            null height 5
+            text "Pemahaman Dasar tentang Inisiasi Komputer : [act1]/25":
+                size 30
+            null height 5
+            text "Pemahaman Tentang Alur Inisiasi Komputer : [act2]/5":
+                size 30
+            null height 5
+            text "Pemahaman Sistem dan Kendala Komputer : [act3]/30":
+                size 30
+
+
 label selesai:
     play music "audio/music/inner_flame.mp3" fadein 1.0
     $ renpy.music.set_volume(0.4, channel="music")
     scene toko
     with fade
     show friendidle
+
+    show screen result
+
     if score<=0:
         hide friendidle
         show friendconfuse

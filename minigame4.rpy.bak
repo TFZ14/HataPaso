@@ -339,7 +339,7 @@ label act2_1_connecting_moveset:
     
     $ virus_turn_count+=1
 
-    call virusbattle from _call_virusbattle
+    call virusbattle
 
     jump act2_1_connecting_moveset
     return
@@ -353,7 +353,7 @@ label act3_1_mebromi_moveset:
     
     $ mebromi_turn_count+=1
 
-    call mebromibattle from _call_mebromibattle
+    call mebromibattle
 
     jump closing_1
     return   

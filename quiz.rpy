@@ -10,6 +10,12 @@ init:
     $ timer_range=0
     $ timer_jump=0
     $ time=0
+    $ mayoi=0 #level tersesat (interogasi)
+    #untuk penilaian pemain di akhir
+    $ score=0
+    $ act1=0
+    $ act2=0
+    $ act3=0
 
 screen countdown:
     timer 0.01 repeat True action If(time>0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
@@ -58,6 +64,7 @@ label act1_quiz1:
             mc2 "Oi, oi, yang bener aja..."
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -71,6 +78,7 @@ label act1_quiz1:
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "Aah, benar juga, walau bisa menyala, kalau kabel monitor longgar atau rusak, layar tetap mati."
             $ score+=5
+            $ act1+=5
 
         "Reset UEFI":
             hide screen countdown
@@ -83,6 +91,7 @@ label act1_quiz1:
             mc2 "... langsung banget nih?"
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -130,6 +139,7 @@ label act1_quiz2:
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "Oooh! Oke, akan ku kirim ke Lobi UEFI, ya!"
             $ score+=5
+            $ act1+=5
 
         "CPU":
             hide screen countdown
@@ -142,6 +152,7 @@ label act1_quiz2:
             mc2 "... kayaknya bukan, deh..."
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -160,6 +171,7 @@ label act1_quiz2:
             mc2 "... kayaknya bukan, deh..."
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -204,6 +216,7 @@ label act1_quiz3:
             italic "Suara [nama2] berdengung di kepalamu."
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value <= 0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -218,6 +231,7 @@ label act1_quiz3:
             mc2 "Jika {i}Hardware{/i} (perangkat keras) gagal dideteksi oleh sistem saat POST, maka akan gagal booting."
             italic "Suara [nama2] berdengung di kepalamu."
             $ score+=5
+            $ act1+=5
 
         "Driver belum diinstal":
             hide screen countdown
@@ -229,6 +243,7 @@ label act1_quiz3:
             italic "Suara [nama2] berdengung di kepalamu."
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -288,6 +303,7 @@ label act1_quiz4:
             mc2 "... kayaknya bukan, deh... RAM memang penting, tapi ini soal koordinasi kerja."
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<= 0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -303,6 +319,7 @@ label act1_quiz4:
             mc2 "... hmm, GPU memang penting, tapi ini bukan tugas utamanya..."
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -317,6 +334,7 @@ label act1_quiz4:
             mc1 "Tanpa Clock Generator yang aktif, tidak ada yang mengatur kapan para pekerja CPU harus bergerak..."
             mc1 "Seperti orkestra tanpa konduktor."
             $ score+=5
+            $ act1+=5
 
     a "Clock Generator menentukan kecepatan kerja komponen dalam satuan MHz atau GHz. Clock Generator mengirim sinyal denyut {i}(clock pulse){/i} agar data diproses secara teratur dan terkoordinasi."
 
@@ -365,6 +383,7 @@ label act1_quiz5:
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "lebih spesifiknya, bootloader disimpan di partisi khusus ESP dalam SSD atau hard drive"
             $ score+=5
+            $ act1+=5
 
         "RAM: Ruang Transit Data":
             hide screen countdown
@@ -375,6 +394,7 @@ label act1_quiz5:
             uefi1 "Anu... tadi sudah bicara hal yang sama. Bootloader memang diload di RAM, tapi tempat awalnya bukan dari sana."
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -391,6 +411,7 @@ label act1_quiz5:
             mc2 "Hei! GPU berfungsi untuk rendering grafis, bukan tempat penyimpanan bootloader!"
             $ thinking_value-=5
             $ score-=5
+            $ act1-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -407,9 +428,6 @@ label act1_quiz5:
     return
 
 #rute ending 1
-init:
-    $ mayoi=0
-
 label act2_1_quiz1:
     play music "audio/music/モノクロライブラリー.mp3" fadein 1
     $ renpy.music.set_volume(0.4, channel="music")
@@ -436,6 +454,7 @@ label act2_1_quiz1:
             mc2 "Bukan kabel... kan, tadi sudah kita cek diawal."
             $ thinking_value-=5
             $ score-=5
+            $ act2-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -449,6 +468,7 @@ label act2_1_quiz1:
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "Mungkin aku harus cek GPU: Studio Visual."
             $ score+=5
+            $ act2+=5
 
         "Driver Grafis - Teknisi Penerjemah Grafis":
             hide screen countdown
@@ -459,6 +479,7 @@ label act2_1_quiz1:
             uefi1 "Yang benar saja, kita bahkan belum bisa masuk ke sistem operasi, jadi, driver belum bisa bekerja."
             $ thinking_value-=5
             $ score-=5
+            $ act2-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -521,6 +542,7 @@ label act3_1_quiz1:
             mc1 "Karena Firmware bagaikan protokol resmi. Jika ada masalah pada Firmware, bisa jadi teknisi-teknisi ada yang tidak memiliki pedoman untuk bekerja."
             mc2 "Benar."
             $ score+=5
+            $ act3+=5
 
         "Kerusakan fisik EEPROM - Kerusakan Kantor":
             hide screen countdown
@@ -532,6 +554,7 @@ label act3_1_quiz1:
             mc2 "Jadi, kalau memang benar fisik EEPROM rusak, seharusnya, sejak awal POST tidak bisa dilakukan."
             $ thinking_value-=5
             $ score-=5
+            $ act3-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -549,6 +572,7 @@ label act3_1_quiz1:
             mc2 "Lagi pula, RAM akan mulai terisi saat proses boot, tapi teknisi UEFI tidak tergantung pada berkas di RAM."
             $ thinking_value-=5
             $ score-=5
+            $ act3-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -585,6 +609,7 @@ label act3_1_quiz2:
             mc2 "CPU Cache adalah memori kecil untuk mempercepat proses CPU, bukan tempat menyimpan firmware."
             $ thinking_value-=5
             $ score-=5
+            $ act3-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -613,6 +638,7 @@ label act3_1_quiz2:
             italic "[nama1] diomeli habis-habisan oleh [nama2]."
             $ thinking_value-=15
             $ score-=5
+            $ act3-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -626,6 +652,7 @@ label act3_1_quiz2:
             play sound "sound/システムSE_決定音1.mp3"
             mc2 "firmware biasanya disimpan di EEPROM — chip memori kecil yang menyimpan kode permanen yang bisa di-update."
             $ score+=5
+            $ act3+=5
 
     jump act3_1_eeprom
 
@@ -674,6 +701,7 @@ label act3_1_quiz3:
             show iotech3
             uefi3 "Baik, Tuan."
             $ score+=5
+            $ act3+=5
 
         "Tidak percaya":
             hide screen countdown
@@ -720,6 +748,7 @@ label act3_1_quiz3:
                     mc1 "Eh??"
                     play sound "audio/sound/LAPUTA_alert.mp3"
                     mc2 "Yang kamu jawab itu definisi dari backup..."
+                    $ thinking_value-=15
                     hide mcnovaring
                     show iotech3
                     uefi3 "..."
@@ -761,6 +790,7 @@ label act3_1_quiz3:
                     show mcnovaidle2
                     with flash
                     mc1 "Ah-"
+                    $ thinking_value-=15
                     italic "[nama1] bisa mendengar [nama2] mengerang malu, lelah dengan kelakuan [nama1] yang tidak masuk akal."
                     hide mcnovaidle2
                     show mcnovaidle
@@ -773,7 +803,6 @@ label act3_1_quiz3:
                     with hpunch
                     mc1 "Biarkan aku tanya satu lagi!"
                     $ mayoi+=5
-                    $ thinking_value-=10
                     
                 "Checksum adalah alat fisik di motherboard yang mempercepat koneksi internet.":
                     hide screen countdown
@@ -791,6 +820,7 @@ label act3_1_quiz3:
                     mc2 "BANGET!!"
                     play sound "audio/sound/LAPUTA_alert.mp3"
                     mc2 "Checksum bukan perangkat keras, melainkan bagian dari proses perangkat lunak. Lagipula, mempercepat internet juga tidak ada hubungannya dengan checksum—yang tugasnya hanya memastikan data tidak korup atau rusak."
+                    $ thinking_value-=15
                     hide mcnovaring
                     show iotech3
                     uefi3 "..."
@@ -876,6 +906,7 @@ label act3_1_quiz4:
             with vpunch
             uefi3 "Ah-"
             $ score+=5
+            $ act3+=5
             $ thinking_value+=10
 
     jump act3_1_quiz5
@@ -925,8 +956,9 @@ label act3_1_quiz5:
             mc2 "ESP adalah partisi di hard disk atau SSD yang menyimpan bootloader. Ada program lain yang dijalankan sebelum bootloader di load."
             play sound "sound/打撃・ビンタ音.mp3"
             mc2 "Lagian mana ada aku kirim kamu ke ESP, pertamakali aku kirim kamu bukan ke ESP!"
-            $ thinking_value-=15
+            $ thinking_value-=20
             $ score-=5
+            $ act3-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -959,8 +991,9 @@ label act3_1_quiz5:
             play sound "audio/sound/LAPUTA_alert.mp3"
             mc2 "Hhhh... skizo."
             hide iotech2
-            $ thinking_value-=15
+            $ thinking_value-=20
             $ score-=5
+            $ act3-=5
             if thinking_value<=0 or score<=0:
                 $ thinking_value-=100
                 mc2 "[nama1]!"
@@ -974,6 +1007,7 @@ label act3_1_quiz5:
             play sound "sound/システムSE_決定音1.mp3"
             mc1 "{i}Yep! Firmware utama, seperti UEFI atau BIOS, tersimpan di dalam chip memori khusus di motherboard, yang seringkali adalah EEPROM... atau jenis Flash memory serupa. Ketika komputer dinyalakan, CPU akan langsung menjalankan instruksi dari chip ini terlebih dahulu.{/i}"
             $ score+=5
+            $ act3+=5
 
     scene ramroom
     with dissolve
@@ -1023,6 +1057,8 @@ label act3_1_quiz5:
             uefi3 "Ah!"
             hide correct
             $ score+=5
+            $ act3+=5
+            $ thinking_value+=10
 
     jump ending_1
     return

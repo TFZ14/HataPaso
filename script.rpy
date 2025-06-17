@@ -42,7 +42,6 @@ init python:
     health_value=100
     thinking_value=100
     enemyhp_value=100
-    score=10 #untuk penilaian pemain di akhir
 
     def update_thinking(val):
         global thinking_value
@@ -85,6 +84,7 @@ screen score():
 define flash = Fade(0.2, 0.0, 0.8, color='#fff')
 
 label start:
+    $ score=10+act1+act2+act3
     show screen score
     scene toko
     play music "music/Ravioli.mp3" fadein 2
