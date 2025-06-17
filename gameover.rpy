@@ -1,7 +1,6 @@
 ﻿label losebattle:
     scene black
     with fade
-    italic "Kamu kalah lawan anomali yang mengganggu."
     italic "Kesadaranmu perlahan hilang. Tubuhmu tak bisa digerakkan."
     scene toko
     with fade
@@ -21,10 +20,10 @@
     show friendconfuse
     with hpunch
     mc2 "Sudah! Nanti kalau enakan baru kita perbaiki lagi laptopnya."
-    mc2 "Kamu sementara jadi Navogator saja. Biar aku yang Dive."
+    mc2 "Kamu sementara jadi Navigator saja. Biar aku yang Dive."
     italic "[nama1] hanya bisa setuju. Sepertinya, dia memang butuh belajar lagi untuk menjadi Diver yang baik."
 
-    $ renpy.full_restart()
+    jump selesai
     return
 
 label game_over:
@@ -68,13 +67,13 @@ label selesai:
         play sound "audio/sound/打撃・ビンタ音.mp3"
         with hpunch
         mc2 "Jangan lupa, ya!"
-    elif score<=20:
+    elif score<=35:
         mc2 "Yah, gak papa, kamu udah berjuang."
         mc2 "Coba baca-baca tentang BIOS, UEFI, dan Boot Process lebih dalem."
         mc2 "Baca juga peran-peran tiap komponen seperti CPU, RAM, dan Storage, dan lainnya."
-    elif score<=50:
-        hide mcnovaidle
-        show mcnovaidle2
+    elif score<70:
+        hide friendidle
+        show friendidle2
         mc2 "Kamu sudah tahu garis besarnya, tinggal memperdalam lagi sedikit."
         mc2 "Coba baca tentang Firmware dan Keamanan Sistem."
         mc2 "Cari tahu siapa saja yang bisa mengganggu proses inisiasi komputer."
@@ -88,7 +87,6 @@ label selesai:
         show friendconfuse
         with hpunch
         mc2 "Loh? Nge-Cheat ya?"
-    "selesai"
 
     $ renpy.full_restart()
     return

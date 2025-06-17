@@ -5,6 +5,7 @@ define klien=Character("Mary", who_bold=True, who_color="#dc8c8d")
 define uefi1=Character("IO Tech 1023345", who_bold=True, who_color="#bd75b7")
 define uefi2=Character("IO Tech 1023123", who_bold=True, who_color="#969ecf")
 define uefi3=Character("IO Tech 1455690", who_bold=True, who_color="#cf8f2c")
+define uefi4=Character("IO Tech 1323600", who_bold=True, who_color="#ffc6ae")
 define mebromi=Character("Mebromi", who_bold=True, who_color="#cf8f2c")
 define chiefcpu=Character("IO Tech 1126480", who_bold=True, who_color="#4aacb2")
 

@@ -217,7 +217,7 @@ label act2_1_connectingdone:
     uefi2 "Baik"
     play sound "audio/sound/LAPUTA_alert.mp3"
     italic "[uefi2] mematikan transmisi."
-    uefi2 "Baik, Tuan [nama1], silakan berikan bootloader-nya, saya akan mengantarkannya langsung ke lantai OS."
+    uefi2 "Baik, Tuan [nama1], silakan berikan bootloader-nya untuk saya pasangkan ke tempat semestinya."
     mc1 "Baik, setelah aku musnahkan malware ini."
 
     #scene cutscene disini
@@ -447,81 +447,81 @@ label act3_1_mebromi:
     jump act3_1_quiz3
     return
 
-    label ending_1:
+label ending_1:
+    scene ramroom
+    with fade
+    stop music fadeout 1.0
+
+    if mayoi<15:
+        play sound "audio/sound/打撃・ビンタ音.mp3"
+        show mcnovafight
+        with hpunch
+        mc1 "Kamu sudah tidak bisa mengelak lagi! Menyerah saja!"
+        hide mcnovafight
+        show iotech3
+        uefi3 "Hmph..."
+
+        #buka mata
+
+        hide iotech3
+        show iotechmebromi
+        with hpunch
+        uefi3 "Ha ha ha ha ha!"
+        italic "Akhirnya [uefi3] menjatuhkan topengnya."
+        hide iotechmebromi
+        show mcnovafight
+        with hpunch
+        mc1 "Dasar Malware!"
+        hide mcnovafight
+        show iotechmebromi
+        uefi3 "Ha Ha Ha! Bagaimana penampilanku? Cukup bikin mikir, kan?"
+        mebromi "Aku adalah malware berjenis firmware rootkit-"
+        play sound "audio/sound/ネガティブズーン.mp3"
+        mebromi "Mebromi!"
+        a "Mebromi adalah jenis malware yang menyusup ke firmware komputer—tepatnya di BIOS atau UEFI."
+        a "Ia bersembunyi di lapisan terdalam sistem, bahkan sebelum sistem operasi aktif."
+        a "Karena berada di firmware, Mebromi bisa hidup kembali meski harddisk atau SSD diformat, bahkan jika OS diinstal ulang."
+        a "Mebromi pertama kali ditemukan dan dianalisis secara publik pada Agustus 2011 oleh peneliti keamanan dari Webroot."
+        a "Mebromi menjadi perhatian besar karena merupakan salah satu malware pertama yang mampu menginfeksi BIOS (Basic Input/Output System), bukan hanya sistem operasi, yang membuatnya sangat sulit dihapus dan terdeteksi oleh antivirus biasa."
+        italic "Dengan pesatnya perkembangan teknologi di sini, yang memungkinkan perangkat semacam NOVA bisa dibuat, malware-malware lama banyak yang diupgrade menjadi lebih canggih."
+        hide iotechmebromi
+        show mcnovafight
+        with dissolve
+        mc1 "Contohnya ada di hadapanku, Mebromi X-47."
+        play sound "audio/sound/打撃・ビンタ音.mp3"
+        with hpunch
+        mc1 "Siap-siap aku hapus kamu dari sistem!"
+            
+        $ enemyhp_value=100
+        $ health_value=100
+        hide screen thinkingpoint
+        with dissolve
+
+        jump act3_1_mebromi_moveset
+
+    if mayoi>=15:
+        stop music fadeout 1.0
         scene ramroom
         with fade
-        stop music fadeout 1.0
-
-        if mayoi<15:
-            play sound "audio/sound/打撃・ビンタ音.mp3"
-            show mcnovafight
-            with hpunch
-            mc1 "Kamu sudah tidak bisa mengelak lagi! Menyerah saja!"
-            hide mcnovafight
-            show iotech3
-            uefi3 "Hmph..."
-
-            #buka mata
-
-            hide iotech3
-            show iotechmebromi
-            with hpunch
-            uefi3 "Ha ha ha ha ha!"
-            italic "Akhirnya [uefi3] menjatuhkan topengnya."
-            hide iotechmebromi
-            show mcnovafight
-            with hpunch
-            mc1 "Dasar Malware!"
-            hide mcnovafight
-            show iotechmebromi
-            uefi3 "Ha Ha Ha! Bagaimana penampilanku? Cukup bikin mikir, kan?"
-            mebromi "Aku adalah malware berjenis firmware rootkit-"
-            play sound "audio/sound/ネガティブズーン.mp3"
-            mebromi "Mebromi!"
-            a "Mebromi adalah jenis malware yang menyusup ke firmware komputer—tepatnya di BIOS atau UEFI."
-            a "Ia bersembunyi di lapisan terdalam sistem, bahkan sebelum sistem operasi aktif."
-            a "Karena berada di firmware, Mebromi bisa hidup kembali meski harddisk atau SSD diformat, bahkan jika OS diinstal ulang."
-            a "Mebromi pertama kali ditemukan dan dianalisis secara publik pada Agustus 2011 oleh peneliti keamanan dari Webroot."
-            a "Mebromi menjadi perhatian besar karena merupakan salah satu malware pertama yang mampu menginfeksi BIOS (Basic Input/Output System), bukan hanya sistem operasi, yang membuatnya sangat sulit dihapus dan terdeteksi oleh antivirus biasa."
-            italic "Dengan pesatnya perkembangan teknologi di sini, yang memungkinkan perangkat semacam NOVA bisa dibuat, malware-malware lama banyak yang diupgrade menjadi lebih canggih."
-            hide iotechmebromi
-            show mcnovafight
-            with dissolve
-            mc1 "Contohnya ada di hadapanku, Mebromi X-47."
-            play sound "audio/sound/打撃・ビンタ音.mp3"
-            with hpunch
-            mc1 "Siap-siap aku hapus kamu dari sistem!"
-            
-            $ enemyhp_value=100
-            $ health_value=100
-            hide screen thinkingpoint
-            with dissolve
-
-            jump act3_1_mebromi_moveset
-
-        if mayoi>=15:
-            stop music fadeout 1.0
-            scene ramroom
-            with fade
-            show iotech3
-            uefi3 "Kalau begitu, saya izin mengecek, Tuan."
-            hide iotech3
-            show mcnovafight
-            with vpunch
-            mc1 "Tunggu!"
-            hide mcnovafight
-            with dissolve
-            italic "Namun, [uefi3] tidak mengindahkan teriakan [nama1]. Ia tetap berjalan pelan melewati [nama1]."
-            italic "[nama1] juga kehabisan kata-kata."
-            italic "Dalam hatinya, ia yakin ada yang tidak beres dengan teknisi itu, namun tak ada satu pun kalimat yang tepat ia lontarkan."
-            play sound "audio/sound/LAPUTA_alert.mp3"
-            mc2 "[nama1]."
-            italic "Suara [nama2] terdengar dari transmisi. Walau [nama1] tidak bisa melihat wajah [nama2] sekarang, dari nada bicaranya, [nama2] terdengar kecewa."
-            play sound "audio/sound/LAPUTA_alert.mp3"
-            mc2 "Kamu terlihat kurang istirahat. Kembali lah, biar aku yang gantikan."
-            
-            jump game_over
-        return
+        show iotech3
+        uefi3 "Kalau begitu, saya izin mengecek, Tuan."
+        hide iotech3
+        show mcnovafight
+        with vpunch
+        mc1 "Tunggu!"
+        hide mcnovafight
+        with dissolve
+        italic "Namun, [uefi3] tidak mengindahkan teriakan [nama1]. Ia tetap berjalan pelan melewati [nama1]."
+        italic "[nama1] juga kehabisan kata-kata."
+        italic "Dalam hatinya, ia yakin ada yang tidak beres dengan teknisi itu, namun tak ada satu pun kalimat yang tepat ia lontarkan."
+        play sound "audio/sound/LAPUTA_alert.mp3"
+        mc2 "[nama1]."
+        italic "Suara [nama2] terdengar dari transmisi. Walau [nama1] tidak bisa melihat wajah [nama2] sekarang, dari nada bicaranya, [nama2] terdengar kecewa."
+        play sound "audio/sound/LAPUTA_alert.mp3"
+        mc2 "Kamu terlihat kurang istirahat. Kembali lah, biar aku yang gantikan."
+        
+        jump game_over
+    return
 
 label closing_1:
     play music "audio/music/inner_flame.mp3" fadein 1.0
@@ -538,6 +538,10 @@ label closing_1:
     mc2 "Oke, aku tarik keluar ke dunia nyata, ya."
     italic "[nama1] setuju. Ia melakukan log out dari modul di dada kirinya."
     play sound "audio/sound/システム決定音_11.mp3"
-    
-    jump selesai
+
+    if ending==3:
+        $ score-=10 #melewatkan 2 minigame
+        jump closing_3
+    else:
+        jump selesai
     return
